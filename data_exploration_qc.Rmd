@@ -1,0 +1,572 @@
+---
+title: "Drought Data Exploration & QC Flags"
+author: "Ashley Vizek"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: flatly
+  
+---
+# Document purpose
+
+The goal of this document is to summarize the data collated to support the Drought
+Communications Data and Tool Project which aims to create publicly available and easily accessible
+data and tools to track drought risk, potential impacts, and actions that can reduce
+risks and impacts.
+
+The data needed to support this project come from disparate sources with varying levels of 
+quality, accessibility, and usability.
+
+*Status:* This is a first draft of pulling the data needed, and documenting quality issues. This work will
+inform data processing that will be required, and processes for data pulling and updating.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.width=15, fig.height=10)
+library(tidyverse)
+library(lubridate)
+library(googlesheets4)
+root.dir <- rprojroot::find_rstudio_root_file()
+knitr::opts_knit$set(root.dir)
+```
+
+```{r, include = FALSE}
+color_pal <- c("#9A8822",  "#F5CDB4", "#F8AFA8", "#FDDDA0", "#74A089", "#899DA4", "#C93312", "#DC863B")
+```
+
+# Summary of data tables
+
+The following data tables are drafted. Metadata associated with each of these
+tables is included in the following section.
+
+- monthly dry outlook
+- drought risk assessment
+- water shortage level
+- production and delivery volumes
+- number of supply sources
+- name of supply sources
+- population
+
+The following data tables have not been drafted and exist as placeholders.
+
+- pwsid crosswalk
+- drought risk assessment narrative
+- water shortage contingency plan narrative
+- water source location
+
+```{r, include = F, warning = F, message = F}
+# Data pull clean tables (clean in prepare_clean_data_tables.R)
+monthly_dry_year <- read_csv("data/monthly_dry_year_outlook.csv")
+drought_risk_assessment <- read_csv("data/drought_risk_assessment_clean.csv")
+water_shortage <- read_csv("data/water_shortage_level_clean.csv")
+production_delivery <- read_csv("data/production_delivery_volume_clean.csv")
+source_name <- read_csv("data/source_name_clean.csv")
+number_source <- read_csv("data/number_sources_clean.csv")
+population <- read_csv("data/population_clean.csv")
+
+# metadata about tables
+metadata <- read_csv("data/metadata.csv")
+```
+
+## Metadata by data table {.tabset}
+
+The following information is provided in the metadata tables:
+
+- Where do data come from?
+- What type of data pull is available?
+- What is the goal of the data?
+- Data dictionary
+
+### monthly dry year outlook
+
+**Goal:** Answer the question, are we going to run out of water in the near-term? 
+Provide dry year outlook of water surplus or shortage by month (where available) 
+with no action and with planned actions.
+
+**Existing data source:** `r unique(filter(metadata, new_table_name == "monthly dry year outlook")$existing_data_source)`
+
+**Available data pull type:** `r unique(filter(metadata, new_table_name == "monthly dry year outlook")$available_data_pull_type)`
+
+```{r, warning = F, message = F, echo = F}
+dry_year_metadata <- metadata |> 
+  filter(new_table_name == "monthly dry year outlook") |> 
+  select(attribute_name, description, format, definitions)
+
+kableExtra::kable(dry_year_metadata)
+```
+
+
+### drought risk assessment
+
+**Goal:** Answer the question, are we going to run out of water in the next five years? 
+Provide outlook of water surplus or shortage by month (where available) and year
+with no action and with planned actions.
+
+**Existing data source:** `r unique(filter(metadata, new_table_name == "drought risk assessment")$existing_data_source)`
+
+**Available data pull type:** `r unique(filter(metadata, new_table_name == "drought risk assessment")$available_data_pull_type)`
+
+```{r, warning = F, message = F, echo = F}
+drought_risk_metadata <- metadata |> 
+  filter(new_table_name == "drought risk assessment") |> 
+  select(attribute_name, description, format, definitions)
+
+kableExtra::kable(drought_risk_metadata)
+```
+
+### water shortage level
+
+**Goal:** Provide the current water shortage level and history of water shortage by month.
+
+**Existing data source:** `r unique(filter(metadata, new_table_name == "water shortage level")$existing_data_source)`
+
+**Available data pull type:** `r unique(filter(metadata, new_table_name == "water shortage level")$available_data_pull_type)`
+
+```{r, warning = F, message = F, echo = F}
+water_shortage_metadata <- metadata |> 
+  filter(new_table_name == "water shortage level") |> 
+  select(attribute_name, description, format, definitions)
+
+kableExtra::kable(water_shortage_metadata)
+```
+
+### source name
+
+**Goal:** Provide information about where water supply comes from.
+
+**Existing data source:** `r unique(filter(metadata, new_table_name == "source name")$existing_data_source)`
+
+**Available data pull type:** `r unique(filter(metadata, new_table_name == "source name")$available_data_pull_type)`
+
+```{r, warning = F, message = F, echo = F}
+source_name_metadata <- metadata |> 
+  filter(new_table_name == "source name") |> 
+  select(attribute_name, description, format, definitions)
+
+kableExtra::kable(source_name_metadata)
+```
+
+
+### number of sources
+
+**Goal:** Provide information about the number of water supply sources exist.
+
+**Existing data source:** `r unique(filter(metadata, new_table_name == "number of sources")$existing_data_source)`
+
+**Available data pull type:** `r unique(filter(metadata, new_table_name == "number of sources")$available_data_pull_type)`
+
+```{r, warning = F, message = F, echo = F}
+number_sources_metadata <- metadata |> 
+  filter(new_table_name == "number of sources") |> 
+  select(attribute_name, description, format, definitions)
+
+kableExtra::kable(number_sources_metadata)
+```
+
+### production and delivery volumes
+
+**Goal:** Provide water delivery and production volumes by type and month.
+
+**Existing data source:** `r unique(filter(metadata, new_table_name == "production and delivery volumes")$existing_data_source)`
+
+**Available data pull type:** `r unique(filter(metadata, new_table_name == "production and delivery volumes")$available_data_pull_type)`
+
+```{r, warning = F, message = F, echo = F}
+production_delivery_metadata <- metadata |> 
+  filter(new_table_name == "production and delivery volumes") |> 
+  select(attribute_name, description, format, definitions)
+
+kableExtra::kable(production_delivery_metadata)
+```
+
+### population
+
+**Goal:** Provide the population for the water system
+
+**Existing data source:** `r unique(filter(metadata, new_table_name == "population")$existing_data_source)`
+
+**Available data pull type:** `r unique(filter(metadata, new_table_name == "population")$available_data_pull_type)`
+
+```{r, warning = F, message = F, echo = F}
+population_metadata <- metadata |> 
+  filter(new_table_name == "population") |> 
+  select(attribute_name, description, format, definitions)
+
+kableExtra::kable(population_metadata)
+```
+
+### placeholder - drinking water system boundaries
+
+TODO. Need to pull this data.
+
+### placeholder - pwsid crosswalk
+
+Waiting for SWRCB to publish this dataset
+
+### placeholder drought risk assessment narrative
+
+Need to develop process for pulling this information from UWMPs
+
+### placeholder - water shortage contingency plan narrative
+
+Need to develop process for pulling this information from UWMPs
+
+### placeholder - water source location
+
+Need to determine a good data source for this information. Should be in SAFER but not
+accessible currently. Might consider a good intermediate source.
+
+# Data exploration {.tabset}
+
+## monthly dry year outlook
+
+### Reporting annually rather than monthly
+
+There was a concern that not all may be reporting by month though this not appear
+to be an issue in the 2022 data when you look at missing values. There are no missing
+values. However, when you look at similarity of the Annual value reported and the value
+reported by month this is where you can differentiate which are reporting annually.
+
+TODO: Is there a field in where the reporter selects if annual/month?
+
+*Table: DWR_ORG_ID where data are reported annually rather than monthly*
+
+```{r, echo = F, message = F, warning = F}
+# check to see where monthly values equal annual values
+jun_non_monthly <- monthly_dry_year |> 
+  filter(shortage_type == "no action") |> 
+  pivot_wider(id_cols = c(org_id, year), names_from = "month", values_from = "acre_feet") |> 
+  filter(Jun == Annual & Jun != 0) |> 
+  select(org_id, Jun, Annual)
+
+nonmonthly <- jun_non_monthly$org_id
+
+knitr::kable(jun_non_monthly)  
+```
+
+There is no missing information by month for surplus/shortage with "no action". 
+However, not all have demand or augementation actions so there are NAs. About 60% of DWR_ORG_ID
+respond as NA for demand reduction actions and 80% for supply augmentation.
+
+- Decision point - retain these as NAs or include as 0
+
+*Plot: Percent of DWR_ID with NA response by type and month*
+
+```{r, echo = F, message = F, warning = F}
+# summarize the number of NAs (number of org_id with an NA) by month and shortage_type
+total_org <- monthly_dry_year |> 
+  group_by(month, shortage_type, year) |> 
+  summarize(total_org = length(unique(org_id)))
+monthly_dry_year |> 
+  filter(is.na(acre_feet)) |> 
+  group_by(month, shortage_type, year) |> 
+  summarize(number_org_na = length(unique(org_id))) |> 
+  left_join(total_org) |> 
+  mutate(percent_org_na = (number_org_na/total_org) *100) |> 
+  ggplot(aes(x = month, y = percent_org_na)) +
+  geom_col(fill =  "#F8AFA8") +
+  facet_wrap(~shortage_type) +
+  theme_bw() +
+  labs(y = "Percent DWR_ORG_ID with NA response",
+       x = "")
+
+```
+
+### Summarizing surplus or shortage
+
+Some of the questions that can be answered with this data:
+
+- In what months do shortages occur and in what months do surplus occur?
+- Do suppliers that anticipate shortages implement actions to counteract?
+- Are there any cases where there are shortages and no actions implemented?
+- Are there similarities in suppliers that consistently have shortages/surpluses?
+
+The high level overview shows that the most commonly reported value is 0. There are
+a couple things that could be going on - suppliers are experiencing different magnitudes
+by month and so small values are being dwarfed by larger outliers; the monthly trend
+differs by supplier; there are lots of 0s in the dataset.
+
+Currently visualizing this data is not that helpful. Future work can be done to
+create groups of suppliers to better see variation. Shortage/surplus could also
+be presented as a percentage of total demand to help normalize across suppliers.
+
+*Plot: Variation in surplus/shortage volume by type*
+
+```{r, echo = F, message = F, warning = F}
+# plot the boxplot of surplus/shortage by type, add columne that adds action to no action
+add_action <- monthly_dry_year |> 
+  # can't add with the NAs to transform to 0
+  mutate(acre_feet = ifelse(is.na(acre_feet), 0, acre_feet)) |> 
+  pivot_wider(id_cols = c(org_id, month, year), names_from = "shortage_type", values_from = "acre_feet") |> 
+  mutate(`action added` = `no action` + `supply augmentation` + `demand reduction`) |> 
+  pivot_longer(cols = `supply augmentation`:`action added`, names_to = "shortage_type", values_to = "acre_feet")
+
+add_action |> 
+  filter(!org_id %in% nonmonthly) |> # this did not make that big of a difference in boxplot, still mostly 0s
+  filter(month != "Annual") |> # this helps a little by zooming in on the spread
+  ggplot(aes(x = month, y = acre_feet)) +
+  geom_boxplot() +
+  facet_wrap(~shortage_type, scales = "free_y")
+```
+```{r, include = F}
+# currently not including this chunk because it is not helpful but could be used
+# to group suppliers into better groups where variation can be be shown
+
+# Find the org_ids where they are reporting 0 annually (no shortage/surplus)
+the_zeros <- monthly_dry_year |> 
+  group_by(org_id) |> 
+  filter(month == "Annual" & acre_feet == 0 & shortage_type == "no action")
+thezeros <- the_zeros$org_id
+
+summer_shortage <-monthly_dry_year |> 
+  filter(month %in% c("Jun", "Jul", "Aug")) |> 
+  filter(acre_feet < 0) |> 
+  filter(!org_id %in% nonmonthly)
+summershort <- summer_shortage$org_id
+
+add_action |> 
+  filter(!org_id %in% nonmonthly) |> # this did not make that big of a difference in boxplot, still mostly 0s
+  filter(month != "Annual") |> # this helps a little by zooming in on the spread
+  filter(!org_id %in% thezeros) |> # this removes the org_ids where they report 0 annually
+  filter(org_id %in% summershort) |> 
+  ggplot(aes(x = month, y = acre_feet)) +
+  geom_boxplot() +
+  facet_wrap(~shortage_type, scales = "free_y")
+```
+
+## drought risk assessment
+
+TODO - check what type of year is reported. assuming calendar year.
+
+Note that there appear to be 4 cases where the DWR_ORG_ID is NA.
+
+- Are there any cases where drought action is applied and acre feet is still negative?
+- How do these data compare to the monthly dry outlook?
+- How do patterns change across years? Is the same forecast used?
+
+### Shortage even with actions
+
+*Table: DWR_ORG_ID where there is a shortage even when actions are implemented and the number of years this occurs*
+
+```{r, echo = F, message = F, warning = F}
+shortage_w_action <- drought_risk_assessment |> 
+  filter(is_action_included == T & acre_feet < 0)
+
+knitr::kable(shortage_w_action |> 
+               group_by(org_id) |> 
+               tally() |> 
+               rename(n_years_where_shortage_with_action = n))
+```
+
+### Comparing data to monthly dry outlook
+
+This comparison assumes that the drought risk assessment is reported as calendar year and compares each year to the 2022 annual value reported in the monthly dry outlook table.
+
+Initial review reveals that the data are very different. TODO: Consider methodology reasons why this may be happening (e.g. is this what we would expect)
+
+```{r, include = F}
+# prepare monthly dry outlook for comparison
+annual_add_action <- add_action |> 
+  filter(shortage_type %in% c("action added", "no action")) |> 
+  group_by(org_id, shortage_type) |> 
+  summarize(dry_outlook_acre_feet = sum(acre_feet)) |> 
+  mutate(is_action_included = ifelse(shortage_type == "action added", T, F)) |> 
+  select(-shortage_type) |> 
+  full_join(drought_risk_assessment) |> 
+  mutate(percent_diff = case_when(acre_feet == 0 & dry_outlook_acre_feet == 0 ~ 0,
+                                  T ~ (abs(acre_feet - dry_outlook_acre_feet)/((acre_feet + dry_outlook_acre_feet)/2)) *100))
+
+```
+
+### Comparing data across years
+
+Initial review reveals that there are differences across years and the same value is not repeated for each year. To identify trends or patterns would require additional analysis.
+
+```{r, include = F}
+# format for comparison
+drought_wide <- drought_risk_assessment |> 
+  pivot_wider(id_cols = c(org_id, is_action_included), names_from = "year", values_from = "acre_feet")
+```
+
+## water shortage level
+
+- What years are included in this data?
+- What years have clean shortage level data?
+- Is data really by month?
+
+Note that it is difficult to tease apart whether data is really by month. Often the responses are the same across months within the year which may reflect the real monthly shortage level or the same value may be reported across months.
+
+### Years of data and clean water shortage responses
+
+Data are available from 2014 through May 2023. 2019 has fewer PWSIDs than other years.
+
+*Figure: Number of unique PWSID by year*
+
+```{r, echo = F, message = F, warning = F}
+water_shortage |> 
+  group_by(year) |> 
+  summarize(n = length(unique(pwsid))) |> 
+  ggplot(aes(x = year, y = n)) +
+  geom_col(fill =  "#F8AFA8") +
+  theme_bw()
+```
+
+The standardized DWR_WATER_SHORTAGE_STAGE is available for 2022 and part of 2023. 
+
+*Figure: Summarizes responses for DWR_WATER_SHORTAGE_STAGE by year*
+
+```{r, echo = F, message = F, warning = F}
+water_shortage |> 
+  group_by(year, dwr_water_shortage_stage) |> 
+  summarize(n = length(unique(pwsid))) |> 
+  mutate(dwr_water_shortage_stage = as.factor(dwr_water_shortage_stage)) |> 
+  ggplot(aes(x = year, y = n, fill = dwr_water_shortage_stage)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  scale_fill_manual(values = color_pal)
+
+```
+
+There are 678 unique levels for WATER_SHORTAGE_STAGE. This is currently not a usable variable and needs to be mapped to the standardized levels.
+
+```{r, include = F}
+water_shortage |> 
+  distinct(water_shortage_stage)
+
+```
+
+## source name
+
+As these data currently exist, it will take some work to extract the source name.
+
+TODO - work on extracting these data into usable format.
+
+## number of sources
+
+- How many PWSIDs have NA for all options?
+- What are the most common sources?
+
+The majority of PWSIDs did not respond to "new" sources. This may be reasonable. There were no cases where a PWSID responded as 0 or NA for all types of "approved" sources meaning that they responded with a value greater than 1 for at least one type of source.
+
+```{r, include=F}
+
+number_source_summary <- number_source |> 
+  group_by(year, pwsid, source_status) |> 
+  summarize(number_of_sources = sum(number_of_sources))
+
+number_source_summary |> 
+  filter(is.na(number_of_sources)) |> 
+  group_by(source_status) |> 
+  summarize(n = length(unique(pwsid)))
+
+number_source_summary |> 
+  filter(number_of_sources == 0) |> 
+  group_by(source_status) |> 
+  summarize(n = length(unique(pwsid)))
+
+number_source_summary |> 
+  distinct(pwsid)
+```
+
+The most common types of water source types are groundwater and inactive sources.
+
+*Figure: Total number of sources across all systems by water source type and status*
+
+```{r, echo = F, message = F, warning = F}
+number_source |> 
+  group_by(source_status, source_type) |> 
+  summarize(total_number = sum(number_of_sources, na.rm = T)) |> 
+  ggplot(aes(x = source_type, y = total_number)) +
+  geom_col() +
+  facet_wrap(~source_status) +
+  geom_col(fill =  "#F8AFA8") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+## production and delivery volumes
+
+- Are data reported by month?
+- How many systems have mismatch in the supply and demand data reported?
+
+Note that 16% of the rows are not categorized as production or delivery.
+I think this dataset provided by Rafa is currently incomplete. There are between
+15-25 PWSID per year which seems low.
+
+TODO follow up with Rafa.
+
+```{r, include = F}
+# calculate total supply/demand and see how many are mismatched
+# Rafa put together a Tableau Board to QAQC this
+filter(production_delivery, is.na(produced_or_delivery)) 
+
+production_delivery |> 
+  group_by(year) |> 
+  distinct(pwsid) |> 
+  tally()
+
+total_production_delivery <- production_delivery |> 
+  filter(month == "Annual", !is.na(produced_or_delivery)) |> 
+  group_by(year, pwsid, produced_or_delivery) |> 
+  summarize(acre_feet = sum(acre_feet, na.rm = T)) |> 
+  pivot_wider(id_cols = c(pwsid, year), names_from = "produced_or_delivery", values_from = "acre_feet") |> 
+  mutate(percent_difference = ((`water produced` - `water delivered`)/`water produced`)*100)
+
+total_production_delivery |> 
+  mutate(year = as.factor(year)) |> 
+  ggplot(aes(x = year, y = percent_difference)) +
+  geom_boxplot()
+```
+
+
+## population
+
+- Check that all PWSIDs are accounted for
+
+## drinking water system boundaries
+
+TODO - figure out when these data are updated
+
+- Check that boundaries are available for all PWSIDs
+
+## placeholder - pwsid crosswalk
+
+## placeholder drought risk assessment narrative
+
+## placeholder - water shortage contingency plan narrative
+
+## placeholder - water source location
+
+# Summary of QC issues 
+
+**1. monthly dry outlook**
+
+- Values being reported by month for some and annually for others
+- NAs for the supply augmentation or demand reduction where no action implemented
+- Surplus/shortage are not normalized so makes it challenging to interpret these summarized data
+- Annual is included in these data so need to figure out how to handle that
+
+**2. drought risk assessment**
+
+- 4 cases where DWR_ORG_ID is NA
+- There are cases where there is a volume shortage even when actions are applied. Are 
+these QC issues or real?
+- These data are very different than the values reported in the 2022 dry year outlook. Why?
+
+**3. water shortage**
+
+- DWR_WATER_SHORTAGE_STAGE represents the standardized water shortage level though is only available for 2022-2023. WATER_SHORTAGE_STAGE is not usable currently and needs to be mapped to the standardized levels.
+- Uncertainty whether the data represents real monthly values or the same value is reported for each month.
+
+**4. source name**
+
+- Extracting usable information from these data is still in progress
+
+**5. number of sources**
+
+- Are NAs real NAs meaning that the particular water source does not apply? If so, we could use this information. If not, we should transform to 0.
+- Is there a definition for what is considered a unique water source?
+
+**6. production and delivery volumes**
+
+- Annual values are included so need to figure out how to handle that
+- The dataset provided by Rafa does not seem to be complete
+
