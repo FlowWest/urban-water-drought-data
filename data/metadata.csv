@@ -1,0 +1,40 @@
+attribute_name,description,format,definitions,existing_data_source,new_table_name,available_data_pull_type
+ORG_ID,DWR_ORG_ID,ID,N/A,WUE_WSDA,monthly dry year outlook,scraping
+YEAR,Future outlook year,INTEGER,2022:2023,WUE_WSDA,monthly dry year outlook,scraping
+MONTH,Month,VARCHAR,"""Jul"", ""Aug"", ""Sep"", ""Oct"", ""Nov"", ""Dec"", ""Jan"", ""Feb"", ""Mar"", 
+""Apr"", ""May"", ""Jun""",WUE_WSDA,monthly dry year outlook,scraping
+SHORTAGE_TYPE,Describes whether the surplus/shortage volume is associated with no action or with augmentation/demand reducation action,VARCHAR,"""supply augmentation"", ""demand reduction"", ""no action""",WUE_WSDA,monthly dry year outlook,scraping
+ACRE_FEET,Volume of surplus/shortage water in acre-feet. If volume was reported in another unit it was converted to acre-feet,NUMERIC,N/A,WUE_WSDA,monthly dry year outlook,scraping
+ORG_ID,DWR_ORG_ID,ID,N/A,WUE_UWMP,drought risk assessment,scraping
+YEAR,Year associated with water volume projections,INTEGER,2001:2025,WUE_UWMP,drought risk assessment,scraping
+IS_ACTION_INCLUDED,Describes whether the surplus/shortage volume is associated with no action or with augmentation/demand reducation action,BOOLEAN,T/F,WUE_UWMP,drought risk assessment,scraping
+ACRE_FEET,Volume of surplus/shortage water in acre-feet. If volume was reported in another unit it was converted to acre-feet,NUMERIC,N/A,WUE_UWMP,drought risk assessment,scraping
+PWSID,PWSID,ID,N/A,ODP_CR,water shortage level,API
+YEAR,Reporting year,INTEGER,NA,ODP_CR,water shortage level,API
+MONTH,Reporting month,VARCHAR,"""Jul"", ""Aug"", ""Sep"", ""Oct"", ""Nov"", ""Dec"", ""Jan"", ""Feb"", ""Mar"", 
+""Apr"", ""May"", ""Jun""",ODP_CR,water shortage level,API
+WATER_SHORTAGE_STAGE,"Describes the water shortage stage; however, these levels are not standardized and currently not usable.",NA,Too many unique levels!!,ODP_CR,water shortage level,API
+SHORTAGE_GREATER_10_PERCENT,Flags if shortage level is greater than 10% (T) or not (F),LOGICAL,T/F,ODP_CR,water shortage level,API
+DWR_WATER_SHORTAGE_STAGE,"Standardized shortage stage; however, this only applies to 2022-2023 data.",INTEGER,0-5,ODP_CR,water shortage level,API
+PWSID,PWSID,ID,N/A,Rafa flatfile,production and delivery volumes,not public
+YEAR,Reporting year,INTEGER,2015-2022,Rafa flatfile,production and delivery volumes,not public
+MONTH,Reporting month,VARCHAR,"""Annual"", ""Apr"", ""Aug"", ""Dec"", ""Feb"", ""Jul"", ""Jun"", ""Mar"", ""May"", ""Nov"", ""Sep"", ""Oct"", ""Jan""",Rafa flatfile,production and delivery volumes,not public
+PRODUCED_OR_DELIVERY,Describes whether volume of water is delivered or produced,VARCHAR,"""water delivered"", ""water produced""",Rafa flatfile,production and delivery volumes,not public
+PRODUCED_OR_DELIVERY_TYPE,Describes the specific type of demand or supply,VARCHAR,"""commercial/institutional"", ""multi-family residential"", ""landscape irrigation"", 
+""other"", ""other pws"", ""agriculture"", ""total retail"", ""single-family residential"", 
+""industrial"", ""groundwater wells"", ""purchased or received from another pws"", 
+""sold to another pws"", ""total amount of potable water"", ""non-potable (total excluded recycled)"", 
+""recycled"", ""surface water"", ""non-potable water sold to another pws""",Rafa flatfile,production and delivery volumes,not public
+POPULATION,Need better definition for population here,INTEGER,N/A,Rafa flatfile,production and delivery volumes,not public
+ACRE_FEET,Volume of water delivered or produced,NUMERIC,N/A,Rafa flatfile,production and delivery volumes,not public
+PWSID,PWSID,ID,NA,eAR,source name,scraping
+YEAR,Reporting year,INTEGER,NA,eAR,source name,scraping
+SOURCE_TYPE,Type of water supply source,VARCHAR,"""groundwater"", ""surface water"", ""purchased groundwater"", ""purchased surface water"", ""standby sources"", ""emergency interties"", ""inactive"", ""proposed""",eAR,source name,scraping
+SOURCE_NAME,Name of water supply source,STRING,NA,eAR,source name,scraping
+PWSID,PWSID,ID,NA,eAR,number of sources,scraping
+YEAR,Reporting year,INTEGER,NA,eAR,number of sources,scraping
+SOURCE_TYPE,Type of water supply source,VARCHAR,"""groundwater"", ""surface water"", ""purchased groundwater"", ""purchased surface water"", ""standby sources"", ""emergency interties"", ""inactive"", ""proposed""",eAR,number of sources,scraping
+SOURCE_STATUS,Status of water supply source,VARCHAR,"""approved"", ""new""",eAR,number of sources,scraping
+NUMBER_OF_SOURCES,Number of unique water supply sources,INTEGER,N/A,eAR,number of sources,scraping
+PWSID,PWSID,ID,NA,eAR,source name,scraping
+POPULATION,Drinking water system population,INTEGER,N/A,ODP_SAFER,population,API
