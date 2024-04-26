@@ -411,73 +411,122 @@ write_csv(rafa_format, "data/production_delivery_volume_clean.csv")
 
 # eAR ---------------------------------------------------------------------
 # Data: https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/ear.html
-# eAR export file - just using one year for now
-ear_2022_raw <- vroom::vroom("data-raw/ear_release_data_03082024.txt", delim = "\t")
 
 # TODO need to reformat the source names - get feedback from group whether want to invest
 # time in that
 
-ear_sources_name <- ear_2022_raw |> 
-  filter(QuestionName %in% c("SourcesGWGrid", "SourcesGWNotListedGrid", "SourcesSWGrid",
-                             "SourcesSWNotListedGrid")) |> 
-  select(WSID, QuestionName, QuestionResults) |> 
-  rename(pwsid = WSID,
-         source_type = QuestionName,
-         source_name = QuestionResults) |> 
-  mutate(
-         # reporting year but need to deal with handling of this so it is not manual
-         year = 2022) |> 
-  select(pwsid, year, source_type, source_name)
-write_csv(ear_sources_name, "data/source_name_clean.csv")
+# ear_sources_name <- ear_2022_raw |> 
+#   filter(QuestionName %in% c("SourcesGWGrid", "SourcesGWNotListedGrid", "SourcesSWGrid",
+#                              "SourcesSWNotListedGrid")) |> 
+#   select(WSID, QuestionName, QuestionResults) |> 
+#   rename(pwsid = WSID,
+#          source_type = QuestionName,
+#          source_name = QuestionResults) |> 
+#   mutate(
+#          # reporting year but need to deal with handling of this so it is not manual
+#          year = 2022) |> 
+#   select(pwsid, year, source_type, source_name)
+# write_csv(ear_sources_name, "data/source_name_clean.csv")
 
-ear_sources_number_approved <- ear_2022_raw |> 
+# Create number of sources table
+ear_tibble <- tibble(years = c(2022:2013),
+                     files = c("data-raw/ear_release_data_03082024.txt",
+                               "data-raw/EAR_2021_results.text",
+                               "data-raw/2020RY_PortalClosed_032822.txt",
+                               "data-raw/2019RY_Resultset_08192021.txt",
+                               "data-raw/EARSurveyResults_2018RY.txt",
+                               "data-raw/EARSurveyResults_2017RY.txt",
+                               "data-raw/EARSurveyResults_2016RY.txt",
+                               "data-raw/EARSurveyResults_2015RY.txt",
+                               "data-raw/EARSurveyResults_2014RY.txt",
+                               "data-raw/2013RY_v2.txt"))
+
+pull_ear_sources_number <- function(files, years) {
+  data <- vroom::vroom(files, delim = "\t")
+  if(years > 2019) {
+    data <- data |> 
+      rename(PWSID = WSID) 
+  }
+  else{
+    data <- data |> 
+      mutate(QuestionName = case_when(QuestionName == "Sources GW Approved" ~ "SourcesGWApproved",
+                                      QuestionName == "Sources SW Approved" ~ "SourcesSWApproved",
+                                      QuestionName == "Sources PGW Approved" ~ "SourcesPGWApproved",
+                                      QuestionName == "Sources PSW Approved" ~ "SourcesPSWApproved",
+                                      QuestionName == "Sources SB Approved" ~ "SourcesSBApproved",
+                                      QuestionName == "Sources EI Approved" ~ "SourcesEIApproved",
+                                      QuestionName == "Sources GW New" ~ "SourcesGWNew",
+                                      QuestionName == "Sources SW New" ~ "SourcesSWNew",  
+                                      QuestionName == "Sources PGW New" ~ "SourcesPGWNew",
+                                      QuestionName == "Sources PSW New" ~ "SourcesPSWNew", 
+                                      QuestionName == "Sources SB New" ~ "SourcesSBNew",
+                                      QuestionName == "Sources EI New" ~ "SourcesEINew",
+                                      # QuestionName == "Sources I Approved" ~ "SourcesIApproved",
+                                      # QuestionName == "Sources P Approved" ~ "SourcesPApproved",
+                                      T ~ QuestionName))
+  }
+  data <- data |> 
   filter(QuestionName %in% c("SourcesGWApproved", 
                              "SourcesSWApproved", "SourcesPGWApproved", 
                              "SourcesPSWApproved",  "SourcesSBApproved", 
-                             "SourcesEIApproved",  "SourcesIApproved", "SourcesPApproved")) |> 
-  select(WSID, QuestionName, QuestionResults) |> 
-  pivot_wider(id_cols = WSID, names_from = "QuestionName", values_from = "QuestionResults") |> 
-  rename(pwsid = WSID,
-         groundwater = SourcesGWApproved,
-         `surface water` = SourcesSWApproved,
-         `purchased groundwater` = SourcesPGWApproved,
-         `purchased surface water` = SourcesPSWApproved,
-         `standby sources` = SourcesSBApproved,
-         `emergency interties` = SourcesEIApproved,
-         inactive = SourcesIApproved,
-         proposed = SourcesPApproved) |> 
-  pivot_longer(groundwater:proposed, names_to = "source_type", values_to = "number_of_sources") |> 
-  mutate(year = 2022,
-         number_of_sources = as.numeric(number_of_sources),
-         source_status = "approved") |> 
-  select(pwsid, year, source_type, source_status, number_of_sources)
-
-ear_sources_number_new <- ear_2022_raw |> 
-  filter(QuestionName %in% c("SourcesGWNew",
+                             "SourcesEIApproved", "SourcesGWNew",
                              "SourcesSWNew",  "SourcesPGWNew",
-                              "SourcesPSWNew", "SourcesSBNew",
-                              "SourcesEINew")) |> 
-  select(WSID, QuestionName, QuestionResults) |> 
-  pivot_wider(id_cols = WSID, names_from = "QuestionName", values_from = "QuestionResults") |> 
-  rename(pwsid = WSID,
-         groundwater = SourcesGWNew,
-         `surface water` = SourcesSWNew,
-         `purchased groundwater` = SourcesPGWNew,
-         `purchased surface water` = SourcesPSWNew,
-         `standby sources` = SourcesSBNew,
-         `emergency interties` = SourcesEINew) |> 
-  pivot_longer(groundwater:`emergency interties`, names_to = "source_type", values_to = "number_of_sources") |> 
-  mutate(year = 2022,
-         number_of_sources = as.numeric(number_of_sources),
-         source_status = "new") |> 
-  select(pwsid, year, source_type, source_status, number_of_sources)
+                             "SourcesPSWNew", "SourcesSBNew",
+                             "SourcesEINew"  
+                             #"SourcesIApproved", 
+                             #"SourcesPApproved"
+                             )) |> 
+  select(PWSID, QuestionName, QuestionResults) |> 
+  group_by(PWSID, QuestionName) |> 
+  summarize(QuestionResults = max(QuestionResults)) |> 
+  mutate(source_status = ifelse(grepl("Approved", QuestionName), "approved", "new"),
+         QuestionName = case_when(grepl("PSW", QuestionName) ~ "purchased surface water",
+                                  grepl("PGW", QuestionName) ~ "purchased grounwater",
+                                  grepl("GW", QuestionName) ~ "groundwater",
+                                  grepl("SW", QuestionName) ~ "surface water",
+                                  grepl("SB", QuestionName) ~ "standby sources",
+                                  grepl("EI", QuestionName) ~ "emergency interties"),
+         QuestionResults = as.numeric(QuestionResults),
+         year = years) |> 
+  rename(source_type = QuestionName,
+         number_of_sources = QuestionResults,
+         pwsid = PWSID) |> 
+    select(pwsid, year, source_type, source_status, number_of_sources)
+  write_csv(data, file = paste0("data-raw/ear_sources_",years,".csv"))
+}
 
-ear_number_sources_clean <- bind_rows(ear_sources_number_approved,
-                                      ear_sources_number_new)
-dput(unique(ear_number_sources_clean$source_type))
+pmap(ear_tibble, pull_ear_sources_number)
 
-write_csv(ear_number_sources_clean, "data/number_sources_clean.csv")
+file_shortcut <- "data-raw/ear_sources_"
+sources_number_combined <- bind_rows(
+  read_csv(paste0(file_shortcut, "2022.csv")),
+  read_csv(paste0(file_shortcut, "2021.csv")),
+  read_csv(paste0(file_shortcut, "2020.csv")),
+  read_csv(paste0(file_shortcut, "2019.csv")),
+  read_csv(paste0(file_shortcut, "2018.csv")),
+  read_csv(paste0(file_shortcut, "2017.csv")),
+  read_csv(paste0(file_shortcut, "2016.csv")),
+  read_csv(paste0(file_shortcut, "2015.csv")),
+  read_csv(paste0(file_shortcut, "2014.csv")),
+  read_csv(paste0(file_shortcut, "2013.csv"))
+)
 
+write_csv(sources_number_combined, "data/number_sources_clean.csv")
+
+# checking what happens when we add dwr_id
+# check_crosswalk <- sources_number_combined |> 
+#   left_join(crosswalk |> 
+#               select(pwsid, org_id))
+# 
+# filter(check_crosswalk, is.na(org_id)) |> 
+#   distinct(year, pwsid) |> 
+#   group_by(year) |> 
+#   tally()
+# 
+# check_crosswalk |> 
+#   distinct(year, pwsid) |> 
+#   group_by(year) |> 
+#   tally()
 
 # SAFER on open data ------------------------------------------------------
 # Data:
