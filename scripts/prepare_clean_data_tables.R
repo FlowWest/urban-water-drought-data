@@ -325,23 +325,23 @@ uwmp_drought_risk_clean <- bind_rows(uwmp_2021,
   select(org_id, year, is_action_included, acre_feet)
 
 # TODO We need to decide how we want to handle multiple PWSIDs
-dra_pwsid_check <- uwmp_drought_risk_raw |>
-  rename(org_id = ORG_ID) |>
-  left_join(crosswalk |>
-              select(org_id,
-                     pwsid), relationship = "many-to-many")
-dra_pwsid <- uwmp_drought_risk_clean |>
-  left_join(crosswalk |>
-              select(org_id,
-                     pwsid), relationship = "many-to-many")
+# dra_pwsid_check <- uwmp_drought_risk_raw |>
+#   rename(org_id = ORG_ID) |>
+#   left_join(crosswalk |>
+#               select(org_id,
+#                      pwsid), relationship = "many-to-many")
+# dra_pwsid <- uwmp_drought_risk_clean |>
+#   left_join(crosswalk |>
+#               select(org_id,
+#                      pwsid), relationship = "many-to-many")
+# 
+# dra_pwsid_to_check <- dra_pwsid |>
+#   distinct(org_id, pwsid) |>
+#   group_by(org_id) |>
+#   tally() |>
+#   filter(n > 1)
 
-dra_pwsid_to_check <- dra_pwsid |>
-  distinct(org_id, pwsid) |>
-  group_by(org_id) |>
-  tally() |>
-  filter(n > 1)
-
-write_csv(uwmp_drought_risk_clean, "data/drought_risk_assessment_clean.csv")
+write_csv(uwmp_drought_risk_clean, "data/drought_risk_assessment.csv")
 
 # Monthly CR --------------------------------------------------------------
 # Data:
@@ -511,7 +511,7 @@ sources_number_combined <- bind_rows(
   read_csv(paste0(file_shortcut, "2013.csv"))
 )
 
-write_csv(sources_number_combined, "data/number_sources_clean.csv")
+write_csv(sources_number_combined, "data/number_sources.csv")
 
 # checking what happens when we add dwr_id
 # check_crosswalk <- sources_number_combined |> 
