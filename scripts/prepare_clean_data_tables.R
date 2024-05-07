@@ -27,7 +27,7 @@ crosswalk <- crosswalk_raw_data |>
   rename(org_id = ORG_ID,
          pwsid = PWSID)
 
-# AWSDA -------------------------------------------------------------------
+# AWSDA: monthly water shortage outlook -------------------------------------------------------------------
 
 # Note that when downloading data it is really hard to tell if it is the 2022 or 2023 data
 
@@ -36,82 +36,86 @@ crosswalk <- crosswalk_raw_data |>
 # https://wuedata.water.ca.gov/wsda_export
 # Data reporting guidance:
 # https://wuedata.water.ca.gov/public/public_resources/3517484366/AWSDA-Final-Guidance-4-2022.pdf 
-awsda_demand_raw <- readxl::read_xls("data-raw/wsda_table2.xls")
-awsda_supply_raw <- readxl::read_xls("data-raw/wsda_table3.xls")
-
-# 2022
-
-# CURRENTLY NOT USED: Demand and Supply Tables by dwr_org_id, month, year, demand_or_supply, type
-
-# as of 3/12/2024 call with julie decided we don't need the demand/supply broken up to this level (type of demand/supply)
-awsda_demand_format <- awsda_demand_raw |> 
-  select(ORG_ID, POTABLE_NONPOTABLE, DEMANDS_SERVED, JULY_DEMANDS, AUGUST_DEMANDS, SEPTEMBER_DEMANDS,
-         OCTOBER_DEMANDS, NOVEMBER_DEMANDS, DECEMBER_DEMANDS, JANUARY_DEMANDS, FEBRUARY_DEMANDS, 
-         MARCH_DEMANDS, APRIL_DEMANDS, MAY_DEMANDS, JUNE_DEMANDS) |> 
-  rename(Jul = JULY_DEMANDS,
-         Aug = AUGUST_DEMANDS,
-         Sep = SEPTEMBER_DEMANDS,
-         Oct = OCTOBER_DEMANDS,
-         Nov = NOVEMBER_DEMANDS,
-         Dec = DECEMBER_DEMANDS,
-         Jan = JANUARY_DEMANDS,
-         Feb = FEBRUARY_DEMANDS,
-         Mar = MARCH_DEMANDS,
-         Apr = APRIL_DEMANDS,
-         May = MAY_DEMANDS,
-         Jun = JUNE_DEMANDS,
-         org_id = ORG_ID,
-         potable_nonpotable = POTABLE_NONPOTABLE,
-         demand_supply_type = DEMANDS_SERVED) |> 
-  pivot_longer(Jul:Jun, names_to = "month", values_to = "acre_feet") |> 
-  mutate(demand_supply_type = tolower(demand_supply_type),
-         demand_supply = "demand",
-         # need to confirm year type and consider adding variable to specify year- type (june - july)
-         # June 2022 - July 2023
-         year = 2022)
-
-dput(unique(awsda_demand_format$demand_supply_type))
-dput(unique(awsda_demand_format$potable_nonpotable))
-dput(unique(awsda_demand_format$month))
-
-
-awsda_supply_format <- awsda_supply_raw |> 
-  select(ORG_ID, POTABLE_NONPOTABLE, SUPPLIES, JULY_DEMANDS, AUGUST_DEMANDS, SEPTEMBER_DEMANDS,
-         OCTOBER_DEMANDS, NOVEMBER_DEMANDS, DECEMBER_DEMANDS, JANUARY_DEMANDS, FEBRUARY_DEMANDS, 
-         MARCH_DEMANDS, APRIL_DEMANDS, MAY_DEMANDS, JUNE_DEMANDS) |> 
-  rename(Jul = JULY_DEMANDS,
-         Aug = AUGUST_DEMANDS,
-         Sep = SEPTEMBER_DEMANDS,
-         Oct = OCTOBER_DEMANDS,
-         Nov = NOVEMBER_DEMANDS,
-         Dec = DECEMBER_DEMANDS,
-         Jan = JANUARY_DEMANDS,
-         Feb = FEBRUARY_DEMANDS,
-         Mar = MARCH_DEMANDS,
-         Apr = APRIL_DEMANDS,
-         May = MAY_DEMANDS,
-         Jun = JUNE_DEMANDS,
-         org_id = ORG_ID,
-         potable_nonpotable = POTABLE_NONPOTABLE,
-         demand_supply_type = SUPPLIES) |> 
-  pivot_longer(Jul:Jun, names_to = "month", values_to = "acre_feet") |> 
-  mutate(demand_supply_type = tolower(demand_supply_type),
-         demand_supply = "supply",
-         # need to confirm year type and consider adding variable to specify year- type (june - july)
-         # June 2022 - July 2023
-         year = 2022)
-
-dput(unique(awsda_supply_format$demand_supply_type))
-dput(unique(awsda_supply_format$potable_nonpotable))
-dput(unique(awsda_supply_format$month))
-
-awsda_clean <- bind_rows(awsda_demand_format,
-                         awsda_supply_format) |> 
-  select(org_id, year, month, demand_supply, potable_nonpotable, demand_supply_type, acre_feet)
+# awsda_demand_raw <- readxl::read_xls("data-raw/wsda_table2.xls")
+# awsda_supply_raw <- readxl::read_xls("data-raw/wsda_table3.xls")
+# 
+# # 2022
+# 
+# # CURRENTLY NOT USED: Demand and Supply Tables by dwr_org_id, month, year, demand_or_supply, type
+# 
+# # as of 3/12/2024 call with julie decided we don't need the demand/supply broken up to this level (type of demand/supply)
+# awsda_demand_format <- awsda_demand_raw |> 
+#   select(ORG_ID, POTABLE_NONPOTABLE, DEMANDS_SERVED, JULY_DEMANDS, AUGUST_DEMANDS, SEPTEMBER_DEMANDS,
+#          OCTOBER_DEMANDS, NOVEMBER_DEMANDS, DECEMBER_DEMANDS, JANUARY_DEMANDS, FEBRUARY_DEMANDS, 
+#          MARCH_DEMANDS, APRIL_DEMANDS, MAY_DEMANDS, JUNE_DEMANDS) |> 
+#   rename(Jul = JULY_DEMANDS,
+#          Aug = AUGUST_DEMANDS,
+#          Sep = SEPTEMBER_DEMANDS,
+#          Oct = OCTOBER_DEMANDS,
+#          Nov = NOVEMBER_DEMANDS,
+#          Dec = DECEMBER_DEMANDS,
+#          Jan = JANUARY_DEMANDS,
+#          Feb = FEBRUARY_DEMANDS,
+#          Mar = MARCH_DEMANDS,
+#          Apr = APRIL_DEMANDS,
+#          May = MAY_DEMANDS,
+#          Jun = JUNE_DEMANDS,
+#          org_id = ORG_ID,
+#          potable_nonpotable = POTABLE_NONPOTABLE,
+#          demand_supply_type = DEMANDS_SERVED) |> 
+#   pivot_longer(Jul:Jun, names_to = "month", values_to = "acre_feet") |> 
+#   mutate(demand_supply_type = tolower(demand_supply_type),
+#          demand_supply = "demand",
+#          # need to confirm year type and consider adding variable to specify year- type (june - july)
+#          # June 2022 - July 2023
+#          year = 2022)
+# 
+# dput(unique(awsda_demand_format$demand_supply_type))
+# dput(unique(awsda_demand_format$potable_nonpotable))
+# dput(unique(awsda_demand_format$month))
+# 
+# 
+# awsda_supply_format <- awsda_supply_raw |> 
+#   select(ORG_ID, POTABLE_NONPOTABLE, SUPPLIES, JULY_DEMANDS, AUGUST_DEMANDS, SEPTEMBER_DEMANDS,
+#          OCTOBER_DEMANDS, NOVEMBER_DEMANDS, DECEMBER_DEMANDS, JANUARY_DEMANDS, FEBRUARY_DEMANDS, 
+#          MARCH_DEMANDS, APRIL_DEMANDS, MAY_DEMANDS, JUNE_DEMANDS) |> 
+#   rename(Jul = JULY_DEMANDS,
+#          Aug = AUGUST_DEMANDS,
+#          Sep = SEPTEMBER_DEMANDS,
+#          Oct = OCTOBER_DEMANDS,
+#          Nov = NOVEMBER_DEMANDS,
+#          Dec = DECEMBER_DEMANDS,
+#          Jan = JANUARY_DEMANDS,
+#          Feb = FEBRUARY_DEMANDS,
+#          Mar = MARCH_DEMANDS,
+#          Apr = APRIL_DEMANDS,
+#          May = MAY_DEMANDS,
+#          Jun = JUNE_DEMANDS,
+#          org_id = ORG_ID,
+#          potable_nonpotable = POTABLE_NONPOTABLE,
+#          demand_supply_type = SUPPLIES) |> 
+#   pivot_longer(Jul:Jun, names_to = "month", values_to = "acre_feet") |> 
+#   mutate(demand_supply_type = tolower(demand_supply_type),
+#          demand_supply = "supply",
+#          # need to confirm year type and consider adding variable to specify year- type (june - july)
+#          # June 2022 - July 2023
+#          year = 2022)
+# 
+# dput(unique(awsda_supply_format$demand_supply_type))
+# dput(unique(awsda_supply_format$potable_nonpotable))
+# dput(unique(awsda_supply_format$month))
+# 
+# awsda_clean <- bind_rows(awsda_demand_format,
+#                          awsda_supply_format) |> 
+#   select(org_id, year, month, demand_supply, potable_nonpotable, demand_supply_type, acre_feet)
 
 # assessment table - right now only including for potable water; nonpotable is optional response
+# Ideas: shortage_surplus_acre_feet, shortage_surplus_percent, state_standard_shortage_level, wscp_action (no_action, wscp_action), demand_reduction_benefit_acre_feet, supply_augmentation_benefit_acre_feet
+# another option for this table would to pull straight demand and supply values instead of including the calculated values
+
 awsda_assessment_raw <- readxl::read_xlsx("data-raw/wsda_table4.xlsx")
 
+## variable lists #######
 pot_no_action_list <-
   c(
     "POT_SHORT_NO_ACTION_JULY",
@@ -128,6 +132,75 @@ pot_no_action_list <-
     "POT_SHORT_NO_ACTION_JUNE",
     "POT_SHORT_NO_ACTION_TOTAL"
   )
+
+pot_no_action_perc_list <-
+  c(
+    "POT_PERC_NO_ACTION_JULY",
+    "POT_PERC_NO_ACTION_AUGUST",
+    "POT_PERC_NO_ACTION_SEPTEMBER",
+    "POT_PERC_NO_ACTION_OCTOBER",
+    "POT_PERC_NO_ACTION_NOVEMBER",
+    "POT_PERC_NO_ACTION_DECEMBER",
+    "POT_PERC_NO_ACTION_JANUARY",
+    "POT_PERC_NO_ACTION_FEBRUARY",
+    "POT_PERC_NO_ACTION_MARCH",
+    "POT_PERC_NO_ACTION_APRIL",
+    "POT_PERC_NO_ACTION_MAY",
+    "POT_PERC_NO_ACTION_JUNE",
+    "POT_PERC_NO_ACTION_TOTAL"
+  )
+
+pot_short_level_list <-
+  c(
+    "POT_SHORT_LEVEL_JULY",
+    "POT_SHORT_LEVEL_AUGUST",
+    "POT_SHORT_LEVEL_SEPTEMBER",
+    "POT_SHORT_LEVEL_OCTOBER",
+    "POT_SHORT_LEVEL_NOVEMBER",
+    "POT_SHORT_LEVEL_DECEMBER",
+    "POT_SHORT_LEVEL_JANUARY",
+    "POT_SHORT_LEVEL_FEBRUARY",
+    "POT_SHORT_LEVEL_MARCH",
+    "POT_SHORT_LEVEL_APRIL",
+    "POT_SHORT_LEVEL_MAY",
+    "POT_SHORT_LEVEL_JUNE",
+    "POT_SHORT_LEVEL_TOTAL"
+  )
+
+pot_rev_list <-
+  c(
+    "POT_REV_SHORT_JULY",
+    "POT_REV_SHORT_AUGUST",
+    "POT_REV_SHORT_SEPTEMBER",
+    "POT_REV_SHORT_OCTOBER",
+    "POT_REV_SHORT_NOVEMBER",
+    "POT_REV_SHORT_DECEMBER",
+    "POT_REV_SHORT_JANUARY",
+    "POT_REV_SHORT_FEBRUARY",
+    "POT_REV_SHORT_MARCH",
+    "POT_REV_SHORT_APRIL",
+    "POT_REV_SHORT_MAY",
+    "POT_REV_SHORT_JUNE",
+    "POT_REV_SHORT_TOTAL"
+  )
+
+pot_rev_perc_list <-
+  c(
+    "POT_REV_PERC_JULY",
+    "POT_REV_PERC_AUGUST",
+    "POT_REV_PERC_SEPTEMBER",
+    "POT_REV_PERC_OCTOBER",
+    "POT_REV_PERC_NOVEMBER",
+    "POT_REV_PERC_DECEMBER",
+    "POT_REV_PERC_JANUARY",
+    "POT_REV_PERC_FEBRUARY",
+    "POT_REV_PERC_MARCH",
+    "POT_REV_PERC_APRIL",
+    "POT_REV_PERC_MAY",
+    "POT_REV_PERC_JUNE",
+    "POT_REV_PERC_TOTAL"
+  )
+
 pot_augm_list <-
   c(
     "POT_AUGM_JULY",
@@ -160,7 +233,16 @@ pot_red_list <- c(
   "POT_SHORT_DEM_RED_TOTAL"
 )
 
+org_id_supplier_name <- awsda_assessment_raw |> 
+  select(ORG_ID, WATER_SUPPLIER_NAME) |> 
+  rename(org_id = ORG_ID,
+         supplier_name = WATER_SUPPLIER_NAME) |> 
+  mutate(supplier_name = tolower(supplier_name))
+
 # TODO how do we want to handle NA - we could include so explicit that no augmentation action provided or convert to 0
+
+## action benefits #######
+# This pulls the supply augmentation benefit by month (water added by this action)
 awsda_assessment_aug <- awsda_assessment_raw |> 
   select(ORG_ID, all_of(pot_augm_list)) |> 
   rename(Jul = POT_AUGM_JULY, 
@@ -177,9 +259,9 @@ awsda_assessment_aug <- awsda_assessment_raw |>
          Jun = POT_AUGM_JUNE,
          Annual = POT_AUGM_TOTAL,
          org_id = ORG_ID) |> 
-  pivot_longer(Jul:Annual, names_to = "month", values_to = "acre_feet") |> 
-  mutate(shortage_action_type = "supply augmentation")
-
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "benefit_supply_augmentation_acre_feet") |> 
+  mutate(is_wscp_action = T)
+# This pulls the demand reduction benefit by month (water added by this action)
 awsda_assessment_red <- awsda_assessment_raw |> 
   select(ORG_ID, all_of(pot_red_list)) |> 
   rename(Jul = POT_SHORT_DEM_RED_JULY, 
@@ -196,9 +278,13 @@ awsda_assessment_red <- awsda_assessment_raw |>
          Jun = POT_SHORT_DEM_RED_JUNE,
          Annual = POT_SHORT_DEM_RED_TOTAL,
          org_id = ORG_ID) |> 
-  pivot_longer(Jul:Annual, names_to = "month", values_to = "acre_feet") |> 
-  mutate(shortage_action_type = "demand reduction")
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "benefit_demand_reduction_acre_feet") |> 
+  mutate(is_wscp_action = T)
 
+
+## without action ----------------------------------------------
+
+# water short (or surplus) without action
 awsda_assessment_no_action <- awsda_assessment_raw |> 
   select(ORG_ID, all_of(pot_no_action_list)) |> 
   rename(Jul = POT_SHORT_NO_ACTION_JULY, 
@@ -215,17 +301,114 @@ awsda_assessment_no_action <- awsda_assessment_raw |>
          Jun = POT_SHORT_NO_ACTION_JUNE,
          Annual = POT_SHORT_NO_ACTION_TOTAL,
          org_id = ORG_ID) |> 
-  pivot_longer(Jul:Annual, names_to = "month", values_to = "acre_feet") |> 
-  mutate(shortage_action_type = "no action")
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_acre_feet") |> 
+  mutate(is_wscp_action = F)
 
-awsda_assessment_clean <- bind_rows(awsda_assessment_aug,
-                                    awsda_assessment_red,
-                                    awsda_assessment_no_action) |> 
+# percent water short (or surplus) without action
+awsda_assessment_no_action_perc <- awsda_assessment_raw |> 
+  select(ORG_ID, all_of(pot_no_action_perc_list)) |> 
+  rename(Jul = POT_PERC_NO_ACTION_JULY, 
+         Aug = POT_PERC_NO_ACTION_AUGUST, 
+         Sep = POT_PERC_NO_ACTION_SEPTEMBER,
+         Oct = POT_PERC_NO_ACTION_OCTOBER,
+         Nov = POT_PERC_NO_ACTION_NOVEMBER, 
+         Dec = POT_PERC_NO_ACTION_DECEMBER,
+         Jan = POT_PERC_NO_ACTION_JANUARY,
+         Feb = POT_PERC_NO_ACTION_FEBRUARY,
+         Mar = POT_PERC_NO_ACTION_MARCH, 
+         Apr = POT_PERC_NO_ACTION_APRIL,
+         May = POT_PERC_NO_ACTION_MAY,
+         Jun = POT_PERC_NO_ACTION_JUNE,
+         Annual = POT_PERC_NO_ACTION_TOTAL,
+         org_id = ORG_ID) |> 
+  mutate(across(Jul:Annual, as.numeric)) |> 
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent")
+
+# standard shortage level based on percent water short
+awsda_assessment_short_level <- awsda_assessment_raw |> 
+  select(ORG_ID, all_of(pot_short_level_list)) |> 
+  rename(Jul = POT_SHORT_LEVEL_JULY, 
+         Aug = POT_SHORT_LEVEL_AUGUST, 
+         Sep = POT_SHORT_LEVEL_SEPTEMBER,
+         Oct = POT_SHORT_LEVEL_OCTOBER,
+         Nov = POT_SHORT_LEVEL_NOVEMBER, 
+         Dec = POT_SHORT_LEVEL_DECEMBER,
+         Jan = POT_SHORT_LEVEL_JANUARY,
+         Feb = POT_SHORT_LEVEL_FEBRUARY,
+         Mar = POT_SHORT_LEVEL_MARCH, 
+         Apr = POT_SHORT_LEVEL_APRIL,
+         May = POT_SHORT_LEVEL_MAY,
+         Jun = POT_SHORT_LEVEL_JUNE,
+         Annual = POT_SHORT_LEVEL_TOTAL,
+         org_id = ORG_ID) |> 
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "state_standard_shortage_level")
+
+
+## with action -------------------------------------------------
+awsda_assessment_action <- awsda_assessment_raw |> 
+  select(ORG_ID, all_of(pot_rev_list)) |> 
+  rename(Jul = POT_REV_SHORT_JULY, 
+         Aug = POT_REV_SHORT_AUGUST, 
+         Sep = POT_REV_SHORT_SEPTEMBER,
+         Oct = POT_REV_SHORT_OCTOBER,
+         Nov = POT_REV_SHORT_NOVEMBER, 
+         Dec = POT_REV_SHORT_DECEMBER,
+         Jan = POT_REV_SHORT_JANUARY,
+         Feb = POT_REV_SHORT_FEBRUARY,
+         Mar = POT_REV_SHORT_MARCH, 
+         Apr = POT_REV_SHORT_APRIL,
+         May = POT_REV_SHORT_MAY,
+         Jun = POT_REV_SHORT_JUNE,
+         Annual = POT_REV_SHORT_TOTAL,
+         org_id = ORG_ID) |> 
+  mutate(across(Jul:Annual, as.numeric)) |> 
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_acre_feet") |> 
+  mutate(is_wscp_action = T)
+
+awsda_assessment_action_perc <- awsda_assessment_raw |> 
+  select(ORG_ID, all_of(pot_rev_perc_list)) |> 
+  rename(Jul = POT_REV_PERC_JULY, 
+         Aug = POT_REV_PERC_AUGUST, 
+         Sep = POT_REV_PERC_SEPTEMBER,
+         Oct = POT_REV_PERC_OCTOBER,
+         Nov = POT_REV_PERC_NOVEMBER, 
+         Dec = POT_REV_PERC_DECEMBER,
+         Jan = POT_REV_PERC_JANUARY,
+         Feb = POT_REV_PERC_FEBRUARY,
+         Mar = POT_REV_PERC_MARCH, 
+         Apr = POT_REV_PERC_APRIL,
+         May = POT_REV_PERC_MAY,
+         Jun = POT_REV_PERC_JUNE,
+         Annual = POT_REV_PERC_TOTAL,
+         org_id = ORG_ID) |> 
+  mutate(across(Jul:Annual, as.numeric)) |> 
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent") 
+
+
+awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment_no_action_perc) |> 
+  left_join(awsda_assessment_short_level) |> 
+  bind_rows(left_join(awsda_assessment_action, awsda_assessment_action_perc)) |> 
+  left_join(org_id_supplier_name) |> 
+  left_join(awsda_assessment_aug) |> 
+  left_join(awsda_assessment_red) |> 
   mutate(year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2022,
                           T ~ 2023),
-         is_annual = ifelse(month == "Annual", T, F)) |> 
-  select(org_id, year, month, is_annual, shortage_action_type, acre_feet)
+         is_annual = ifelse(month == "Annual", T, F),
+         month = tolower(month)) |> 
+  select(org_id, supplier_name, year, month, is_annual, is_wscp_action, 
+         shortage_surplus_acre_feet, shortage_surplus_percent, state_standard_shortage_level, 
+         benefit_demand_reduction_acre_feet, benefit_supply_augmentation_acre_feet)
 
+# checks
+# benefits should be NA when wscp_action = F
+try(if(nrow(filter(awsda_assessment_clean, !is.na(benefit_supply_augmentation_acre_feet) & is_wscp_action == F)) > 0)
+  stop("Supply benefits exist when there are not WSCP actions"))
+try(if(nrow(filter(awsda_assessment_clean, !is.na(benefit_demand_reduction_acre_feet) & is_wscp_action == F)) > 0)
+  stop("Demand benefits exist when there are not WSCP actions"))
+min(awsda_assessment_clean$shortage_surplus_acre_feet)
+max(awsda_assessment_clean$shortage_surplus_acre_feet)
+min(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
+max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
 # TODO We need to decide how we want to handle multiple PWSIDs
 # awsda_assessment_pwsid_check <- awsda_assessment_raw |> 
 #   rename(org_id = ORG_ID) |> 
