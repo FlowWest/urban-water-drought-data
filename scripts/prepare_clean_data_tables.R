@@ -429,7 +429,7 @@ max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
 write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
 
 
-# UWMP --------------------------------------------------------------------
+# UWMP: five year water shortage outlook --------------------------------------------------------------------
 
 # UWMP 2020
 # drought risk assessment
@@ -441,71 +441,79 @@ write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
 
 uwmp_drought_risk_raw <- readxl::read_xlsx("data-raw/uwmp_table_7_5_2020.xlsx")
 
+uwmp_org_id_supplier_name <- uwmp_drought_risk_raw |> 
+  select(ORG_ID, WATER_SUPPLIER_NAME) |> 
+  rename(org_id = ORG_ID,
+         supplier_name = WATER_SUPPLIER_NAME) |> 
+  mutate(supplier_name = tolower(supplier_name))
+# originally had some calculated field but moving away from that to just include data that was reported
+
 uwmp_2021 <- uwmp_drought_risk_raw |> 
   select(ORG_ID, TOTAL_WATER_USE_2021, TOTAL_SUPPLIES_2021, SUPPLY_AUG_BENEFIT_2021, USE_REDUCT_BENEFIT_2021) |> 
-  rename(org_id = ORG_ID) |> 
-  mutate(SUPPLY_AUG_BENEFIT_2021 = ifelse(is.na(SUPPLY_AUG_BENEFIT_2021), 0, SUPPLY_AUG_BENEFIT_2021),
-         USE_REDUCT_BENEFIT_2021 = ifelse(is.na(USE_REDUCT_BENEFIT_2021), 0, USE_REDUCT_BENEFIT_2021),
-         shortage_no_action = TOTAL_SUPPLIES_2021 - TOTAL_WATER_USE_2021,
-         shortage_action = shortage_no_action + SUPPLY_AUG_BENEFIT_2021 + USE_REDUCT_BENEFIT_2021) |> 
-  select(-c(TOTAL_WATER_USE_2021, TOTAL_SUPPLIES_2021, SUPPLY_AUG_BENEFIT_2021, USE_REDUCT_BENEFIT_2021)) |> 
-  pivot_longer(shortage_no_action:shortage_action, names_to = "is_action_included", values_to = "acre_feet") |> 
-  mutate(year = 2021,
-         is_action_included = ifelse(is_action_included == "shortage_action", T, F))
+  rename(org_id = ORG_ID,
+         water_use_acre_feet = TOTAL_WATER_USE_2021,
+         water_supplies_acre_feet = TOTAL_SUPPLIES_2021,
+         benefit_supply_augmentation_acre_feet = SUPPLY_AUG_BENEFIT_2021,
+         benefit_demand_reduction_acre_feet = USE_REDUCT_BENEFIT_2021) |> 
+  mutate(year = 2021)
 
 uwmp_2022 <- uwmp_drought_risk_raw |> 
   select(ORG_ID, TOTAL_WATER_USE_2022, TOTAL_SUPPLIES_2022, SUPPLY_AUG_BENEFIT_2022, USE_REDUCT_BENEFIT_2022) |> 
-  rename(org_id = ORG_ID) |> 
-  mutate(SUPPLY_AUG_BENEFIT_2022 = ifelse(is.na(SUPPLY_AUG_BENEFIT_2022), 0, SUPPLY_AUG_BENEFIT_2022),
-         USE_REDUCT_BENEFIT_2022 = ifelse(is.na(USE_REDUCT_BENEFIT_2022), 0, USE_REDUCT_BENEFIT_2022),
-         shortage_no_action = TOTAL_SUPPLIES_2022 - TOTAL_WATER_USE_2022,
-         shortage_action = shortage_no_action + SUPPLY_AUG_BENEFIT_2022 + USE_REDUCT_BENEFIT_2022) |> 
-  select(-c(TOTAL_WATER_USE_2022, TOTAL_SUPPLIES_2022, SUPPLY_AUG_BENEFIT_2022, USE_REDUCT_BENEFIT_2022)) |> 
-  pivot_longer(shortage_no_action:shortage_action, names_to = "is_action_included", values_to = "acre_feet") |> 
-  mutate(year = 2022,
-         is_action_included = ifelse(is_action_included == "shortage_action", T, F))
+  rename(org_id = ORG_ID,
+         water_use_acre_feet = TOTAL_WATER_USE_2022,
+         water_supplies_acre_feet = TOTAL_SUPPLIES_2022,
+         benefit_supply_augmentation_acre_feet = SUPPLY_AUG_BENEFIT_2022,
+         benefit_demand_reduction_acre_feet = USE_REDUCT_BENEFIT_2022) |> 
+  mutate(year = 2022)
 
 uwmp_2023 <- uwmp_drought_risk_raw |> 
   select(ORG_ID, TOTAL_WATER_USE_2023, TOTAL_SUPPLIES_2023, SUPPLY_AUG_BENEFIT_2023, USE_REDUCT_BENEFIT_2023) |> 
-  rename(org_id = ORG_ID) |> 
-  mutate(SUPPLY_AUG_BENEFIT_2023 = ifelse(is.na(SUPPLY_AUG_BENEFIT_2023), 0, SUPPLY_AUG_BENEFIT_2023),
-         USE_REDUCT_BENEFIT_2023 = ifelse(is.na(USE_REDUCT_BENEFIT_2023), 0, USE_REDUCT_BENEFIT_2023),
-         shortage_no_action = TOTAL_SUPPLIES_2023 - TOTAL_WATER_USE_2023,
-         shortage_action = shortage_no_action + SUPPLY_AUG_BENEFIT_2023 + USE_REDUCT_BENEFIT_2023) |> 
-  select(-c(TOTAL_WATER_USE_2023, TOTAL_SUPPLIES_2023, SUPPLY_AUG_BENEFIT_2023, USE_REDUCT_BENEFIT_2023)) |> 
-  pivot_longer(shortage_no_action:shortage_action, names_to = "is_action_included", values_to = "acre_feet") |> 
-  mutate(year = 2023,
-         is_action_included = ifelse(is_action_included == "shortage_action", T, F))
+  rename(org_id = ORG_ID,
+         water_use_acre_feet = TOTAL_WATER_USE_2023,
+         water_supplies_acre_feet = TOTAL_SUPPLIES_2023,
+         benefit_supply_augmentation_acre_feet = SUPPLY_AUG_BENEFIT_2023,
+         benefit_demand_reduction_acre_feet = USE_REDUCT_BENEFIT_2023) |> 
+  mutate(year = 2023)
 
 uwmp_2024 <- uwmp_drought_risk_raw |> 
   select(ORG_ID, TOTAL_WATER_USE_2024, TOTAL_SUPPLIES_2024, SUPPLY_AUG_BENEFIT_2024, USE_REDUCT_BENEFIT_2024) |> 
-  rename(org_id = ORG_ID) |> 
-  mutate(SUPPLY_AUG_BENEFIT_2024 = ifelse(is.na(SUPPLY_AUG_BENEFIT_2024), 0, SUPPLY_AUG_BENEFIT_2024),
-         USE_REDUCT_BENEFIT_2024 = ifelse(is.na(USE_REDUCT_BENEFIT_2024), 0, USE_REDUCT_BENEFIT_2024),
-         shortage_no_action = TOTAL_SUPPLIES_2024 - TOTAL_WATER_USE_2024,
-         shortage_action = shortage_no_action + SUPPLY_AUG_BENEFIT_2024 + USE_REDUCT_BENEFIT_2024) |> 
-  select(-c(TOTAL_WATER_USE_2024, TOTAL_SUPPLIES_2024, SUPPLY_AUG_BENEFIT_2024, USE_REDUCT_BENEFIT_2024)) |> 
-  pivot_longer(shortage_no_action:shortage_action, names_to = "is_action_included", values_to = "acre_feet") |> 
-  mutate(year = 2024,
-         is_action_included = ifelse(is_action_included == "shortage_action", T, F))
+  rename(org_id = ORG_ID,
+         water_use_acre_feet = TOTAL_WATER_USE_2024,
+         water_supplies_acre_feet = TOTAL_SUPPLIES_2024,
+         benefit_supply_augmentation_acre_feet = SUPPLY_AUG_BENEFIT_2024,
+         benefit_demand_reduction_acre_feet = USE_REDUCT_BENEFIT_2024) |> 
+  mutate(year = 2024)
 
 uwmp_2025 <- uwmp_drought_risk_raw |> 
   select(ORG_ID, TOTAL_WATER_USE_2025, TOTAL_SUPPLIES_2025, SUPPLY_AUG_BENEFIT_2025, USE_REDUCT_BENEFIT_2025) |> 
-  rename(org_id = ORG_ID) |> 
-  mutate(SUPPLY_AUG_BENEFIT_2025 = ifelse(is.na(SUPPLY_AUG_BENEFIT_2025), 0, SUPPLY_AUG_BENEFIT_2025),
-         USE_REDUCT_BENEFIT_2025 = ifelse(is.na(USE_REDUCT_BENEFIT_2025), 0, USE_REDUCT_BENEFIT_2025),
-         shortage_no_action = TOTAL_SUPPLIES_2025 - TOTAL_WATER_USE_2025,
-         shortage_action = shortage_no_action + SUPPLY_AUG_BENEFIT_2025 + USE_REDUCT_BENEFIT_2025) |> 
-  select(-c(TOTAL_WATER_USE_2025, TOTAL_SUPPLIES_2025, SUPPLY_AUG_BENEFIT_2025, USE_REDUCT_BENEFIT_2025)) |> 
-  pivot_longer(shortage_no_action:shortage_action, names_to = "is_action_included", values_to = "acre_feet") |> 
-  mutate(year = 2025,
-         is_action_included = ifelse(is_action_included == "shortage_action", T, F))
+  rename(org_id = ORG_ID,
+         water_use_acre_feet = TOTAL_WATER_USE_2025,
+         water_supplies_acre_feet = TOTAL_SUPPLIES_2025,
+         benefit_supply_augmentation_acre_feet = SUPPLY_AUG_BENEFIT_2025,
+         benefit_demand_reduction_acre_feet = USE_REDUCT_BENEFIT_2025) |> 
+  mutate(year = 2025)
+
 uwmp_drought_risk_clean <- bind_rows(uwmp_2021,
                                      uwmp_2022,
                                      uwmp_2023,
                                      uwmp_2024,
                                      uwmp_2025) |> 
-  select(org_id, year, is_action_included, acre_feet)
+  filter(!is.na(org_id)) |> 
+  left_join(uwmp_org_id_supplier_name) |> 
+  select(org_id, supplier_name, year, water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
+         benefit_demand_reduction_acre_feet)
+
+min(uwmp_drought_risk_clean$water_supplies_acre_feet, na.rm = T)
+max(uwmp_drought_risk_clean$water_supplies_acre_feet, na.rm = T)
+
+min(uwmp_drought_risk_clean$water_use_acre_feet, na.rm = T)
+max(uwmp_drought_risk_clean$water_use_acre_feet, na.rm = T)
+
+min(uwmp_drought_risk_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
+max(uwmp_drought_risk_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
+
+min(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
+max(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
 
 # TODO We need to decide how we want to handle multiple PWSIDs
 # dra_pwsid_check <- uwmp_drought_risk_raw |>
@@ -524,7 +532,7 @@ uwmp_drought_risk_clean <- bind_rows(uwmp_2021,
 #   tally() |>
 #   filter(n > 1)
 
-write_csv(uwmp_drought_risk_clean, "data/drought_risk_assessment.csv")
+write_csv(uwmp_drought_risk_clean, "data/five_year_outlook.csv")
 
 # Monthly CR --------------------------------------------------------------
 # Data:
@@ -592,7 +600,7 @@ dput(unique(rafa_format$month))
 write_csv(rafa_format, "data/production_delivery_volume_clean.csv")
 
 
-# eAR ---------------------------------------------------------------------
+# eAR number of sources ---------------------------------------------------------------------
 # Data: https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/ear.html
 
 # TODO need to reformat the source names - get feedback from group whether want to invest
