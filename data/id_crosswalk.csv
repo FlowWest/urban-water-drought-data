@@ -1,0 +1,531 @@
+_id,_full_text,org_id,SUPPLIER_NAME,pwsid,PWS_NAME,COUNTY
+1,"'13':1 'adelanto':2,6 'bernardino':10 'ca3610001':5 'city':3,7 'of':4,8 'san':9",13,Adelanto  City Of,CA3610001,"ADELANTO, CITY OF",SAN BERNARDINO
+2,"'23':1 'alameda':2,7,11 'ca0110001':6 'county':3,8 'district':5,10 'water':4,9",23,Alameda County Water District,CA0110001,ALAMEDA COUNTY WATER DISTRICT,ALAMEDA
+3,"'25':1 'alco':2,6 'ca2710001':5 'monterey':9 'service':4,8 'water':3,7",25,Alco Water Service,CA2710001,ALCO WATER SERVICE,MONTEREY
+4,"'30':1 'alhambra':2,8 'angeles':10 'ca1910001':5 'city':3,6 'los':9 'of':4,7",30,Alhambra  City Of,CA1910001,CITY OF ALHAMBRA,LOS ANGELES
+5,"'55':1 'agency':4 'amador':2,8 'awa':6 'ca0310002':5 'ione':7 'water':3",55,Amador Water Agency,CA0310002,"AWA, IONE",AMADOR
+6,"'55':1 'agency':4 'amador':2,8 'awa':6 'ca0310003':5 'tanner':7 'water':3",55,Amador Water Agency,CA0310003,"AWA, TANNER",AMADOR
+7,"'55':1 'agency':4 'amador':2,9 'awa':6 'buckhorn':7 'ca0310012':5 'plant':8 'water':3",55,Amador Water Agency,CA0310012,AWA BUCKHORN PLANT,AMADOR
+8,"'3':10 '55':1 'agency':4 'amador':2,11 'awa':6 'ca0310019':5 'heights':9 'la':7 'mel':8 'water':3",55,Amador Water Agency,CA0310019,AWA LA MEL HEIGHTS #3,AMADOR
+9,"'55':1 'agency':4 'amador':2,9 'awa':6 'ca0310021':5 'camanche':7 'village':8 'water':3",55,Amador Water Agency,CA0310021,AWA - CAMANCHE VILLAGE,AMADOR
+10,"'57':1 'american':2,7 'ca2810005':6 'canyon':3,8 'city':4,9 'napa':11 'of':5,10",57,American Canyon  City Of,CA2810005,"AMERICAN CANYON, CITY OF",NAPA
+11,"'64':1 'anaheim':2,8 'ca3010001':5 'city':3,6 'of':4,7 'orange':9",64,Anaheim  City Of,CA3010001,CITY OF ANAHEIM,ORANGE
+12,"'66':1 'anderson':2,8 'ca4510001':5 'city':3,6 'of':4,7 'shasta':9",66,Anderson  City Of,CA4510001,CITY OF ANDERSON,SHASTA
+13,"'82':1 'antioch':2,8 'ca0710001':5 'city':3,6 'contra':9 'costa':10 'of':4,7",82,Antioch  City Of,CA0710001,CITY OF ANTIOCH,CONTRA COSTA
+14,"'87':1 'apple':2 'av':10 'bernardino':14 'ca3610003':7 'company':6 'corp':12 'liberty':8 'ranchos':4,11 'san':13 'utilities':9 'valley':3 'water':5",87,Apple Valley Ranchos Water Company,CA3610003,LIBERTY UTILITIES (AV RANCHOS) CORP.,SAN BERNARDINO
+15,"'93':1 'angeles':10 'arcadia':2,8 'ca1910003':5 'city':3,6 'los':9 'of':4,7",93,Arcadia  City Of,CA1910003,CITY OF ARCADIA,LOS ANGELES
+16,"'94':1 'arcata':2,6 'ca1210001':5 'city':3,7 'humboldt':9 'of':4,8",94,Arcata  City Of,CA1210001,"ARCATA, CITY OF",HUMBOLDT
+17,'94':1 'arcata':2 'ca1210021':5 'city':3 'creek':7 'csd':8 'humboldt':9 'jacoby':6 'of':4,94,Arcata  City Of,CA1210021,JACOBY CREEK CSD,HUMBOLDT
+18,"'99':1 'arroyo':2,7 'ca4010001':6 'city':4 'department':10 'grande':3,8 'luis':12 'obispo':13 'of':5 'san':11 'water':9",99,Arroyo Grande  City Of,CA4010001,"ARROYO GRANDE, WATER DEPARTMENT",SAN LUIS OBISPO
+19,"'102':1 'arvin':2,7 'ca1510001':6 'community':3,8 'dist':10 'district':5 'kern':11 'service':4 'services':9",102,Arvin Community Service District,CA1510001,ARVIN COMMUNITY SERVICES DIST,KERN
+20,"'107':1 'atascadero':2,7 'ca4010002':6 'co':10 'company':5 'luis':12 'mutual':3,8 'obispo':13 'san':11 'water':4,9",107,Atascadero Mutual Water Company,CA4010002,ATASCADERO MUTUAL WATER CO,SAN LUIS OBISPO
+21,"'110':1 'atwater':4,8 'ca2410001':5 'city':2,6 'merced':9 'of':3,7",110,City of Atwater,CA2410001,CITY OF ATWATER,MERCED
+22,"'117':1 'and':4,9 'angeles':12 'azusa':2,7 'ca1910007':6 'light':3,8 'los':11 'water':5,10",117,Azusa Light and Water,CA1910007,AZUSA LIGHT AND WATER,LOS ANGELES
+23,"'123':1 'bakersfield':2,6 'ca1510031':5 'city':3,7 'kern':9 'of':4,8",123,Bakersfield  City Of,CA1510031,"BAKERSFIELD, CITY OF",KERN
+24,"'124':1 'bakman':2,6 'ca1010001':5 'company':4,8 'fresno':9 'water':3,7",124,Bakman Water Company,CA1010001,BAKMAN WATER COMPANY,FRESNO
+25,"'129':1 'banning':2,6 'ca3310006':5 'city':3,7 'of':4,8 'riverside':9",129,Banning  City Of,CA3310006,"BANNING, CITY OF",RIVERSIDE
+26,"'155':1 'bear':2,8 'ca1510038':7 'community':4 'csd':10 'district':6 'kern':11 'services':5 'valley':3,9",155,Bear Valley Community Services District,CA1510038,BEAR VALLEY CSD,KERN
+27,"'159':1 'beaumont':2,8 'ca3310002':7 'cherry':3,9 'district':6 'riverside':12 'valley':4,10 'water':5 'wd':11",159,Beaumont - Cherry Valley Water District,CA3310002,BEAUMONT CHERRY VALLEY WD,RIVERSIDE
+28,"'167':1 'bella':2,7 'ca4510014':6 'district':5,10 'shasta':11 'vista':3,8 'water':4,9",167,Bella Vista Water District,CA4510014,BELLA VISTA WATER DISTRICT,SHASTA
+29,"'170':1 'angeles':12 'bellflower':2,8 'ca1910013':7 'company':6 'los':11 'mutual':4 'mwc':10 'somerset':3,9 'water':5",170,Bellflower - Somerset Mutual Water Company,CA1910013,BELLFLOWER - SOMERSET MWC,LOS ANGELES
+30,"'178':1 'benicia':2,8 'ca4810001':5 'city':3,6 'of':4,7 'solano':9",178,Benicia  City Of,CA4810001,CITY OF BENICIA,SOLANO
+31,"'193':1 'angeles':14 'beverly':2,7 'ca1910156':6 'city':4,10 'dept':12 'hills':3,9 'hills-city':8 'los':13 'of':5 'water':11",193,Beverly Hills  City Of,CA1910156,"BEVERLY HILLS-CITY, WATER DEPT.",LOS ANGELES
+32,"'197':1 'bear':3,9 'bernardino':13 'big':2,8 'ca3610008':7 'city':10 'community':4 'csd':11 'district':6 'san':12 'services':5",197,Big Bear Community Services District,CA3610008,BIG BEAR CITY CSD,SAN BERNARDINO
+33,"'198':1 'and':11 'bear':3 'bernardino':14 'big':2 'ca3600283':7 'city':5 'department':8 'lake':4 'of':6,9 'power':12 'san':13 'water':10",198,Big Bear Lake  City Of,CA3600283,DEPARTMENT OF WATER AND POWER,SAN BERNARDINO
+34,"'198':1 'bear':3,9 'bernardino':14 'big':2,8 'ca3600395':7 'city':5 'lake':4 'of':6 'resort':12 'rv':11 'san':13 'shores':10",198,Big Bear Lake  City Of,CA3600395,BIG BEAR SHORES RV RESORT,SAN BERNARDINO
+35,'198':1 'bear':3 'bernardino':11 'big':2 'ca3610022':7 'city':5 'dwp':8 'fawnskin':9 'lake':4 'of':6 'san':10,198,Big Bear Lake  City Of,CA3610022,DWP - FAWNSKIN,SAN BERNARDINO
+36,"'198':1 'bear':3,9,13 'bernardino':16 'big':2,8,12 'ca3610044':7 'city':5 'dwp':11 'lake':4,10 'of':6 'san':15 'system':14",198,Big Bear Lake  City Of,CA3610044,BIG BEAR LAKE DWP - BIG BEAR SYSTEM,SAN BERNARDINO
+37,"'241':1 'blythe':2,6 'ca3310003':5 'city':3,7 'of':4,8 'riverside':9",241,Blythe  City Of,CA3310003,BLYTHE - CITY OF,RIVERSIDE
+38,"'262':1 'brawley':2,6 'ca1310001':5 'city':3,7 'imperial':9 'of':4,8",262,Brawley  City Of,CA1310001,"BRAWLEY, CITY OF",IMPERIAL
+39,"'263':1 'brea':2,8 'ca3010002':5 'city':3,6 'of':4,7 'orange':9",263,Brea  City Of,CA3010002,CITY OF BREA,ORANGE
+40,"'264':1 'brentwood':2,6 'ca0710004':5 'city':3 'contra':7 'costa':8 'of':4",264,Brentwood  City Of,CA0710004,BRENTWOOD,CONTRA COSTA
+41,"'283':1 'buena':2,9 'ca3010003':6 'city':4,7 'of':5,8 'orange':11 'park':3,10",283,Buena Park  City Of,CA3010003,CITY OF BUENA PARK,ORANGE
+42,"'285':1 'angeles':12 'burbank':2,7 'burbank-city':6 'ca1910179':5 'city':3,8 'dept':10 'los':11 'of':4 'water':9",285,Burbank  City Of,CA1910179,"BURBANK-CITY, WATER DEPT.",LOS ANGELES
+43,"'286':1 'burlingame':2,8 'ca4110003':5 'city':3,6 'mateo':10 'of':4,7 'san':9",286,Burlingame  City Of,CA4110003,CITY OF BURLINGAME,SAN MATEO
+44,"'351':1 'ca0510004':6 'calaveras':2,10 'ccwd':7 'county':3 'district':5 'ranch':9 'sheep':8 'water':4",351,Calaveras County Water District,CA0510004,CCWD - SHEEP RANCH,CALAVERAS
+45,"'351':1 'ca0510005':6 'calaveras':2,10 'ccwd':7 'county':3 'district':5 'point':9 'water':4 'west':8",351,Calaveras County Water District,CA0510005,CCWD - WEST POINT,CALAVERAS
+46,"'351':1 'ca0510006':6 'calaveras':2,10 'ccwd':7 'county':3 'district':5 'jenny':8 'lind':9 'water':4",351,Calaveras County Water District,CA0510006,CCWD - JENNY LIND,CALAVERAS
+47,"'351':1 'ca0510016':6 'calaveras':2,10 'ccwd':7 'county':3 'district':5 'ebbetts':8 'pass':9 'water':4",351,Calaveras County Water District,CA0510016,CCWD - EBBETTS PASS,CALAVERAS
+48,"'351':1 'ca0510017':6 'calaveras':2,10 'ccwd':7 'copper':8 'county':3 'cove':9 'district':5 'water':4",351,Calaveras County Water District,CA0510017,CCWD - COPPER COVE,CALAVERAS
+49,"'351':1 'ca0510019':6 'calaveras':2,9 'ccwd':7 'county':3 'district':5 'wallace':8 'water':4",351,Calaveras County Water District,CA0510019,CCWD - WALLACE,CALAVERAS
+50,"'353':1 'ca1310002':5 'calexico':2,6 'city':3,7 'imperial':9 'of':4,8",353,Calexico  City Of,CA1310002,"CALEXICO, CITY OF",IMPERIAL
+51,"'368':1 'american':3 'angeles':7,16 'baldwin':13 'ca1910052':9 'cal/am':10 'california':2 'company':5,12 'division':8 'hills':14 'los':6,15 'water':4,11",368,California American Water Company - Los Angeles Division,CA1910052,CAL/AM WATER COMPANY - BALDWIN HILLS,LOS ANGELES
+52,"'368':1 'american':3 'angeles':7,16 'ca1910139':9 'cal/am':10 'california':2 'company':5,12 'division':8 'los':6,15 'marino':14 'san':13 'water':4,11",368,California American Water Company - Los Angeles Division,CA1910139,CAL/AM WATER COMPANY - SAN MARINO,LOS ANGELES
+53,"'368':1 'am':12 'american':3 'angeles':7,17 'ca1910186':9 'cal':11 'cal-am':10 'california':2 'company':5,14 'division':8 'duarte':15 'los':6,16 'water':4,13",368,California American Water Company - Los Angeles Division,CA1910186,CAL-AM WATER COMPANY - DUARTE,LOS ANGELES
+54,"'369':1 'am':10 'american':3 'ca2701202':8 'cal':9 'california':2 'chualar':13 'company':5,12 'district':7 'monterey':6,14 'water':4,11",369,California American Water Company - Monterey District,CA2701202,CAL AM WATER COMPANY - CHUALAR,MONTEREY
+55,"'369':1 'am':10 'american':3 'ca2701257':8 'cal':9 'california':2 'company':5,12 'district':7 'garrapata':13 'monterey':6,14 'water':4,11",369,California American Water Company - Monterey District,CA2701257,CAL AM WATER COMPANY - GARRAPATA,MONTEREY
+56,"'369':1 'am':10 'american':3 'ca2702004':8 'cal':9 'california':2 'company':5,12 'district':7 'lane':14 'monterey':6,15 'ralph':13 'water':4,11",369,California American Water Company - Monterey District,CA2702004,CAL AM WATER COMPANY - RALPH LANE,MONTEREY
+57,"'369':1 'am':10 'american':3 'ca2710004':8 'cal':9 'california':2 'company':5,12 'district':7 'monterey':6,13,14 'water':4,11",369,California American Water Company - Monterey District,CA2710004,CAL AM WATER COMPANY - MONTEREY,MONTEREY
+58,"'369':1 'am':10 'ambler':13 'american':3 'ca2710006':8 'cal':9 'california':2 'company':5,12 'district':7 'monterey':6,15 'park':14 'water':4,11",369,California American Water Company - Monterey District,CA2710006,CAL AM WATER COMPANY - AMBLER PARK,MONTEREY
+59,"'369':1 'am':10 'american':3 'ca2710021':8 'cal':9 'california':2 'company':5,12 'district':7 'monterey':6,14 'toro':13 'water':4,11",369,California American Water Company - Monterey District,CA2710021,CAL AM WATER COMPANY - TORO,MONTEREY
+60,"'369':1 'am':10 'american':3 'ca2710022':8 'cal':9 'california':2 'company':5,12 'district':7 'hidden':13 'hills':14 'monterey':6,15 'water':4,11",369,California American Water Company - Monterey District,CA2710022,CAL AM WATER COMPANY - HIDDEN HILLS,MONTEREY
+61,"'372':1 'am':10 'american':3 'ca3110150':8 'cal':9 'california':2 'company':5 'district':7 'placer':12,13 'sacramento':6 'water':4 'west':11",372,California American Water Company - Sacramento District,CA3110150,CAL AM - WEST PLACER,PLACER
+62,"'372':1 'am':10 'american':3 'ca3410010':8 'cal':9 'california':2 'company':5 'district':7 'rosemont':12 'sacramento':6,13 'suburban':11 'water':4",372,California American Water Company - Sacramento District,CA3410010,CAL AM - SUBURBAN ROSEMONT,SACRAMENTO
+63,"'372':1 'am':10 'american':3 'ca3410012':8 'cal':9 'california':2 'company':5 'district':7 'isleton':11 'sacramento':6,12 'water':4",372,California American Water Company - Sacramento District,CA3410012,CAL AM - ISLETON,SACRAMENTO
+64,"'372':1 'am':10 'american':3 'ca3410013':8 'cal':9 'california':2 'company':5 'district':7 'lincoln':11 'oaks':12 'sacramento':6,13 'water':4",372,California American Water Company - Sacramento District,CA3410013,CAL AM - LINCOLN OAKS,SACRAMENTO
+65,"'372':1 'am':10 'american':3 'ca3410017':8 'cal':9 'california':2 'company':5 'district':7 'parkway':11 'sacramento':6,12 'water':4",372,California American Water Company - Sacramento District,CA3410017,CAL AM - PARKWAY,SACRAMENTO
+66,"'372':1 'am':10 'american':3 'ca3410027':8 'cal':9 'california':2 'company':5 'district':7 'park':12 'sacramento':6,13 'security':11 'water':4",372,California American Water Company - Sacramento District,CA3410027,CAL AM - SECURITY PARK,SACRAMENTO
+67,"'372':1 'am':10 'american':3 'antelope':11 'ca3410031':8 'cal':9 'california':2 'company':5 'district':7 'sacramento':6,12 'water':4",372,California American Water Company - Sacramento District,CA3410031,CAL AM - ANTELOPE,SACRAMENTO
+68,"'372':1 'am':10 'american':3 'arden':11 'ca3410045':8 'cal':9 'california':2 'company':5 'district':7 'sacramento':6,12 'water':4",372,California American Water Company - Sacramento District,CA3410045,CAL AM - ARDEN,SACRAMENTO
+69,"'372':1 'am':10 'american':3 'ca3410047':8 'cal':9 'california':2 'company':5 'district':7 'grove':12 'sacramento':6,13 'walnut':11 'water':4",372,California American Water Company - Sacramento District,CA3410047,CAL AM - WALNUT GROVE,SACRAMENTO
+70,'372':1 'am':10 'american':3 'ca5700712':8 'cal':9 'california':2 'company':5 'district':7 'dunnigan':11 'sacramento':6 'water':4 'yolo':12,372,California American Water Company - Sacramento District,CA5700712,CAL AM - DUNNIGAN,YOLO
+71,"'372':1 'am':10 'american':3 'ca3410023':8 'cal':9 'california':2 'company':5 'district':7 'fruitridge':11 'sacramento':6,13 'vista':12 'water':4",372,California American Water Company - Sacramento District,CA3410023,CAL AM - FRUITRIDGE VISTA,SACRAMENTO
+72,"'373':1 'am':12 'american':3 'ca3710001':9 'cal':11 'cal-am':10 'california':2 'company':5 'coronado':14 'diego':7,16 'district':8 'san':6,15 'water':4,13",373,California American Water Company - San Diego District,CA3710001,CAL-AM WATER CORONADO,SAN DIEGO
+73,"'376':1 'american':3,10 'ca5610040':8 'cal':9 'california':2 'co':12 'company':5 'district':7 'ventura':6,13 'water':4,11",376,California American Water Company - Ventura District,CA5610040,CAL AMERICAN WATER CO,VENTURA
+74,"'376':1 'american':3,10 'ca5610081':8 'cal':9 'california':2 'company':5 'district':7 'estates':14 'las':12 'posas':13 'ventura':6,15 'water':4 'wc':11",376,California American Water Company - Ventura District,CA5610081,CAL AMERICAN WC - LAS POSAS ESTATES,VENTURA
+75,"'378':1 'ca1510032':4 'california':2,5 'city':3,6,7 'kern':9 'of':8",378,California City,CA1510032,"CALIFORNIA CITY, CITY OF",KERN
+76,"'386':1 'bakersfield':6,9 'ca1510003':7 'california':2 'company':5 'cws':8 'kern':10 'service':4 'water':3",386,California Water Service Company Bakersfield,CA1510003,CWS - BAKERSFIELD,KERN
+77,'386':1 'bakersfield':6 'ca1510055':7 'california':2 'company':5 'cws':8 'garden':10 'kern':11 'north':9 'service':4 'water':3,386,California Water Service Company Bakersfield,CA1510055,CWS - NORTH GARDEN,KERN
+78,"'387':1 'bear':6,12 'ca4110006':8 'california':2,9 'company':5 'gulch':7,13 'mateo':15 'san':14 'service':4,11 'water':3,10",387,California Water Service Company Bear Gulch,CA4110006,CALIFORNIA WATER SERVICE - BEAR GULCH,SAN MATEO
+79,"'388':1 'butte':15 'ca0410002':8 'cal':10 'cal-water':9 'california':2 'chico':6,14 'co':13 'company':5 'district':7 'service':4,12 'water':3,11",388,California Water Service Company Chico District,CA0410002,CAL-WATER SERVICE CO.-CHICO,BUTTE
+80,"'388':1 'ca1110002':8 'cal':10 'cal-water':9 'california':2 'chico':6 'city':15 'co':13 'company':5 'district':7 'glenn':16 'hamilton':14 'service':4,12 'water':3,11",388,California Water Service Company Chico District,CA1110002,CAL-WATER SERVICE CO.-HAMILTON CITY,GLENN
+81,"'390':1 'ca4810002':7 'california':2,8 'co':11 'company':5 'dixon':6,12 'service':4,10 'solano':13 'water':3,9",390,California Water Service Company Dixon,CA4810002,CALIFORNIA WATER SERVICE CO. - DIXON,SOLANO
+82,"'391':1 'angeles':14 'ca1910033':7 'california':2,8 'co':11 'company':5 'dominguez':6,12 'los':13 'service':4,10 'water':3,9",391,California Water Service Company Dominguez,CA1910033,CALIFORNIA WATER SERVICE CO. - DOMINGUEZ,LOS ANGELES
+83,"'392':1 'angeles':8,16 'ca1910036':9 'california':2,10 'co':13 'company':5 'east':6 'ela':14 'los':7,15 'service':4,12 'water':3,11",392,California Water Service Company East Los Angeles,CA1910036,CALIFORNIA WATER SERVICE CO. - ELA,LOS ANGELES
+84,"'396':1 'angeles':14 'ca1910134':7 'california':2,8 'co':11 'company':5 'herm/redo':12 'hermosa/redondo':6 'los':13 'service':4,10 'water':3,9",396,California Water Service Company Hermosa/Redondo,CA1910134,CALIFORNIA WATER SERVICE CO. - HERM/REDO,LOS ANGELES
+85,"'397':1 'ca1500407':9 'california':2 'company':5 'cws':11 'cws-split':10 'kern':6,16 'mountain':13 'river':7 'service':4 'split':12 'system':15 'valley':8 'water':3,14",397,California Water Service Company Kern River Valley,CA1500407,CWS-SPLIT MOUNTAIN WATER SYSTEM,KERN
+86,"'397':1 'bodfish':12 'ca1510026':9 'california':2 'company':5 'cws':10 'kern':6,15 'river':7 'service':4 'system':14 'upper':11 'valley':8 'water':3,13",397,California Water Service Company Kern River Valley,CA1510026,CWS - UPPER BODFISH WATER SYSTEM,KERN
+87,"'397':1 'ca1510033':9 'california':2 'company':5 'cws':10 'kern':6,12 'kernville':11 'river':7 'service':4 'valley':8 'water':3",397,California Water Service Company Kern River Valley,CA1510033,CWS - KERNVILLE,KERN
+88,"'397':1 'ca1510039':9 'california':2 'company':5 'cws':10 'kern':6,13 'river':7 'service':4 'southlake':11 'system':12 'valley':8 'water':3",397,California Water Service Company Kern River Valley,CA1510039,CWS SOUTHLAKE SYSTEM,KERN
+89,"'397':1 'ca1510043':9 'california':2 'company':5 'cws':11 'cws-onyx':10 'kern':6,15 'onyx':12 'river':7 'service':4 'system':14 'valley':8 'water':3,13",397,California Water Service Company Kern River Valley,CA1510043,CWS-ONYX WATER SYSTEM,KERN
+90,"'397':1 'ca1510049':9 'california':2 'company':5 'cws':10 'kern':6,12 'lakeland':11 'river':7 'service':4 'valley':8 'water':3",397,California Water Service Company Kern River Valley,CA1510049,CWS - LAKELAND,KERN
+91,"'397':1 'bodfish':12 'ca1510056':9 'california':2 'company':5 'cws':10 'kern':6,15 'lower':11 'river':7 'service':4 'system':14 'valley':8 'water':3,13",397,California Water Service Company Kern River Valley,CA1510056,CWS - LOWER BODFISH WATER SYSTEM,KERN
+92,"'401':1 'alameda':12 'ca0110003':7 'california':2,8 'company':5 'livermore':6,11 'service':4,10 'water':3,9",401,California Water Service Company Livermore,CA0110003,CALIFORNIA WATER SERVICE - LIVERMORE,ALAMEDA
+93,"'402':1 'altos':11 'altos/suburban':7 'ca4310001':8 'california':2 'clara':14 'company':5 'cwsc':9 'los':6,10 'santa':13 'service':4 'suburban':12 'water':3",402,California Water Service Company Los Altos/Suburban,CA4310001,CWSC LOS ALTOS SUBURBAN,SANTA CLARA
+94,"'405':1 'ca5810001':7 'cal':9 'cal-water':8 'california':2 'co':12 'company':5 'marysville':6,13 'service':4,11 'water':3,10 'yuba':14",405,California Water Service Company Marysville,CA5810001,CAL-WATER SERVICE CO.-MARYSVILLE,YUBA
+95,"'412':1 'butte':14 'ca0410005':7 'cal':9 'cal-water':8 'california':2 'co':12 'company':5 'oroville':6,13 'service':4,11 'water':3,10",412,California Water Service Company Oroville,CA0410005,CAL-WATER SERVICE CO.-OROVILLE,BUTTE
+96,"'413':1 'angeles':16 'ca1910104':8 'california':2,9 'co':12 'company':5 'los':15 'palos':6,13 'service':4,11 'ver':14 'verdes':7 'water':3,10",413,California Water Service Company Palos Verdes,CA1910104,CALIFORNIA WATER SERVICE CO. - PALOS VER,LOS ANGELES
+97,'417':1 'ca2701929':8 'california':2 'company':5 'country':9 'district':7 'meadows':10 'monterey':12 'mwc':11 'salinas':6 'service':4 'water':3,417,California Water Service Company Salinas District,CA2701929,COUNTRY MEADOWS MWC,MONTEREY
+98,"'417':1 'ca2710010':8 'california':2 'company':5 'cwsc':9 'district':7 'monterey':11 'salinas':6,10 'service':4 'water':3",417,California Water Service Company Salinas District,CA2710010,CWSC SALINAS,MONTEREY
+99,"'417':1 'ca2710012':8 'california':2 'company':5 'cwsc':9 'district':7 'hills':11 'monterey':12 'salinas':6,10 'service':4 'water':3",417,California Water Service Company Salinas District,CA2710012,CWSC SALINAS HILLS,MONTEREY
+100,'417':1 'ca2710013':8 'california':2 'company':5 'cwsc':9 'district':7 'las':10 'lomas':11 'monterey':12 'salinas':6 'service':4 'water':3,417,California Water Service Company Salinas District,CA2710013,CWSC LAS LOMAS,MONTEREY
+101,'417':1 'ca2710019':8 'california':2 'company':5 'cwsc':9 'district':7 'hills':11 'monterey':12 'oak':10 'salinas':6 'service':4 'water':3,417,California Water Service Company Salinas District,CA2710019,CWSC OAK HILLS,MONTEREY
+102,"'420':1 'ca4110007':8 'california':2,9 'carlos':13 'company':5 'mateo':15 'mid':6 'peninsula':7 'san':12,14 'service':4,11 'water':3,10",420,California Water Service Company Mid Peninsula,CA4110007,CALIFORNIA WATER SERVICE - SAN CARLOS,SAN MATEO
+103,"'420':1 'ca4110008':8 'california':2,9 'company':5 'mateo':13,15 'mid':6 'peninsula':7 'san':12,14 'service':4,11 'water':3,10",420,California Water Service Company Mid Peninsula,CA4110008,CALIFORNIA WATER SERVICE - SAN MATEO,SAN MATEO
+104,"'421':1 'ca1010024':7 'california':2 'company':5 'cws':8 'fresno':10 'selma':6,9 'service':4 'water':3",421,California Water Service Company Selma,CA1010024,CWS - SELMA,FRESNO
+105,"'422':1 'ca4110009':9 'california':2,10 'company':5 'francisco':8,16 'mateo':18 's':14 'san':7,15,17 'service':4,13 'service-s':12 'south':6 'water':3,11",422,California Water Service Company South San Francisco,CA4110009,CALIFORNIA WATER SERVICE-S SAN FRANCISCO,SAN MATEO
+106,"'424':1 'ca3910001':7 'california':2,8 'company':5 'joaquin':13 'san':12 'service':4,10 'stockton':6,11 'water':3,9",424,California Water Service Company Stockton,CA3910001,CALIFORNIA WATER SERVICE - STOCKTON,SAN JOAQUIN
+107,"'427':1 'ca5400935':7 'california':2 'company':5,11 'cws':8 'mullen':9 'service':4 'tulare':12 'visalia':6 'water':3,10",427,California Water Service Company Visalia,CA5400935,CWS - MULLEN WATER COMPANY,TULARE
+108,"'427':1 'ca5410016':7 'california':2 'company':5 'cws':8 'service':4 'tulare':10 'visalia':6,9 'water':3",427,California Water Service Company Visalia,CA5410016,CWS - VISALIA,TULARE
+109,"'427':1 'ca5410041':7 'california':2 'company':5,11 'cws':8 'service':4 'tulare':12 'tulco':9 'visalia':6 'water':3,10",427,California Water Service Company Visalia,CA5410041,CWS - TULCO WATER COMPANY,TULARE
+110,"'428':1 'ca5610016':7 'california':2,8 'co':11 'company':5 'service':4,10 'ventura':13 'water':3,9 'westlake':6,12",428,California Water Service Company Westlake,CA5610016,CALIFORNIA WATER SERVICE CO - WESTLAKE,VENTURA
+111,"'443':1 'ca5610019':5 'camarillo':2,6 'city':3 'dept':8 'of':4 'ventura':9 'water':7",443,Camarillo  City Of,CA5610019,CAMARILLO WATER DEPT,VENTURA
+112,"'445':1 'ca4010014':6 'cambria':2,7 'comm':8 'community':3 'dist':10 'district':5 'luis':12 'obispo':13 'san':11 'service':4 'services':9",445,Cambria Community Service District,CA4010014,CAMBRIA COMM SERVICES DIST,SAN LUIS OBISPO
+113,"'467':1 'ca5610063':5 'camrosa':2,6 'district':4,8 'ventura':9 'water':3,7",467,Camrosa Water District,CA5610063,CAMROSA WATER DISTRICT,VENTURA
+114,"'478':1 'ca3710005':6 'carlsbad':2,7 'diego':10 'district':5 'municipal':3 'mwd':8 'san':9 'water':4",478,Carlsbad Municipal Water District,CA3710005,CARLSBAD MWD,SAN DIEGO
+115,"'481':1 'ca3410004':5 'carmichael':2,6 'district':4,8 'sacramento':9 'water':3,7",481,Carmichael Water District,CA3410004,CARMICHAEL WATER DISTRICT,SACRAMENTO
+116,"'485':1 'barbara':12 'ca4210001':6 'carpinteria':2,7 'district':5,10 'santa':11 'valley':3,8 'water':4,9",485,Carpinteria Valley Water District,CA4210001,CARPINTERIA VALLEY WATER DISTRICT,SANTA BARBARA
+117,"'495':1 'ca5610014':6 'casitas':2 'district':5 'municipal':3 'ojai':7 'system':9 'ventura':10 'water':4,8",495,Casitas Municipal Water District,CA5610014,OJAI WATER SYSTEM,VENTURA
+118,"'495':1 'ca5610024':6 'casitas':2,7 'dist':10 'district':5 'municipal':3,8 'ventura':11 'water':4,9",495,Casitas Municipal Water District,CA5610024,CASITAS MUNICIPAL WATER DIST,VENTURA
+119,"'522':1 'ca5010028':5 'ceres':2,6 'city':3,7 'of':4,8 'stanislaus':9",522,Ceres  City Of,CA5010028,"CERES, CITY OF",STANISLAUS
+120,"'524':1 'angeles':11 'ca1910019':5 'cerritos':2,6 'city':3,7 'dept':9 'los':10 'of':4 'water':8",524,Cerritos  City Of,CA1910019,"CERRITOS - CITY, WATER DEPT.",LOS ANGELES
+121,"'545':1 'bernardino':10 'ca3610012':5 'chino':2,6 'city':3,7 'of':4,8 'san':9",545,Chino  City Of,CA3610012,"CHINO, CITY OF",SAN BERNARDINO
+122,"'547':1 'bernardino':12 'ca3610036':6 'chino':2,7 'city':4,9 'hills':3,8 'of':5,10 'san':11",547,Chino Hills  City Of,CA3610036,"CHINO HILLS, CITY OF",SAN BERNARDINO
+123,"'561':1 'ca3410006':6 'citrus':2,7 'district':5,10 'heights':3,8 'sacramento':11 'water':4,9",561,Citrus Heights Water District,CA3410006,CITRUS HEIGHTS WATER DISTRICT,SACRAMENTO
+124,"'572':1 'ca4910002':5 'city':3,7 'cloverdale':2,6 'of':4,8 'sonoma':9",572,Cloverdale  City of,CA4910002,"CLOVERDALE, CITY OF",SONOMA
+125,"'574':1 'ca1010003':5 'city':3,6 'clovis':2,8 'fresno':9 'of':4,7",574,Clovis  City Of,CA1010003,CITY OF CLOVIS,FRESNO
+126,"'575':1 'authority':8 'ca3310007':5 'city':3 'coachella':2,6 'of':4 'riverside':9 'water':7",575,Coachella  City Of,CA3310007,COACHELLA WATER AUTHORITY,RIVERSIDE
+127,"'577':1 'ca3310001':6 'coachella':2,7 'community':10 'cove':9 'district':5 'riverside':11 'valley':3 'vwd':8 'water':4",577,Coachella Valley Water District,CA3310001,COACHELLA VWD: COVE COMMUNITY,RIVERSIDE
+128,"'577':1 '8':11 'ca3310048':6 'coachella':2,7 'district':5 'i.d':9 'no':10 'riverside':12 'valley':3 'vwd':8 'water':4",577,Coachella Valley Water District,CA3310048,COACHELLA VWD: I.D. NO. 8,RIVERSIDE
+129,"'578':1 'ca1010004':5 'city':3,8 'coalinga':2,7 'coalinga-city':6 'fresno':9 'of':4",578,Coalinga  City Of,CA1010004,COALINGA-CITY,FRESNO
+130,"'583':1 'ca4110011':6 'coastside':2,7 'county':3,8 'district':5,10 'mateo':12 'san':11 'water':4,9",583,Coastside County Water District,CA4110011,COASTSIDE COUNTY WATER DISTRICT,SAN MATEO
+131,"'596':1 'bernardino':10 'ca3610014':5 'city':3,7 'colton':2,6 'of':4,8 'san':9",596,Colton  City Of,CA3610014,"COLTON, CITY OF",SAN BERNARDINO
+132,"'607':1 'angeles':12 'ca1910026':5 'city':3,8 'compton':2,7 'compton-city':6 'dept':10 'los':11 'of':4 'water':9",607,Compton  City Of,CA1910026,"COMPTON-CITY, WATER DEPT.",LOS ANGELES
+133,"'613':1 'ca0710003':6 'contra':2,7,11 'costa':3,8,12 'district':5,10 'water':4,9",613,Contra Costa Water District,CA0710003,CONTRA COSTA WATER DISTRICT,CONTRA COSTA
+134,"'618':1 'ca1610004':5 'city':3,7 'corcoran':2,6 'kings':9 'of':4,8",618,Corcoran  City Of,CA1610004,"CORCORAN, CITY OF",KINGS
+135,"'624':1 'ca3310037':5 'city':3,7 'corona':2,6 'of':4,8 'riverside':9",624,Corona  City Of,CA3310037,"CORONA, CITY OF",RIVERSIDE
+136,"'644':1 'angeles':12 'ca1910127':5 'city':3,8 'covina':2,7 'covina-city':6 'dept':10 'los':11 'of':4 'water':9",644,Covina  City Of,CA1910127,"COVINA-CITY, WATER DEPT.",LOS ANGELES
+137,"'649':1 'ca0810001':4 'city':3,5,8 'crescent':2,7 'del':9 'norte':10 'of':6",649,Crescent City,CA0810001,CITY OF CRESCENT CITY,DEL NORTE
+138,"'651':1 'angeles':12 'ca1910028':7 'community':4 'crescenta':2,8 'cwd':10 'district':6 'los':11 'valley':3,9 'water':5",651,Crescenta Valley Community Water District,CA1910028,CRESCENTA VALLEY CWD,LOS ANGELES
+139,"'10':11 '654':1 'bernardino':13 'ca3610015':6 'crestline':2,7 'cwd':9 'district':5 'division':10 'san':12 'village':3,8 'water':4",654,Crestline Village Water District,CA3610015,CRESTLINE VILLAGE CWD - DIVISION 10,SAN BERNARDINO
+175,"'920':1 'ca1210006':5 'city':3,7 'fortuna':2,6 'humboldt':9 'of':4,8",920,Fortuna  City Of,CA1210006,"FORTUNA, CITY OF",HUMBOLDT
+140,"'664':1 'bernardino':12 'ca3610018':6 'cucamonga':2,7 'district':5,10 'san':11 'valley':3,8 'water':4,9",664,Cucamonga Valley Water District,CA3610018,CUCAMONGA VALLEY WATER DISTRICT,SAN BERNARDINO
+141,"'673':1 'ca4110013':4 'city':3,5,8 'daly':2,7 'mateo':10 'of':6 'san':9",673,Daly City,CA4110013,CITY OF DALY CITY,SAN MATEO
+142,"'678':1 'ca5710001':5 'city':3,6 'davis':2,8 'of':4,7 'yolo':9",678,Davis  City Of,CA5710001,CITY OF DAVIS,YOLO
+143,"'699':1 'butte':13 'ca0410011':6 'co':10 'company':5 'del':2,7 'oro':3,8 'paradise':11 'pines':12 'water':4,9",699,Del Oro Water Company,CA0410011,DEL ORO WATER CO.-PARADISE PINES,BUTTE
+144,"'711':1 'ca1510005':5 'city':3,7 'delano':2,6 'kern':9 'of':4,8",711,Delano  City Of,CA1510005,"DELANO, CITY OF",KERN
+145,"'727':1 'agency':4,8 'ca3310005':5 'desert':2,6 'riverside':9 'water':3,7",727,Desert Water Agency,CA3310005,DESERT WATER AGENCY,RIVERSIDE
+146,"'731':1 'ca0710007':5 'contra':9 'costa':10 'diablo':2,6 'district':4,8 'water':3,7",731,Diablo Water District,CA0710007,DIABLO WATER DISTRICT,CONTRA COSTA
+147,"'737':1 'ca5410002':5 'city':3,7 'dinuba':2,6 'of':4,8 'tulare':9",737,Dinuba  City Of,CA5410002,"DINUBA, CITY OF",TULARE
+148,"'739':1 'bay':3,11 'ca0710009':7 'community':4 'contra':12 'costa':13 'discovery':2,10 'district':6 'of':9 'services':5 'town':8",739,Discovery Bay Community Services District,CA0710009,TOWN OF DISCOVERY BAY,CONTRA COSTA
+149,"'748':1 'angeles':11 'ca1910034':5 'city':3,7 'dept':9 'downey':2,6 'los':10 'of':4 'water':8",748,Downey  City Of,CA1910034,"DOWNEY - CITY, WATER DEPT.",LOS ANGELES
+150,"'759':1 'alameda':13 'ca0110009':7 'district':6,12 'dublin':2,8 'ramon':4,10 'san':3,9 'services':5,11",759,Dublin San Ramon Services District,CA0110009,DUBLIN SAN RAMON SERVICES DISTRICT,ALAMEDA
+151,"'775':1 'alameda':11 'bay':3,9 'ca0110005':7 'district':6 'east':2,8 'mud':10 'municipal':4 'utility':5",775,East Bay Municipal Utility District,CA0110005,EAST BAY MUD,ALAMEDA
+152,"'784':1 'ca1510006':7 'community':4 'csd':10 'district':6 'east':2,8 'kern':11 'niles':3,9 'services':5",784,East Niles Community Services District,CA1510006,EAST NILES CSD,KERN
+153,"'787':1 'alto':4,12 'ca4110024':7 'city':5,8 'east':2,10 'mateo':14 'of':6,9 'palo':3,11 'san':13",787,East Palo Alto  City Of,CA4110024,CITY OF EAST PALO ALTO,SAN MATEO
+154,"'793':1 'bernardino':12 'ca3610064':6 'district':5,10 'east':2,7 'san':11 'valley':3,8 'water':4,9",793,East Valley Water District,CA3610064,EAST VALLEY WATER DISTRICT,SAN BERNARDINO
+155,"'794':1 'ca3310009':6 'district':5 'eastern':2,7 'municipal':3,8 'riverside':10 'water':4 'wd':9",794,Eastern Municipal Water District,CA3310009,EASTERN MUNICIPAL WD,RIVERSIDE
+156,"'814':1 'ca1310004':6 'centro':3,8 'city':4,9 'el':2,7 'imperial':11 'of':5,10",814,El Centro  City Of,CA1310004,"EL CENTRO, CITY OF",IMPERIAL
+157,"'816':1 'ca0910001':6 'district':5 'dorado':3,8,12 'el':2,7,11 'id':9 'irrigation':4 'main':10",816,El Dorado Irrigation District,CA0910001,EL DORADO ID - MAIN,EL DORADO
+158,"'816':1 'ca0910017':6 'district':5 'dorado':3,8,12 'el':2,7,11 'id':9 'irrigation':4 'strawberry':10",816,El Dorado Irrigation District,CA0910017,EL DORADO ID - STRAWBERRY,EL DORADO
+159,"'816':1 'ca0910018':6 'district':5 'dorado':3,8,12 'el':2,7,11 'id':9 'irrigation':4 'outingdale':10",816,El Dorado Irrigation District,CA0910018,EL DORADO ID - OUTINGDALE,EL DORADO
+160,"'821':1 'angeles':14 'ca1910038':6 'city':4,10 'dept':12 'el':2,7 'los':13 'monte':3,9 'monte-city':8 'of':5 'water':11",821,El Monte  City Of,CA1910038,"EL MONTE-CITY, WATER DEPT.",LOS ANGELES
+161,"'827':1 'angeles':14 'ca1910040':6 'city':4,10 'dept':12 'el':2,7 'los':13 'of':5 'segundo':3,9 'segundo-city':8 'water':11",827,El Segundo  City Of,CA1910040,"EL SEGUNDO-CITY, WATER DEPT.",LOS ANGELES
+162,"'830':1 'ca3010079':6 'district':5,10 'el':2,7 'orange':11 'toro':3,8 'water':4,9",830,El Toro Water District,CA3010079,EL TORO WATER DISTRICT,ORANGE
+163,"'835':1 'ca3410008':6 'district':5 'elk':2,7 'grove':3,8 'sacramento':11 'service':10 'water':4,9",835,Elk Grove Water District,CA3410008,ELK GROVE WATER SERVICE,SACRAMENTO
+164,"'842':1 'ca3310012':7 'district':6 'elsinore':2,8 'municipal':4 'mwd':10 'riverside':11 'valley':3,9 'water':5",842,Elsinore Valley Municipal Water District,CA3310012,ELSINORE VALLEY MWD,RIVERSIDE
+165,"'851':1 'ca3710006':5 'city':3,7 'diego':10 'escondido':2,6 'of':4,8 'san':9",851,Escondido  City Of,CA3710006,"ESCONDIDO, CITY OF",SAN DIEGO
+166,"'856':1 'ca4110021':6 'district':5,10 'estero':2,7 'improvement':4,9 'mateo':12 'municipal':3,8 'san':11",856,Estero Municipal Improvement District,CA4110021,ESTERO MUNICIPAL IMPROVEMENT DISTRICT,SAN MATEO
+167,"'859':1 'ca1210004':5 'city':3,7 'eureka':2,6 'humboldt':9 'of':4,8",859,Eureka  City Of,CA1210004,"EUREKA, CITY OF",HUMBOLDT
+168,"'863':1 'ca5410003':5 'city':3,7 'exeter':2,6 'of':4,8 'tulare':9",863,Exeter  City Of,CA5410003,"EXETER, CITY OF",TULARE
+169,"'866':1 'ca3410009':6 'district':5,10 'fair':2,7 'oaks':3,8 'sacramento':11 'water':4,9",866,Fair Oaks Water District,CA3410009,FAIR OAKS WATER DISTRICT,SACRAMENTO
+170,"'867':1 'ca4810003':5 'city':3,6 'fairfield':2,8 'of':4,7 'solano':9",867,Fairfield  City Of,CA4810003,CITY OF FAIRFIELD,SOLANO
+171,"'873':1 'ca3710008':6 'diego':10 'district':5 'fallbrook':2,7 'public':3 'pud':8 'san':9 'utility':4",873,Fallbrook Public Utility District,CA3710008,FALLBROOK PUD,SAN DIEGO
+172,"'890':1 'ca5610002':5 'city':3 'dept':8 'fillmore':2,6 'of':4 'ventura':9 'water':7",890,Fillmore  City Of,CA5610002,FILLMORE WATER DEPT,VENTURA
+173,"'904':1 'ca3410014':5 'city':3,7 'folsom':2,6 'main':9 'of':4,8 'sacramento':10",904,Folsom  City Of,CA3410014,"FOLSOM, CITY OF - MAIN",SACRAMENTO
+174,"'904':1 'ashland':9 'ca3410030':5 'city':3,7 'folsom':2,6 'of':4,8 'sacramento':10",904,Folsom  City Of,CA3410030,"FOLSOM, CITY OF - ASHLAND",SACRAMENTO
+176,"'924':1 'ca3010069':6 'city':4,7 'fountain':2,9 'of':5,8 'orange':11 'valley':3,10",924,Fountain Valley  City Of,CA3010069,CITY OF FOUNTAIN VALLEY,ORANGE
+177,"'934':1 'ca1010007':5 'city':3,6 'fresno':2,8,9 'of':4,7",934,Fresno  City Of,CA1010007,CITY OF FRESNO,FRESNO
+178,"'967':1 'ca3010010':5 'city':3,6 'fullerton':2,8 'of':4,7 'orange':9",967,Fullerton  City Of,CA3010010,CITY OF FULLERTON,ORANGE
+179,"'972':1 'ca3410011':5 'city':3,7 'galt':2,6 'of':4,8 'sacramento':9",972,Galt  City Of,CA3410011,"GALT, CITY OF",SACRAMENTO
+180,"'977':1 'ca3010062':6 'city':4,7 'garden':2,9 'grove':3,10 'of':5,8 'orange':11",977,Garden Grove  City Of,CA3010062,CITY OF GARDEN GROVE,ORANGE
+181,"'990':1 'ca0910013':7 'district':6 'divide':3,9 'dorado':12 'el':11 'georgetown':2,8 'public':4 'pud':10 'utility':5",990,Georgetown Divide Public Utility District,CA0910013,GEORGETOWN DIVIDE PUD,EL DORADO
+182,"'995':1 'ca4310004':5 'city':3,6 'clara':10 'gilroy':2,8 'of':4,7 'santa':9",995,Gilroy  City Of,CA4310004,CITY OF GILROY,SANTA CLARA
+183,"'1004':1 'angeles':12 'ca1910043':5 'city':3,8 'dept':10 'glendale':2,7 'glendale-city':6 'los':11 'of':4 'water':9",1004,Glendale  City Of,CA1910043,"GLENDALE-CITY, WATER DEPT.",LOS ANGELES
+184,"'1005':1 'angeles':12 'ca1910044':5 'city':3,8 'dept':10 'glendora':2,7 'glendora-city':6 'los':11 'of':4 'water':9",1005,Glendora  City Of,CA1910044,"GLENDORA-CITY, WATER DEPT.",LOS ANGELES
+185,"'1029':1 'angeles':11 'artesia':6,9 'ca1910004':7 'company':5 'golden':2 'gswc':8 'los':10 'state':3 'water':4",1029,Golden State Water Company - Artesia,CA1910004,GSWC - ARTESIA,LOS ANGELES
+186,"'1030':1 'barstow':6,12 'bernardino':14 'ca3610043':7 'co':11 'company':5 'golden':2,8 'san':13 'state':3,9 'water':4,10",1030,Golden State Water Company - Barstow,CA3610043,GOLDEN STATE WATER CO - BARSTOW,SAN BERNARDINO
+187,"'1031':1 'bay':6,13 'ca0710002':8 'company':5,12 'contra':15 'costa':16 'golden':2,9 'point':7,14 'state':3,10 'water':4,11",1031,Golden State Water Company - Bay Point,CA0710002,GOLDEN STATE WATER COMPANY - BAY POINT,CONTRA COSTA
+188,"'1032':1 'angeles':16 'bell':7,8,12,13 'bell-bell':6 'ca1910011':10 'company':5 'gardens':9,14 'golden':2 'gswc':11 'los':15 'state':3 'water':4",1032,Golden State Water Company - Bell-Bell Gardens,CA1910011,"GSWC - BELL, BELL GARDENS",LOS ANGELES
+189,"'1034':1 'angeles':11 'ca1910024':7 'claremont':6,9 'company':5 'golden':2 'gswc':8 'los':10 'state':3 'water':4",1034,Golden State Water Company - Claremont,CA1910024,GSWC - CLAREMONT,LOS ANGELES
+190,"'1036':1 'ca3410015':7 'co':11 'company':5 'cordova':6,12 'golden':2,8 'sacramento':13 'state':3,9 'water':4,10",1036,Golden State Water Company - Cordova,CA3410015,GOLDEN STATE WATER CO. - CORDOVA,SACRAMENTO
+191,"'1038':1 'angeles':13 'ca1910030':8 'city':7,11 'company':5 'culver':6,10 'golden':2 'gswc':9 'los':12 'state':3 'water':4",1038,Golden State Water Company - Culver City,CA1910030,GSWC - CULVER CITY,LOS ANGELES
+192,'1041':1 'angeles':12 'ca1910077':8 'company':5 'florence':6 'florence/graham':10 'golden':2 'graham':7 'gswc':9 'los':11 'state':3 'water':4,1041,Golden State Water Company - Florence Graham,CA1910077,GSWC - FLORENCE/GRAHAM,LOS ANGELES
+193,"'1049':1 'angeles':11 'ca1910098':7 'company':5 'golden':2 'gswc':8 'los':10 'norwalk':6,9 'state':3 'water':4",1049,Golden State Water Company - Norwalk,CA1910098,GSWC - NORWALK,LOS ANGELES
+194,"'1052':1 'barbara':14 'ca4210016':7 'company':5,11 'golden':2,8 'orcutt':6,12 'santa':13 'state':3,9 'water':4,10",1052,Golden State Water Company - Orcutt,CA4210016,GOLDEN STATE WATER COMPANY - ORCUTT,SANTA BARBARA
+195,"'1053':1 'ca3010035':7 'company':5 'golden':2,8 'linda':12 'orange':13 'placentia':6 'placentia/yorba':11 'state':3,9 'water':4 'wc':10",1053,Golden State Water Company - Placentia,CA3010035,GOLDEN STATE WC - PLACENTIA/YORBA LINDA,ORANGE
+196,"'1054':1 'angeles':14 'ca1910142':8 'company':5 'dimas':7,12 'golden':2 'gswc':10 'gswc-san':9 'los':13 'san':6,11 'state':3 'water':4",1054,Golden State Water Company - San Dimas,CA1910142,GSWC-SAN DIMAS,LOS ANGELES
+197,"'1057':1 'ca5610059':8 'company':5,12 'golden':2,9 'simi':6,13 'state':3,10 'valley':7,14 'ventura':15 'water':4,11",1057,Golden State Water Company - Simi Valley,CA5610059,GOLDEN STATE WATER COMPANY - SIMI VALLEY,VENTURA
+198,"'1058':1 'angeles':14 'arcadia':7,12 'ca1910212':8 'company':5 'golden':2 'gswc':10 'gswc-south':9 'los':13 'south':6,11 'state':3 'water':4",1058,Golden State Water Company - South Arcadia,CA1910212,GSWC-SOUTH ARCADIA,LOS ANGELES
+199,"'1059':1 'angeles':16 'ca1910223':9 'company':5 'gabriel':8,14 'golden':2 'gswc':11 'gswc-south':10 'los':15 'san':7,13 'south':6,12 'state':3 'water':4",1059,Golden State Water Company - South San Gabriel,CA1910223,GSWC-SOUTH SAN GABRIEL,LOS ANGELES
+200,"'1060':1 'angeles':11 'ca1910155':7 'company':5 'golden':2 'gswc':8 'los':10 'southwest':6,9 'state':3 'water':4",1060,Golden State Water Company - Southwest,CA1910155,GSWC - SOUTHWEST,LOS ANGELES
+201,"'1062':1 'ca3010022':8 'company':5 'county':14 'golden':2,9 'orange':7,13,15 'state':3,10 'water':4 'wc':11 'west':6,12",1062,Golden State Water Company - West Orange,CA3010022,GOLDEN STATE WC - WEST ORANGE COUNTY,ORANGE
+202,"'1068':1 'barbara':10 'ca4210004':5 'district':4,8 'goleta':2,6 'santa':9 'water':3,7",1068,Goleta Water District,CA4210004,GOLETA WATER DISTRICT,SANTA BARBARA
+203,"'1083':1 'ca4310022':7 'clara':13 'company':5 'great':2,8 'inc':11 'incorporated':6 'oaks':3,9 'santa':12 'water':4 'wc':10",1083,Great Oaks Water Company Incorporated,CA4310022,GREAT OAKS WC INC,SANTA CLARA
+204,"'1093':1 'ca2710008':5 'city':3,7 'greenfield':2,6 'monterey':9 'of':4,8",1093,Greenfield  City Of,CA2710008,"GREENFIELD, CITY OF",MONTEREY
+205,"'1094':1 'ca1510024':6 'county':3,8 'district':5 'greenfield':2,7 'kern':10 'water':4 'wd':9",1094,Greenfield County Water District,CA1510024,GREENFIELD COUNTY WD,KERN
+241,"'1408':1 'ca3310074':6 'district':5,10 'riverside':11 'temescal':2,7 'valley':3,8 'water':4,9",1408,Temescal Valley Water District,CA3310074,TEMESCAL VALLEY WATER DISTRICT,RIVERSIDE
+206,"'1109':1 'ca5510009':6 'community':3,8 'dist':10 'district':5 'groveland':2,7 'serv':9 'services':4 'tuolumne':11",1109,Groveland Community Services District,CA5510009,GROVELAND COMMUNITY SERV DIST,TUOLUMNE
+207,"'1110':1 'beach':3,8 'ca4010004':6 'city':4 'department':10 'grover':2,7 'luis':12 'obispo':13 'of':5 'san':11 'water':9",1110,Grover Beach  City Of,CA4010004,GROVER BEACH WATER DEPARTMENT,SAN LUIS OBISPO
+208,"'1125':1 'ca1610003':5 'city':3,7 'hanford':2,6 'kings':9 'of':4,8",1125,Hanford  City Of,CA1610003,"HANFORD, CITY OF",KINGS
+209,"'1142':1 'angeles':12 'ca1910047':5 'city':3,8 'dept':10 'hawthorne':2,7 'hawthorne-city':6 'los':11 'of':4 'water':9",1142,Hawthorne  City Of,CA1910047,HAWTHORNE-CITY WATER DEPT.,LOS ANGELES
+210,"'1143':1 'alameda':9 'ca0110006':5 'city':3,6 'hayward':2,8 'of':4,7",1143,Hayward  City Of,CA0110006,CITY OF HAYWARD,ALAMEDA
+211,"'1144':1 'ca4910005':5 'city':3,7 'healdsburg':2,6 'of':4,8 'sonoma':9",1144,Healdsburg  City Of,CA4910005,"HEALDSBURG, CITY OF",SONOMA
+212,"'1154':1 'ca3710010':5 'diego':10 'district':4,8 'helix':2,6 'san':9 'water':3,7",1154,Helix Water District,CA3710010,HELIX WATER DISTRICT,SAN DIEGO
+213,"'1157':1 'ca3310016':5 'city':3,7 'hemet':2,6 'of':4,8 'riverside':9",1157,Hemet  City Of,CA3310016,"HEMET, CITY OF",RIVERSIDE
+214,"'1166':1 'bernardino':9 'ca3610024':5 'district':4 'hesperia':2,6 'san':8 'water':3 'wd':7",1166,Hesperia Water District,CA3610024,HESPERIA WD,SAN BERNARDINO
+215,"'1167':1 'bernardino':11 'ca3610073':6 'desert':3,8 'district':5 'hi':2,7 'san':10 'water':4 'wd':9",1167,Hi Desert Water District,CA3610073,HI DESERT WD,SAN BERNARDINO
+216,"'1181':1 'ca4110016':5 'hillsborough':2,8 'mateo':10 'of':4,7 'san':9 'town':3,6",1181,Hillsborough  Town Of,CA4110016,TOWN OF HILLSBOROUGH,SAN MATEO
+217,"'1188':1 'benito':10 'ca3510001':5 'city':3,7 'hollister':2,6 'of':4,8 'san':9",1188,Hollister  City Of,CA3510001,"HOLLISTER, CITY OF",SAN BENITO
+218,"'1210':1 'c.s.d':8 'ca1210009':6 'community':3 'district':5 'humboldt':2,7,9 'services':4",1210,Humboldt Community Services District,CA1210009,HUMBOLDT C.S.D.,HUMBOLDT
+219,"'1215':1 'beach':3,10 'ca3010053':6 'city':4,7 'huntington':2,9 'of':5,8 'orange':11",1215,Huntington Beach  City Of,CA3010053,CITY OF HUNTINGTON BEACH,ORANGE
+220,"'1217':1 'angeles':14 'ca1910049':6 'city':4,10 'dept':12 'huntington':2,7 'los':13 'of':5 'park':3,9 'park-city':8 'water':11",1217,Huntington Park  City Of,CA1910049,"HUNTINGTON PARK-CITY, WATER DEPT.",LOS ANGELES
+221,"'1225':1 'ca1310006':5 'city':3,7 'imperial':2,6,9 'of':4,8",1225,Imperial  City Of,CA1310006,"IMPERIAL, CITY OF",IMPERIAL
+222,"'1234':1 'ca1510017':7 'district':6 'indian':2,8 'kern':12 'valley':4,10 'w.d':11 'water':5 'wells':3,9",1234,Indian Wells Valley Water District,CA1510017,INDIAN WELLS VALLEY W.D.,KERN
+223,"'1236':1 'authority':8 'ca3310020':5 'city':3 'indio':2,6 'of':4 'riverside':9 'water':7",1236,Indio  City Of,CA3310020,INDIO WATER AUTHORITY,RIVERSIDE
+224,"'1238':1 'angeles':11 'ca1910051':5 'city':3,7 'dept':9 'inglewood':2,6 'los':10 'of':4 'water':8",1238,Inglewood  City Of,CA1910051,"INGLEWOOD- CITY, WATER DEPT.",LOS ANGELES
+225,"'1245':1 'ca3010092':6 'district':5,10 'irvine':2,7 'orange':11 'ranch':3,8 'water':4,9",1245,Irvine Ranch Water District,CA3010092,IRVINE RANCH WATER DISTRICT,ORANGE
+226,"'1270':1 'basin':3,8 'bernardino':12 'ca3610025':6 'district':5,10 'joshua':2,7 'san':11 'water':4,9",1270,Joshua Basin Water District,CA3610025,JOSHUA BASIN WATER DISTRICT,SAN BERNARDINO
+227,"'1273':1 'ca3310021':6 'community':3,8 'district':5 'jurupa':2,7 'riverside':10 'sd':9 'service':4",1273,Jurupa Community Service District,CA3310021,JURUPA COMMUNITY SD,RIVERSIDE
+228,"'1286':1 'ca1010018':5 'city':3,7 'fresno':9 'kerman':2,6 'of':4,8",1286,Kerman  City Of,CA1010018,"KERMAN, CITY OF",FRESNO
+229,"'1304':1 'ca1010019':5 'city':3,7 'fresno':9 'kingsburg':2,6 'of':4,8",1304,Kingsburg  City Of,CA1010019,"KINGSBURG, CITY OF",FRESNO
+230,"'1324':1 'ca3010018':6 'city':4,7 'habra':3,10 'la':2,9 'of':5,8 'orange':11",1324,La Habra  City Of,CA3010018,CITY OF LA HABRA,ORANGE
+231,"'1327':1 'ca3010100':6 'city':4,7 'la':2,9 'of':5,8 'orange':11 'palma':3,10",1327,La Palma  City Of,CA3010100,CITY OF LA PALMA,ORANGE
+232,"'1333':1 'angeles':12 'ca1910062':6 'city':4,9 'la':2,7 'los':11 'of':5 'verne':3,8 'wd':10",1333,La Verne  City Of,CA1910062,"LA VERNE, CITY WD",LOS ANGELES
+233,"'1335':1 'beach':3,9 'ca3010017':7 'county':4,10 'district':6 'laguna':2,8 'orange':12 'water':5 'wd':11",1335,Laguna Beach County Water District,CA3010017,LAGUNA BEACH COUNTY WD,ORANGE
+234,"'1343':1 'arrowhead':3,9 'bernardino':12 'ca3610005':7 'community':4 'csd':10 'district':6 'lake':2,8 'san':11 'services':5",1343,Lake Arrowhead Community Services District,CA3610005,LAKE ARROWHEAD CSD,SAN BERNARDINO
+235,"'1352':1 'ca3310022':7 'district':6 'hemet':3,9 'lake':2,8 'municipal':4 'mwd':10 'riverside':11 'water':5",1352,Lake Hemet Municipal Water District,CA3310022,LAKE HEMET MWD,RIVERSIDE
+236,"'1368':1 'ca3710013':5 'diego':9 'district':4 'lakeside':2,6 'san':8 'water':3 'wd':7",1368,Lakeside Water District,CA3710013,LAKESIDE WD,SAN DIEGO
+237,"'1370':1 'angeles':11 'ca1910239':5 'city':3,7 'dept':9 'lakewood':2,6 'los':10 'of':4 'water':8",1370,Lakewood  City Of,CA1910239,"LAKEWOOD - CITY, WATER DEPT.",LOS ANGELES
+238,"'1371':1 'ca1510012':6 'dist':10 'district':5 'kern':11 'lamont':2,7 'public':3,8 'utility':4,9",1371,Lamont Public Utility District,CA1510012,LAMONT PUBLIC UTILITY DIST,KERN
+239,"'1384':1 'angeles':12 'ca1910225':7 'district':6 'las':2,8 'los':11 'municipal':4 'mwd':10 'virgenes':3,9 'water':5",1384,Las Virgenes Municipal Water District,CA1910225,LAS VIRGENES MWD,LOS ANGELES
+240,"'1388':1 'ca3910015':5 'city':3,6 'joaquin':10 'lathrop':2,8 'of':4,7 'san':9",1388,Lathrop  City Of,CA3910015,CITY OF LATHROP,SAN JOAQUIN
+242,"'1415':1 'ca1610005':5 'city':3,7 'kings':9 'lemoore':2,6 'of':4,8",1415,Lemoore  City Of,CA1610005,"LEMOORE, CITY OF",KINGS
+243,"'1424':1 'ca3110004':5 'city':3,6 'lincoln':2,8 'of':4,7 'placer':9",1424,Lincoln  City Of,CA3110004,CITY OF LINCOLN,PLACER
+244,"'1425':1 'angeles':12 'avenue':3,8 'ca1910063':6 'co':10 'company':5 'lincoln':2,7 'los':11 'water':4,9",1425,Lincoln Avenue Water Company,CA1910063,LINCOLN AVENUE WATER CO.,LOS ANGELES
+245,"'1427':1 'ca5810002':6 'county':3,8 'district':5,10 'linda':2,7 'water':4,9 'yuba':11",1427,Linda County Water District,CA5810002,LINDA COUNTY WATER DISTRICT,YUBA
+246,"'1432':1 'ca5410006':5 'city':2,7 'lindsay':4,6 'of':3,8 'tulare':9",1432,City of Lindsay,CA5410006,"LINDSAY, CITY OF",TULARE
+247,"'1443':1 'alameda':9 'ca0110011':5 'city':3,6 'livermore':2,8 'of':4,7",1443,Livermore  City Of,CA0110011,CITY OF LIVERMORE,ALAMEDA
+248,"'1444':1 'ca2410004':5 'city':3,6 'livingston':2,8 'merced':9 'of':4,7",1444,Livingston  City Of,CA2410004,CITY OF LIVINGSTON,MERCED
+249,"'1450':1 'ca3910004':5 'city':3,7 'joaquin':10 'lodi':2,6 'of':4,8 'san':9",1450,Lodi  City Of,CA3910004,"LODI, CITY OF",SAN JOAQUIN
+250,"'1452':1 'bernardino':12 'ca3610013':6 'city':4,9 'linda':3,8 'loma':2,7 'of':5,10 'san':11",1452,Loma Linda  City Of,CA3610013,"LOMA LINDA, CITY OF",SAN BERNARDINO
+251,"'1456':1 'angeles':12 'ca1910073':5 'city':3,8 'dept':10 'lomita':2,7 'lomita-city':6 'los':11 'of':4 'water':9",1456,Lomita  City Of,CA1910073,"LOMITA-CITY, WATER DEPT.",LOS ANGELES
+252,"'1459':1 'barbara':13 'ca4210006':5 'city':3,8 'div':11 'lompoc':2,7 'lompoc-city':6 'of':4 'santa':12 'utility':10 'water':9",1459,Lompoc  City Of,CA4210006,LOMPOC-CITY WATER UTILITY DIV,SANTA BARBARA
+253,"'1464':1 'angeles':14 'beach':3,9 'beach-city':8 'ca1910065':6 'city':4,10 'dept':12 'long':2,7 'los':13 'of':5 'water':11",1464,Long Beach  City Of,CA1910065,"LONG BEACH-CITY, WATER DEPT.",LOS ANGELES
+254,"'1473':1 'and':8 'angeles':3,13,20 'angeles-city':12 'ca1910067':10 'city':4,14 'department':5 'dept':15 'los':2,11,19 'of':6,16 'power':9,18 'water':7,17",1473,Los Angeles City Department Of Water And Power,CA1910067,"LOS ANGELES-CITY, DEPT. OF WATER & POWER",LOS ANGELES
+255,"'1481':1 '29':7,16 '80':17 'angeles':3,14,20 'ca1910204':12 'county':4 'cwwd':15 'del':10 'district':6 'los':2,13,19 'malibu':8,18 'marina':9 'rey':11 'waterworks':5",1481,Los Angeles County Waterworks District 29 - Malibu & Marina Del Rey,CA1910204,LOS ANGELES CWWD 29 & 80-MALIBU,LOS ANGELES
+256,"'1484':1 '38':16 '40':7,14 'angeles':3,12,20 'antelope':8 'ca1910005':10 'county':4 'cwwd':13 'district':6 'la':18 'lake':17 'los':2,11,19 'reg':15 'valley':9 'waterworks':5",1484,Los Angeles County Waterworks District 40 - Antelope Valley,CA1910005,"LOS ANGELES CWWD 40, REG. 38-LAKE LA",LOS ANGELES
+257,"'1484':1 '39':16 '40':7,14 'angeles':3,12,20 'antelope':8 'ca1910025':10 'county':4 'creek':18 'cwwd':13 'district':6 'los':2,11,19 'reg':15 'rock':17 'valley':9 'waterworks':5",1484,Los Angeles County Waterworks District 40 - Antelope Valley,CA1910025,"LOS ANGELES CWWD 40, REG. 39-ROCK CREEK",LOS ANGELES
+258,"'1484':1 '35':16 '40':7,14 'angeles':3,12,20 'antelope':8 'ca1910027':10 'county':4 'cwwd':13 'district':6 'l.a':18 'los':2,11,19 'n.e':17 'reg':15 'valley':9 'waterworks':5",1484,Los Angeles County Waterworks District 40 - Antelope Valley,CA1910027,"LOS ANGELES CWWD 40, REG. 35-N.E. L.A.",LOS ANGELES
+259,"'1484':1 '34':17 '4':16 '40':7,14 'angeles':3,12,20 'antelope':8 'ca1910070':10 'county':4 'cwwd':13 'district':6 'lancaster':18 'los':2,11,19 'reg':15 'valley':9 'waterworks':5",1484,Los Angeles County Waterworks District 40 - Antelope Valley,CA1910070,"LOS ANGELES CWWD 40,REG 4 & 34-LANCASTER",LOS ANGELES
+260,"'1484':1 '24':16 '27':17 '33':18 '40':7,14 'angeles':3,12,21 'antelope':8 'ca1910203':10 'county':4 'cwwd':13 'district':6 'los':2,11,20 'pearblsm':19 'r':15 'valley':9 'waterworks':5",1484,Los Angeles County Waterworks District 40 - Antelope Valley,CA1910203,"LOS ANGELES CWWD 40, R 24,27,33-PEARBLSM",LOS ANGELES
+261,"'1487':1 'banos':3,10 'ca2410005':6 'city':4,7 'los':2,9 'merced':11 'of':5,8",1487,Los Banos  City Of,CA2410005,CITY OF LOS BANOS,MERCED
+262,"'1506':1 'angeles':12 'ca1910079':5 'city':3,8 'dept':10 'los':11 'lynwood':2,7 'lynwood-city':6 'of':4 'water':9",1506,Lynwood  City Of,CA1910079,"LYNWOOD-CITY, WATER DEPT.",LOS ANGELES
+263,"'1510':1 'ca2010002':5 'city':3,6 'madera':2,8,9 'of':4,7",1510,Madera  City Of,CA2010002,CITY OF MADERA,MADERA
+264,"'1533':1 'ca2610001':6 'community':3 'cwd':8 'district':5 'mammoth':2,7 'mono':9 'water':4",1533,Mammoth Community Water District,CA2610001,MAMMOTH CWD,MONO
+265,"'1536':1 'angeles':14 'beach':3,9 'beach-city':8 'ca1910083':6 'city':4,10 'dept':12 'los':13 'manhattan':2,7 'of':5 'water':11",1536,Manhattan Beach  City Of,CA1910083,"MANHATTAN BEACH-CITY, WATER DEPT.",LOS ANGELES
+266,"'1539':1 'ca3910005':5 'city':3,7 'joaquin':10 'manteca':2,6 'of':4,8 'san':9",1539,Manteca  City Of,CA3910005,"MANTECA, CITY OF",SAN JOAQUIN
+267,"'1546':1 'ca2110002':6 'district':5,10 'marin':2,7,11 'municipal':3,8 'water':4,9",1546,Marin Municipal Water District,CA2110002,MARIN MUNICIPAL WATER DISTRICT,MARIN
+268,"'1547':1 'ca2710017':6 'coast':3,8 'district':5,10 'marina':2,7 'monterey':11 'water':4,9",1547,Marina Coast Water District,CA2710017,MARINA COAST WATER DISTRICT,MONTEREY
+269,"'1554':1 'ca0710006':5 'city':3,6 'contra':9 'costa':10 'martinez':2,8 'of':4,7",1554,Martinez  City Of,CA0710006,CITY OF MARTINEZ,CONTRA COSTA
+270,"'1570':1 'c.s.d':8 'ca1210016':6 'community':3 'district':5 'humboldt':9 'mckinleyville':2,7 'services':4",1570,McKinleyville Community Services District,CA1210016,MCKINLEYVILLE C.S.D.,HUMBOLDT
+271,"'1587':1 'ca4110017':6 'city':4 'mateo':12 'menlo':2,7 'municipal':9 'of':5 'park':3,8 'san':11 'water':10",1587,Menlo Park  City Of,CA4110017,MENLO PARK MUNICIPAL WATER,SAN MATEO
+272,"'1589':1 'ca2410009':5 'city':3,6 'merced':2,8,9 'of':4,7",1589,Merced  City Of,CA2410009,CITY OF MERCED,MERCED
+273,"'1596':1 'ca3010004':5 'district':4,8 'mesa':2,6 'orange':9 'water':3,7",1596,Mesa Water District,CA3010004,MESA  WATER DISTRICT,ORANGE
+274,"'1605':1 'ca4110001':7 'district':6,12 'mateo':14 'mid':3,9 'mid-peninsula':2,8 'peninsula':4,10 'san':13 'water':5,11",1605,Mid-Peninsula Water District,CA4110001,MID-PENINSULA WATER DISTRICT,SAN MATEO
+275,"'1613':1 'ca4110018':5 'city':3,6 'mateo':10 'millbrae':2,8 'of':4,7 'san':9",1613,Millbrae  City Of,CA4110018,CITY OF MILLBRAE,SAN MATEO
+276,"'1619':1 'ca4310005':5 'city':3,6 'clara':10 'milpitas':2,8 'of':4,7 'santa':9",1619,Milpitas  City Of,CA4310005,CITY OF MILPITAS,SANTA CLARA
+277,"'1626':1 'ca3310008':6 'district':5 'mission':2,7 'riverside':10 'springs':3,8 'water':4 'wd':9",1626,Mission Springs Water District,CA3310008,MISSION SPRINGS WD,RIVERSIDE
+278,"'1626':1 'ca3310078':6 'district':5 'mission':2 'palm':8 'riverside':11 'springs':3,9 'village':10 'water':4 'west':7",1626,Mission Springs Water District,CA3310078,WEST PALM SPRINGS VILLAGE,RIVERSIDE
+279,"'1626':1 'ca3310081':6 'crest':9 'district':5 'mission':2 'palm':7 'riverside':10 'springs':3,8 'water':4",1626,Mission Springs Water District,CA3310081,PALM SPRINGS CREST,RIVERSIDE
+280,"'1631':1 'ca5010005':5 'city':3,6 'modesto':2,8 'of':4,7 'salida':9 'stanislaus':10",1631,Modesto  City Of,CA5010005,CITY OF MODESTO - SALIDA,STANISLAUS
+281,"'1631':1 'ca5010010':5 'city':3,7 'modesto':2,6 'of':4,8 'stanislaus':9",1631,Modesto  City Of,CA5010010,"MODESTO, CITY OF",STANISLAUS
+282,"'1631':1 'ca5010023':5 'city':3,6 'modesto':2,8 'of':4,7 'south':9 'stanislaus':11 'turlock':10",1631,Modesto  City Of,CA5010023,CITY OF MODESTO - SOUTH TURLOCK,STANISLAUS
+283,"'1631':1 'ca5010029':5 'city':3,6 'del':9 'modesto':2,8 'of':4,7 'rio':10 'stanislaus':11",1631,Modesto  City Of,CA5010029,CITY OF MODESTO - DEL RIO,STANISLAUS
+284,"'1631':1 'ca5010031':5 'city':3,6 'manor':10 'modesto':2,8 'of':4,7 'stanislaus':11 'walnut':9",1631,Modesto  City Of,CA5010031,CITY OF MODESTO - WALNUT MANOR,STANISLAUS
+285,"'1631':1 'ca5010033':5 'city':3,6 'grayson':9 'modesto':2,8 'of':4,7 'stanislaus':10",1631,Modesto  City Of,CA5010033,CITY OF MODESTO - GRAYSON,STANISLAUS
+286,"'1631':1 'ca5010034':5 'city':3,6 'modesto':2,8 'north':9 'of':4,7 'stanislaus':11 'turlock':10",1631,Modesto  City Of,CA5010034,CITY OF MODESTO - NORTH TURLOCK,STANISLAUS
+287,"'1631':1 'ca5010035':5 'central':9 'city':3,6 'modesto':2,8 'of':4,7 'stanislaus':11 'turlock':10",1631,Modesto  City Of,CA5010035,CITY OF MODESTO - CENTRAL TURLOCK,STANISLAUS
+288,"'1639':1 'angeles':12 'ca1910090':5 'city':3,8 'dept':10 'los':11 'monrovia':2,7 'monrovia-city':6 'of':4 'water':9",1639,Monrovia  City Of,CA1910090,"MONROVIA-CITY, WATER DEPT.",LOS ANGELES
+289,"'1642':1 'bernardino':11 'ca3610029':6 'cwd':9 'district':5 'monte':2,7 'san':10 'vista':3,8 'water':4",1642,Monte Vista Water District,CA3610029,MONTE VISTA CWD,SAN BERNARDINO
+290,"'1644':1 'and':4 'angeles':13 'ca1910091':7 'co':11 'company':6 'land':3,9 'los':12 'montebello':2,8 'water':5,10",1644,Montebello Land And Water Company,CA1910091,MONTEBELLO LAND & WATER CO.,LOS ANGELES
+291,"'1645':1 'barbara':10 'ca4210007':5 'dist':8 'district':4 'montecito':2,6 'santa':9 'water':3,7",1645,Montecito Water District,CA4210007,MONTECITO WATER DIST,SANTA BARBARA
+292,"'1650':1 'angeles':14 'ca1910092':6 'city':4,10 'dept':12 'los':13 'monterey':2,7 'of':5 'park':3,9 'park-city':8 'water':11",1650,Monterey Park  City Of,CA1910092,"MONTEREY PARK-CITY, WATER DEPT.",LOS ANGELES
+293,"'1656':1 'ca4310006':6 'city':4,7 'clara':12 'hill':3,10 'morgan':2,9 'of':5,8 'santa':11",1656,Morgan Hill  City Of,CA4310006,CITY OF MORGAN HILL,SANTA CLARA
+294,"'1660':1 'bay':3,8 'ca4010011':6 'city':4 'dept':10 'division':12 'luis':14 'morro':2,7 'obispo':15 'of':5 'pw':9 'san':13 'water':11",1660,Morro Bay  City Of,CA4010011,MORRO BAY PW DEPT - WATER DIVISION,SAN LUIS OBISPO
+295,"'1663':1 'ca3010073':6 'district':5,10 'moulton':2,7 'niguel':3,8 'orange':11 'water':4,9",1663,Moulton Niguel Water District,CA3010073,MOULTON NIGUEL WATER DISTRICT,ORANGE
+296,"'1671':1 'ca4310007':6 'city':4,7 'clara':12 'mountain':2,9 'of':5,8 'santa':11 'view':3,10",1671,Mountain View  City Of,CA4310007,CITY OF MOUNTAIN VIEW,SANTA CLARA
+297,"'1697':1 'ca3310051':7 'company':6,12 'dunes':3,9 'mutual':4,10 'myoma':2,8 'riverside':13 'water':5,11",1697,Myoma Dunes Mutual Water Company,CA3310051,MYOMA DUNES MUTUAL WATER COMPANY,RIVERSIDE
+298,"'1701':1 'ca2810003':5 'city':3,7 'napa':2,6,9 'of':4,8",1701,Napa  City Of,CA2810003,"NAPA, CITY OF",NAPA
+299,"'1718':1 'banner':10 'ca2910004':5 'district':4 'e':8 'george':9 'id':7 'irrigation':3 'mountain':11 'nevada':2,6,12",1718,Nevada Irrigation District,CA2910004,"NEVADA ID - E. GEORGE, BANNER MOUNTAIN",NEVADA
+300,"'1718':1 'ca2910006':5 'district':4 'id':7 'irrigation':3 'loma':8 'nevada':2,6,10 'rica':9",1718,Nevada Irrigation District,CA2910006,NEVADA ID - LOMA RICA,NEVADA
+301,"'1718':1 'ca2910014':5 'district':4 'id':7 'irrigation':3 'lake':8 'nevada':2,6,11 'of':9 'pines':10",1718,Nevada Irrigation District,CA2910014,NEVADA ID - LAKE OF PINES,NEVADA
+302,"'1718':1 'ca2910023':5 'district':4 'id':7 'irrigation':3 'lake':8 'nevada':2,6,10 'wildwood':9",1718,Nevada Irrigation District,CA2910023,NEVADA ID - LAKE WILDWOOD,NEVADA
+303,"'1718':1 'auburn':9 'ca3110026':5 'district':4 'id':7 'irrigation':3 'nevada':2,6 'north':8 'placer':10",1718,Nevada Irrigation District,CA3110026,NEVADA ID - NORTH AUBURN,PLACER
+304,"'1718':1 'ca5810005':5 'district':4 'id':7 'irrigation':3 'nevada':2,6 'smartsville':8 'yuba':9",1718,Nevada Irrigation District,CA5810005,NEVADA ID - SMARTSVILLE,YUBA
+305,"'1729':1 'ca5010013':5 'city':3,6 'department':11 'newman':2,9 'newman-water':8 'of':4,7 'stanislaus':12 'water':10",1729,Newman  City of,CA5010013,CITY OF NEWMAN-WATER DEPARTMENT,STANISLAUS
+306,"'1730':1 'beach':3,10 'ca3010023':6 'city':4,7 'newport':2,9 'of':5,8 'orange':11",1730,Newport Beach  City Of,CA3010023,CITY OF NEWPORT BEACH,ORANGE
+307,"'1731':1 'ca4010026':6 'comm':8 'community':3 'dist':10 'district':5 'luis':12 'nipomo':2,7 'obispo':13 'san':11 'service':4 'services':9",1731,Nipomo Community Service District,CA4010026,NIPOMO COMM SERVICES DIST,SAN LUIS OBISPO
+308,"'1732':1 'ca3310025':5 'city':3,7 'norco':2,6 'of':4,8 'riverside':9",1732,Norco  City Of,CA3310025,"NORCO, CITY OF",RIVERSIDE
+309,"'1739':1 'ca4110025':7 'coast':3,9 'county':4,10 'dist':12 'district':6 'mateo':14 'north':2,8 'san':13 'water':5,11",1739,North Coast County Water District,CA4110025,NORTH COAST COUNTY WATER DIST,SAN MATEO
+310,"'1748':1 'ca2110003':6 'district':5,10 'marin':3,8,11 'north':2,7 'water':4,9",1748,North Marin Water District,CA2110003,NORTH MARIN WATER DISTRICT,MARIN
+311,"'1752':1 'ca3110001':7 'district':6 'main':11 'north':2,8 'placer':12 'public':4 'pud':10 'tahoe':3,9 'utilities':5",1752,North Tahoe Public Utilities District,CA3110001,NORTH TAHOE PUD - MAIN,PLACER
+312,"'1752':1 'ca3110023':7 'carnelian':11 'district':6 'north':2,8 'placer':13 'public':4 'pud':10 'tahoe':3,9 'utilities':5 'woods':12",1752,North Tahoe Public Utilities District,CA3110023,NORTH TAHOE PUD - CARNELIAN WOODS,PLACER
+313,"'1752':1 'ca3110036':7 'cove':12 'district':6 'dollar':11 'north':2,8 'placer':13 'public':4 'pud':10 'tahoe':3,9 'utilities':5",1752,North Tahoe Public Utilities District,CA3110036,NORTH TAHOE PUD - DOLLAR COVE,PLACER
+314,"'1756':1 'angeles':11 'ca1910191':5 'city':3,7 'dept':9 'los':10 'norwalk':2,6 'of':4 'water':8",1756,Norwalk  City Of,CA1910191,"NORWALK - CITY, WATER DEPT.",LOS ANGELES
+315,"'1765':1 'ca5010014':5 'city':3,7 'oakdale':2,6 'of':4,8 'stanislaus':9",1765,Oakdale  City Of,CA5010014,"OAKDALE, CITY OF",STANISLAUS
+316,"'1777':1 'ca3710014':5 'city':3,7 'diego':10 'oceanside':2,6 'of':4,8 'san':9",1777,Oceanside  City Of,CA3710014,"OCEANSIDE, CITY OF",SAN DIEGO
+317,"'1782':1 'ca1510015':6 'company':5 'kern':9 'mutual':3 'mwc':8 'oildale':2,7 'water':4",1782,Oildale Mutual Water Company,CA1510015,OILDALE MWC,KERN
+318,'1792':1 'ca5805001':6 'district':5 'lake':8 'olivehurst':2 'plumas':7 'public':3 'utilities':4 'yuba':9,1792,Olivehurst Public Utilities District,CA5805001,PLUMAS LAKE,YUBA
+319,"'1792':1 'ca5810003':6 'district':5 'olivehurst':2,7 'public':3,8 'u.d':9 'utilities':4 'yuba':10",1792,Olivehurst Public Utilities District,CA5810003,OLIVEHURST PUBLIC U.D.,YUBA
+320,"'1793':1 'ca3710029':6 'diego':10 'district':5 'municipal':3 'mwd':8 'olivenhain':2,7 'san':9 'water':4",1793,Olivenhain Municipal Water District,CA3710029,OLIVENHAIN MWD,SAN DIEGO
+321,"'1795':1 'bernardino':11 'ca3610034':5 'city':3 'company':9 'municipal':7 'of':4 'ontario':2,6 'san':10 'utilities':8",1795,Ontario  City Of,CA3610034,ONTARIO MUNICIPAL UTILITIES COMPANY,SAN BERNARDINO
+322,"'1797':1 'ca3010027':5 'city':3,6 'of':4,7 'orange':2,8,9",1797,Orange  City Of,CA3010027,CITY OF ORANGE,ORANGE
+323,"'1803':1 'ca3410016':5 'company':4,9 'orange':6 'orangevale':2 'sacramento':10 'vale':7 'water':3,8",1803,Orangevale Water Company,CA3410016,ORANGE VALE WATER COMPANY,SACRAMENTO
+324,"'1804':1 'angeles':12 'ca1910101':6 'dale':3,8 'district':5,10 'los':11 'orchard':2,7 'water':4,9",1804,Orchard Dale Water District,CA1910101,ORCHARD DALE WATER DISTRICT,LOS ANGELES
+325,"'1821':1 'ca3710034':5 'diego':10 'district':4,8 'otay':2,6 'san':9 'water':3,7",1821,Otay Water District,CA3710034,OTAY WATER DISTRICT,SAN DIEGO
+326,"'1827':1 'ca5610007':5 'city':3 'dept':8 'of':4 'oxnard':2,6 'ventura':9 'water':7",1827,Oxnard  City Of,CA5610007,OXNARD WATER DEPT,VENTURA
+327,"'1838':1 'ca3710037':7 'dam':3,9 'diego':12 'district':6 'municipal':4 'mwd':10 'padre':2,8 'san':11 'water':5",1838,Padre Dam Municipal Water District,CA3710037,PADRE DAM MWD,SAN DIEGO
+328,"'1849':1 'angeles':10 'ca1910102':5 'dist':8 'district':4 'los':9 'palmdale':2,6 'water':3,7",1849,Palmdale Water District,CA1910102,PALMDALE WATER DIST.,LOS ANGELES
+329,"'1851':1 'alto':3,10 'ca4310009':6 'city':4,7 'clara':12 'of':5,8 'palo':2,9 'santa':11",1851,Palo Alto  City Of,CA4310009,CITY OF PALO ALTO,SANTA CLARA
+330,"'1859':1 'butte':9 'ca0410007':5 'district':4,8 'irrigation':3,7 'paradise':2,6",1859,Paradise Irrigation District,CA0410007,PARADISE IRRIGATION DISTRICT,BUTTE
+331,"'1866':1 'angeles':11 'ca1910105':5 'city':3,7 'dept':9 'los':10 'of':4 'paramount':2,6 'water':8",1866,Paramount  City Of,CA1910105,"PARAMOUNT - CITY, WATER DEPT.",LOS ANGELES
+332,"'1869':1 'angeles':12 'ca1910021':7 'compton':10 'corp':6 'liberty':2,8 'los':11 'park':4 'utilities':3,9 'water':5",1869,Liberty Utilities (Park Water) Corp,CA1910021,LIBERTY UTILITIES - COMPTON,LOS ANGELES
+333,"'1869':1 'angeles':12 'ca1910161':7 'corp':6 'liberty':2,8 'los':11 'lynwood':10 'park':4 'utilities':3,9 'water':5",1869,Liberty Utilities (Park Water) Corp,CA1910161,LIBERTY UTILITIES - LYNWOOD,LOS ANGELES
+334,"'1869':1 'angeles':14 'bellflower':11 'bellflower-norwalk':10 'ca1910211':7 'corp':6 'liberty':2,8 'los':13 'norwalk':12 'park':4 'utilities':3,9 'water':5",1869,Liberty Utilities (Park Water) Corp,CA1910211,LIBERTY UTILITIES - BELLFLOWER-NORWALK,LOS ANGELES
+335,"'1873':1 'and':8 'angeles':11 'ca1910124':5 'city':3 'los':10 'of':4 'pasadena':2,6 'power':9 'water':7",1873,Pasadena  City Of,CA1910124,PASADENA WATER AND POWER,LOS ANGELES
+336,"'1875':1 'ca4010007':6 'city':4 'department':10 'luis':12 'obispo':13 'of':5 'paso':2,7 'robles':3,8 'san':11 'water':9",1875,Paso Robles  City Of,CA4010007,PASO ROBLES WATER DEPARTMENT,SAN LUIS OBISPO
+337,"'1877':1 'ca5010017':5 'city':3,7 'of':4,8 'patterson':2,6 'stanislaus':9",1877,Patterson  City Of,CA5010017,"PATTERSON, CITY OF",STANISLAUS
+338,"'1894':1 'ca4910006':5 'city':3,7 'of':4,8 'petaluma':2,6 'sonoma':9",1894,Petaluma  City Of,CA4910006,"PETALUMA, CITY OF",SONOMA
+339,"'1896':1 'bernardino':14 'ca3610120':8 'community':5 'csd':12 'district':7 'hills':4,11 'phelan':2,9 'pinon':3,10 'san':13 'services':6",1896,Phelan Pinon Hills Community Services District,CA3610120,PHELAN PINON HILLS CSD,SAN BERNARDINO
+340,"'1899':1 'angeles':13 'ca1910042':6 'city':4,9 'dept':11 'los':12 'of':5 'pico':2,7 'rivera':3,8 'water':10",1899,Pico Rivera  City Of,CA1910042,"PICO RIVERA - CITY, WATER DEPT.",LOS ANGELES
+341,"'1900':1 'angeles':9 'ca1910125':5 'district':4 'los':8 'pico':2,6 'water':3 'wd':7",1900,Pico Water District,CA1910125,PICO WD,LOS ANGELES
+342,"'1923':1 'beach':3,8 'ca4010008':6 'city':4 'department':10 'luis':12 'obispo':13 'of':5 'pismo':2,7 'san':11 'water':9",1923,Pismo Beach  City Of,CA4010008,PISMO BEACH WATER DEPARTMENT,SAN LUIS OBISPO
+343,"'1925':1 'ca0710008':5 'city':3,6 'contra':9 'costa':10 'of':4,7 'pittsburg':2,8",1925,Pittsburg  City Of,CA0710008,CITY OF PITTSBURG,CONTRA COSTA
+344,"'1927':1 'agency':5 'auburn/bowman':9 'ca3110005':6 'county':3 'cwa':8 'placer':2,7,10 'water':4",1927,Placer County Water Agency,CA3110005,PLACER CWA - AUBURN/BOWMAN,PLACER
+345,"'1927':1 'agency':5 'ca3110006':6 'colfax':9 'county':3 'cwa':8 'placer':2,7,10 'water':4",1927,Placer County Water Agency,CA3110006,PLACER CWA - COLFAX,PLACER
+346,"'1927':1 'agency':5 'alta':9 'ca3110024':6 'county':3 'cwa':8 'placer':2,7,10 'water':4",1927,Placer County Water Agency,CA3110024,PLACER CWA - ALTA,PLACER
+347,"'1927':1 'agency':5 'ca3110025':6 'county':3 'cwa':8 'foothill':9 'placer':2,7,10 'water':4",1927,Placer County Water Agency,CA3110025,PLACER CWA - FOOTHILL,PLACER
+348,"'1927':1 'agency':5 'bianchi':9 'ca3110040':6 'county':3 'cwa':8 'estates':10 'placer':2,7,11 'water':4",1927,Placer County Water Agency,CA3110040,PLACER CWA - BIANCHI ESTATES,PLACER
+349,"'1927':1 'agency':5 'applegate':9 'ca3110050':6 'county':3 'cwa':8 'placer':2,7,10 'water':4",1927,Placer County Water Agency,CA3110050,PLACER CWA - APPLEGATE,PLACER
+350,"'1927':1 'agency':5 'ca3110124':6 'county':3 'cwa':8 'monte':9 'placer':2,7,11 'vista':10 'water':4",1927,Placer County Water Agency,CA3110124,PLACER CWA - MONTE VISTA,PLACER
+351,"'1940':1 'alameda':9 'ca0110008':5 'city':3,6 'of':4,7 'pleasanton':2,8",1940,Pleasanton  City Of,CA0110008,CITY OF PLEASANTON,ALAMEDA
+352,"'1945':1 'angeles':11 'ca1910126':5 'city':3,7 'dept':9 'los':10 'of':4 'pomona':2,6 'water':8",1945,Pomona  City Of,CA1910126,"POMONA - CITY, WATER DEPT.",LOS ANGELES
+353,"'1953':1 'ca5610009':6 'city':4 'dept':10 'hueneme':3,8 'of':5 'port':2,7 'ventura':11 'water':9",1953,Port Hueneme  City Of,CA5610009,PORT HUENEME WATER DEPT,VENTURA
+354,"'1956':1 'ca5410010':5 'city':3,7 'of':4,8 'porterville':2,6 'tulare':9",1956,Porterville  City Of,CA5410010,"PORTERVILLE, CITY OF",TULARE
+355,"'1964':1 'ca3710015':5 'city':3,7 'diego':10 'of':4,8 'poway':2,6 'san':9",1964,Poway  City Of,CA3710015,"POWAY, CITY OF",SAN DIEGO
+356,"'1983':1 'angeles':12 'ca1910130':6 'dist':10 'district':5 'hill':3,8 'los':11 'quartz':2,7 'water':4,9",1983,Quartz Hill Water District,CA1910130,QUARTZ HILL WATER DIST.,LOS ANGELES
+357,"'1990':1 'ca3710016':6 'diego':11 'district':5 'municipal':3,8 'rainbow':2,7 'san':10 'water':4 'wd':9",1990,Rainbow Municipal Water District,CA3710016,RAINBOW MUNICIPAL WD,SAN DIEGO
+358,"'1996':1 'ca3710019':6 'diego':11 'district':5 'municipal':3,8 'ramona':2,7 'san':10 'water':4 'wd':9",1996,Ramona Municipal Water District,CA3710019,RAMONA MUNICIPAL WD,SAN DIEGO
+359,'2000':1 'ca3303084':6 'california':3 'district':5 'koa':9 'lake':8 'rancho':2 'riverside':10 'temecula/vail':7 'water':4,2000,Rancho California Water District,CA3303084,TEMECULA/VAIL LAKE KOA,RIVERSIDE
+360,"'2000':1 'ca3310038':6 'california':3,8 'district':5,10 'rancho':2,7 'riverside':11 'water':4,9",2000,Rancho California Water District,CA3310038,RANCHO CALIFORNIA WATER DISTRICT,RIVERSIDE
+361,"'2031':1 'bluff':3,10 'ca5210004':6 'city':4,7 'of':5,8 'red':2,9 'tehama':11",2031,Red Bluff  City Of,CA5210004,CITY OF RED BLUFF,TEHAMA
+362,"'2033':1 'ca4510005':5 'city':3,6 'of':4,7 'redding':2,8 'shasta':9",2033,Redding  City Of,CA4510005,CITY OF REDDING,SHASTA
+363,"'2035':1 'bernardino':13 'ca3610037':5 'city':3,7 'div':11 'mud':9 'mud-water':8 'of':4 'redlands':2,6 'san':12 'water':10",2035,Redlands  City Of,CA3610037,REDLANDS CITY MUD-WATER DIV,SAN BERNARDINO
+364,"'2037':1 'ca4110022':4 'city':3,5,8 'mateo':10 'of':6 'redwood':2,7 'san':9",2037,Redwood City,CA4110022,CITY OF REDWOOD CITY,SAN MATEO
+365,"'2042':1 'ca1010027':5 'city':3,7 'fresno':9 'of':4,8 'reedley':2,6",2042,Reedley  City Of,CA1010027,"REEDLEY, CITY OF",FRESNO
+366,"'2049':1 'bernardino':10 'ca3610038':5 'city':3,7 'of':4,8 'rialto':2,6 'san':9",2049,Rialto  City Of,CA3610038,"RIALTO, CITY OF",SAN BERNARDINO
+367,"'-1':14 '2057':1 'ca3710018':8 'del':3,10 'diablo':4,11 'diego':16 'district':7 'id':13 'municipal':5 'mwd':12 'rincon':2,9 'san':15 'water':6",2057,Rincon Del Diablo Municipal Water District,CA3710018,RINCON DEL DIABLO MWD (ID-1),SAN DIEGO
+368,"'2057':1 'a':15 'ca3710044':8 'del':3,10 'diablo':4,11 'diego':17 'district':7 'id':14 'id-a':13 'municipal':5 'mwd':12 'rincon':2,9 'san':16 'water':6",2057,Rincon Del Diablo Municipal Water District,CA3710044,RINCON DEL DIABLO MWD (ID-A),SAN DIEGO
+369,"'2060':1 'ca3410018':8 'community':5,11 'dist':13 'district':7 'elverta':4 'linda':3 'linda/elverta':10 'rio':2,9 'sacramento':14 'water':6,12",2060,Rio Linda - Elverta Community Water District,CA3410018,RIO LINDA/ELVERTA COMMUNITY WATER DIST,SACRAMENTO
+370,"'2063':1 'ca4810004':6 'city':4,7 'of':5,8 'rio':2,9 'solano':11 'vista':3,10",2063,Rio Vista  City Of,CA4810004,CITY OF RIO VISTA,SOLANO
+371,"'2065':1 'ca3910007':5 'city':3,7 'joaquin':10 'of':4,8 'ripon':2,6 'san':9",2065,Ripon  City Of,CA3910007,"RIPON, CITY OF",SAN JOAQUIN
+372,"'2074':1 'ca5010018':5 'city':3,7 'of':4,8 'riverbank':2,6 'stanislaus':9",2074,Riverbank  City Of,CA5010018,"RIVERBANK, CITY OF",STANISLAUS
+373,"'2083':1 'ca3310031':5 'city':3,7 'of':4,8 'riverside':2,6,9",2083,Riverside  City Of,CA3310031,"RIVERSIDE, CITY OF",RIVERSIDE
+374,"'2087':1 'bernardino':12 'ca3610057':6 'company':5,10 'highland':3,8 'riverside':2,7 'san':11 'water':4,9",2087,Riverside Highland Water Company,CA3610057,RIVERSIDE HIGHLAND WATER COMPANY,SAN BERNARDINO
+375,"'2103':1 'ca4910014':6 'city':4,9 'of':5,10 'park':3,8 'rohnert':2,7 'sonoma':11",2103,Rohnert Park  City Of,CA4910014,"ROHNERT PARK, CITY OF",SONOMA
+376,"'2107':1 'ca1510018':6 'community':3 'csd':8 'district':5 'kern':9 'rosamond':2,7 'service':4",2107,Rosamond Community Service District,CA1510018,ROSAMOND CSD,KERN
+377,"'2111':1 'ca3110008':5 'city':3,6 'of':4,7 'placer':9 'roseville':2,8",2111,Roseville  City Of,CA3110008,CITY OF ROSEVILLE,PLACER
+378,"'2115':1 'angeles':10 'ca1910194':5 'district':4,8 'los':9 'rowland':2,6 'water':3,7",2115,Rowland Water District,CA1910194,ROWLAND WATER DISTRICT,LOS ANGELES
+379,"'2118':1 'ca3310044':6 'community':3,8 'district':5 'riverside':10 'rubidoux':2,7 'sd':9 'service':4",2118,Rubidoux Community Service District,CA3310044,RUBIDOUX COMMUNITY SD,RIVERSIDE
+380,"'2119':1 'and':5 'angeles':15 'association':7,13 'ca1910140':8 'canon':10 'canyon':3 'land':4,11 'los':14 'rubio':2,9 'water':6,12",2119,Rubio Canyon Land And Water Association,CA1910140,RUBIO CANON LAND & WATER ASSOCIATION,LOS ANGELES
+381,"'2122':1 'bernardino':12 'ca3610062':6 'district':5,10 'running':2,7 'san':11 'springs':3,8 'water':4,9",2122,Running Springs Water District,CA3610062,RUNNING SPRINGS WATER DISTRICT,SAN BERNARDINO
+382,"'2130':1 'ca3410020':5 'city':3,6 'main':9 'of':4,7 'sacramento':2,8,10",2130,Sacramento  City Of,CA3410020,CITY OF SACRAMENTO MAIN,SACRAMENTO
+383,"'2132':1 'agency':5 'ca3400101':6 'county':3 'dist':10 'hood':7 'maintence':9 'sacramento':2,12 'sws':11 'water':4,8",2132,Sacramento County Water Agency,CA3400101,HOOD WATER MAINTENCE DIST [SWS],SACRAMENTO
+384,"'2132':1 'agency':5 'ca3400106':6 'county':3 'east':7 'grove':9 'sacramento':2,11 'sws':10 'walnut':8 'water':4",2132,Sacramento County Water Agency,CA3400106,EAST WALNUT GROVE [SWS],SACRAMENTO
+385,"'2132':1 'agency':5 'ca3400156':6 'county':3 'd':11 'm':10 'sacramento':2,13 'southwest':7 'sws':12 'tract':8 'w':9 'water':4",2132,Sacramento County Water Agency,CA3400156,SOUTHWEST TRACT W M D [SWS],SACRAMENTO
+386,"'2132':1 '880':8 'agency':5 'ca3400173':6 'county':3 'northgate':7 'sacramento':2,10 'sws':9 'water':4",2132,Sacramento County Water Agency,CA3400173,NORTHGATE 880 [SWS],SACRAMENTO
+387,"'2132':1 'agency':5 'arden':8 'ca3410002':6 'county':3 'park':9 'sacramento':2,11 'scwa':7 'vista':10 'water':4",2132,Sacramento County Water Agency,CA3410002,SCWA - ARDEN PARK VISTA,SACRAMENTO
+388,"'2132':1 'agency':5 'ca3410029':6 'county':3 'laguna/vineyard':8 'sacramento':2,9 'scwa':7 'water':4",2132,Sacramento County Water Agency,CA3410029,SCWA - LAGUNA/VINEYARD,SACRAMENTO
+389,"'2132':1 'agency':5 'ca3410704':6 'county':3 'mather':9 'mather-sunrise':8 'sacramento':2,11 'scwa':7 'sunrise':10 'water':4",2132,Sacramento County Water Agency,CA3410704,SCWA MATHER-SUNRISE,SACRAMENTO
+390,"'2140':1 'ca3410001':6 'district':5,10 'sacramento':2,7,11 'suburban':3,8 'water':4,9",2140,Sacramento Suburban Water District,CA3410001,SACRAMENTO SUBURBAN WATER DISTRICT,SACRAMENTO
+391,"'2150':1 'bernardino':3,8,11 'ca3610039':6 'city':4,9 'of':5 'san':2,7,10",2150,San Bernardino  City Of,CA3610039,SAN BERNARDINO CITY,SAN BERNARDINO
+392,"'2154':1 '64':7,16 'area':6,15 'bernardino':3,18 'ca3610121':11 'county':4,13 'lake':10 'san':2,17 'sbdno':12 'service':5,14 'spring':8 'valley':9",2154,San Bernardino County Service Area 64 Spring Valley Lake,CA3610121,SBDNO COUNTY SERVICE AREA 64,SAN BERNARDINO
+393,"'2157':1 'bruno':3,10 'ca4110023':6 'city':4,7 'mateo':12 'of':5,8 'san':2,9,11",2157,San Bruno  City Of,CA4110023,CITY OF SAN BRUNO,SAN MATEO
+394,"'2158':1 'buenaventura':3 'ca5610017':7 'city':4 'department':10 'of':5 'san':2 'ventura':6,8,11 'water':9",2158,San Buenaventura  City Of (Ventura),CA5610017,VENTURA WATER DEPARTMENT,VENTURA
+395,"'2159':1 'ca3010036':6 'city':4,7 'clemente':3,10 'of':5,8 'orange':11 'san':2,9",2159,San Clemente  City Of,CA3010036,CITY OF SAN CLEMENTE,ORANGE
+396,"'2160':1 'ca3710020':6 'city':4,9 'diego':3,8,12 'of':5,10 'san':2,7,11",2160,San Diego  City Of,CA3710020,"SAN DIEGO, CITY OF",SAN DIEGO
+397,"'2162':1 'ca3710021':6 'diego':11 'dieguito':3,8 'district':5 'san':2,7,10 'water':4 'wd':9",2162,San Dieguito Water District,CA3710021,SAN DIEGUITO WD,SAN DIEGO
+398,"'2163':1 'angeles':14 'ca1910143':6 'city':4,10 'dept':12 'fernando':3,9 'fernando-city':8 'los':13 'of':5 'san':2,7 'water':11",2163,San Fernando  City Of,CA1910143,"SAN FERNANDO-CITY, WATER DEPT.",LOS ANGELES
+399,'2164':1 'alameda':12 'ca0110012':7 'commission':6 'francisco':3 'of':9 'public':4 'san':2 'sfpuc':11 'sunol':10 'town':8 'utilities':5,2164,San Francisco Public Utilities Commission,CA0110012,TOWN OF SUNOL - SFPUC,ALAMEDA
+400,'2164':1 'alameda':12 'ca0110018':7 'commission':6 'francisco':3 'pleasanton':10 'public':4 'san':2 'sfpuc':9 'sfpuc-pleasanton':8 'utilities':5 'wells':11,2164,San Francisco Public Utilities Commission,CA0110018,SFPUC-PLEASANTON WELLS,ALAMEDA
+401,"'2164':1 'ca3810011':7 'city':9 'commission':6 'distribution':10 'division':11 'francisco':3,13 'public':4 'san':2,12 'sfpuc':8 'utilities':5",2164,San Francisco Public Utilities Commission,CA3810011,SFPUC CITY DISTRIBUTION DIVISION,SAN FRANCISCO
+402,"'2165':1 'angeles':13 'ca1910144':7 'county':4,10 'district':6 'gabriel':3,9 'los':12 'san':2,8 'water':5 'wd':11",2165,San Gabriel County Water District,CA1910144,SAN GABRIEL COUNTY WD,LOS ANGELES
+403,"'2166':1 'bernardino':16 'ca3610041':9 'company':6 'division':8 'fontana':7,14 'gabriel':3,11 'san':2,10,15 'valley':4,12 'water':5 'wc':13",2166,San Gabriel Valley Water Company   Fontana Division,CA3610041,SAN GABRIEL VALLEY WC - FONTANA,SAN BERNARDINO
+404,"'2167':1 'angeles':16 'ca1910039':7 'co':12 'company':6 'el':13 'gabriel':3,9 'los':15 'monte':14 'san':2,8 'valley':4,10 'water':5,11",2167,San Gabriel Valley Water Company,CA1910039,SAN GABRIEL VALLEY WATER CO.-EL MONTE,LOS ANGELES
+405,"'2167':1 'angeles':15 'ca1910189':7 'co':12 'company':6 'gabriel':3,9 'los':14 'montebello':13 'san':2,8 'valley':4,10 'water':5,11",2167,San Gabriel Valley Water Company,CA1910189,SAN GABRIEL VALLEY WATER CO.-MONTEBELLO,LOS ANGELES
+406,"'2169':1 'ca3310032':6 'city':4,9 'jacinto':3,8 'of':5,10 'riverside':11 'san':2,7",2169,San Jacinto  City Of,CA3310032,"SAN JACINTO, CITY OF",RIVERSIDE
+407,"'2174':1 'ca4310019':6 'city':4,7 'clara':13 'jose':3,10 'nsj/alviso':11 'of':5,8 'san':2,9 'santa':12",2174,San Jose  City Of,CA4310019,CITY OF SAN JOSE - NSJ/ALVISO,SANTA CLARA
+408,"'2174':1 'ca4310020':6 'city':4,7 'clara':13 'evg/edv/coy':11 'jose':3,10 'of':5,8 'san':2,9 'santa':12",2174,San Jose  City Of,CA4310020,CITY OF SAN JOSE - EVG/EDV/COY,SANTA CLARA
+409,"'2175':1 'ca4310011':6 'clara':11 'company':5 'jose':3,8 'san':2,7 'santa':10 'water':4,9",2175,San Jose Water Company,CA4310011,SAN JOSE WATER,SANTA CLARA
+410,'2175':1 'ca4310018':6 'city':7 'clara':11 'company':5 'cupertino':9 'jose':3 'of':8 'san':2 'santa':10 'water':4,2175,San Jose Water Company,CA4310018,CITY OF CUPERTINO,SANTA CLARA
+411,"'2177':1 'ca3010030':7 'capistrano':4,12 'city':5,8 'juan':3,11 'of':6,9 'orange':13 'san':2,10",2177,San Juan Capistrano  City Of,CA3010030,CITY OF SAN JUAN CAPISTRANO,ORANGE
+412,"'2179':1 'ca3410021':6 'district':5,10 'juan':3,8 'sacramento':11 'san':2,7 'water':4,9",2179,San Juan Water District,CA3410021,SAN JUAN WATER DISTRICT,SACRAMENTO
+413,"'2180':1 'ca4410002':7 'cruz':13 'district':6 'felton':9 'lorenzo':3 'san':2 'santa':12 'slvwd':8 'system':11 'valley':4 'water':5,10",2180,San Lorenzo Valley Water District,CA4410002,SLVWD - FELTON WATER SYSTEM,SANTA CRUZ
+414,"'2180':1 'ca4410014':7 'cruz':14 'dist':12 'district':6 'lorenzo':3,9 'san':2,8 'santa':13 'valley':4,10 'water':5,11",2180,San Lorenzo Valley Water District,CA4410014,SAN LORENZO VALLEY WATER DIST,SANTA CRUZ
+415,"'2182':1 'ca4010009':7 'city':5 'department':12 'luis':3,9,14 'obispo':4,10,15 'of':6 'san':2,8,13 'water':11",2182,San Luis Obispo  City Of,CA4010009,SAN LUIS OBISPO WATER DEPARTMENT,SAN LUIS OBISPO
+416,"'2205':1 'ca1010029':5 'city':3,6 'fresno':9 'of':4,7 'sanger':2,8",2205,Sanger  City Of,CA1010029,CITY OF SANGER,FRESNO
+417,"'2207':1 'ana':3,10 'ca3010038':6 'city':4,7 'of':5,8 'orange':11 'santa':2,9",2207,Santa Ana  City Of,CA3010038,CITY OF SANTA ANA,ORANGE
+418,"'2209':1 'barbara':3,10,14 'ca4210010':6 'city':4,7 'department':12 'of':5,8 'santa':2,9,13 'water':11",2209,Santa Barbara  City Of,CA4210010,CITY OF SANTA BARBARA WATER DEPARTMENT,SANTA BARBARA
+419,"'2210':1 'ca4310012':6 'city':4,7 'clara':3,10,12 'of':5,8 'santa':2,9,11",2210,Santa Clara  City Of,CA4310012,CITY OF SANTA CLARA,SANTA CLARA
+420,"'2213':1 'ca4410010':6 'city':4 'cruz':3,8,12 'department':10 'of':5 'santa':2,7,11 'water':9",2213,Santa Cruz  City Of,CA4410010,SANTA CRUZ WATER DEPARTMENT,SANTA CRUZ
+421,"'2214':1 'ca3710023':6 'diego':11 'district':5 'fe':3,8 'i.d':9 'irrigation':4 'san':10 'santa':2,7",2214,Santa Fe Irrigation District,CA3710023,SANTA FE I.D.,SAN DIEGO
+422,"'2215':1 'angeles':15 'ca1910245':7 'city':5,11 'dept':13 'fe':3,9 'los':14 'of':6 'santa':2,8 'springs':4,10 'water':12",2215,Santa Fe Springs  City Of,CA1910245,"SANTA FE SPRINGS - CITY, WATER DEPT.",LOS ANGELES
+423,"'2217':1 'ca3010101':6 'district':5,10 'margarita':3,8 'orange':11 'santa':2,7 'water':4,9",2217,Santa Margarita Water District,CA3010101,SANTA MARGARITA WATER DISTRICT,ORANGE
+424,"'2218':1 'barbara':12 'ca4210011':6 'city':4 'department':10 'maria':3,8 'of':5 'santa':2,7,11 'water':9",2218,Santa Maria  City Of,CA4210011,SANTA MARIA WATER DEPARTMENT,SANTA BARBARA
+425,"'2220':1 'angeles':14 'ca1910146':6 'city':4,10 'division':12 'los':13 'monica':3,9 'monica-city':8 'of':5 'santa':2,7 'water':11",2220,Santa Monica  City Of,CA1910146,"SANTA MONICA-CITY, WATER DIVISION",LOS ANGELES
+426,"'2222':1 'ca5610011':6 'city':4,7 'of':5,8 'paula':3,10 'santa':2,9 'ventura':11",2222,Santa Paula  City Of,CA5610011,CITY OF SANTA PAULA,VENTURA
+427,"'2224':1 'ca4910009':6 'city':4,9 'of':5,10 'rosa':3,8 'santa':2,7 'sonoma':11",2224,Santa Rosa  City Of,CA4910009,"SANTA ROSA, CITY OF",SONOMA
+428,"'2237':1 'ca4410013':6 'cruz':12 'district':5,10 'santa':11 'scotts':2,7 'valley':3,8 'water':4,9",2237,Scotts Valley Water District,CA4410013,SCOTTS VALLEY WATER DISTRICT,SANTA CRUZ
+429,"'2241':1 'beach':3,10 'ca3010041':6 'city':4,7 'of':5,8 'orange':11 'seal':2,9",2241,Seal Beach  City Of,CA3010041,CITY OF SEAL BEACH,ORANGE
+430,"'2260':1 'ca1510019':5 'city':3,7 'kern':9 'of':4,8 'shafter':2,6",2260,Shafter  City Of,CA1510019,"SHAFTER, CITY OF",KERN
+431,"'2273':1 'ca4510006':6 'city':4,7 'lake':3,10 'of':5,8 'shasta':2,9,11",2273,Shasta Lake  City Of,CA4510006,CITY OF SHASTA LAKE,SHASTA
+432,"'2290':1 'angeles':14 'ca1910148':6 'city':4,10 'dept':12 'los':13 'madre':3,9 'madre-city':8 'of':5 'sierra':2,7 'water':11",2290,Sierra Madre  City Of,CA1910148,"SIERRA MADRE-CITY, WATER DEPT.",LOS ANGELES
+433,"'2298':1 'angeles':13 'ca1910149':6 'city':4,9 'dept':11 'hill':3,8 'los':12 'of':5 'signal':2,7 'water':10",2298,Signal Hill  City Of,CA1910149,"SIGNAL HILL - CITY, WATER DEPT.",LOS ANGELES
+434,"'2323':1 'ca2710011':5 'city':3,7 'monterey':9 'of':4,8 'soledad':2,6",2323,Soledad  City Of,CA2710011,"SOLEDAD, CITY OF",MONTEREY
+435,"'2326':1 'ca4910012':5 'city':3,7 'of':4,8 'sonoma':2,6,9",2326,Sonoma  City Of,CA4910012,"SONOMA, CITY OF",SONOMA
+436,"'2330':1 'ca4410017':6 'creek':3,8 'cruz':12 'district':5,10 'santa':11 'soquel':2,7 'water':4,9",2330,Soquel Creek Water District,CA4410017,SOQUEL CREEK WATER DISTRICT,SANTA CRUZ
+437,"'2334':1 'ca3010042':6 'coast':3,8 'district':5,10 'orange':11 'south':2,7 'water':4,9",2334,South Coast Water District,CA3010042,SOUTH COAST WATER DISTRICT,ORANGE
+438,"'2337':1 'and':5 'butte':14 'ca0410006':7 'feather':3,9 'miners':12 'p':11 'power':6 'ranch':13 'south':2,8 'w':10 'water':4",2337,South Feather Water and Power,CA0410006,SOUTH FEATHER W&P - MINERS RANCH,BUTTE
+439,"'2337':1 'and':5 'bangor':12 'butte':13 'ca0410012':7 'feather':3,9 'p':11 'power':6 'south':2,8 'w':10 'water':4",2337,South Feather Water and Power,CA0410012,SOUTH FEATHER W&P - BANGOR,BUTTE
+440,"'2341':1 'angeles':14 'ca1910152':6 'city':4,10 'dept':12 'gate':3,9 'gate-city':8 'los':13 'of':5 'south':2,7 'water':11",2341,South Gate  City Of,CA1910152,"SOUTH GATE-CITY, WATER DEPT.",LOS ANGELES
+441,"'2345':1 'angeles':12 'ca1910154':6 'city':4,7 'los':11 'of':5,8 'pasadena':3,10 'south':2,9",2345,South Pasadena  City Of,CA1910154,CITY OF SOUTH PASADENA,LOS ANGELES
+442,"'2348':1 'ca0910002':7 'district':6 'dorado':13 'el':12 'main':11 'public':4 'pud':10 'south':2,8 'tahoe':3,9 'utility':5",2348,South Tahoe Public Utility District,CA0910002,SOUTH TAHOE PUD - MAIN,EL DORADO
+443,"'2381':1 'ca3910006':5 'city':3 'district':9 'east':7 'joaquin':11 'of':4 'san':10 'stockton':2,6 'water':8",2381,Stockton  City Of,CA3910006,STOCKTON EAST WATER DISTRICT,SAN JOAQUIN
+444,"'2381':1 'ca3910012':5 'city':3,6 'joaquin':10 'of':4,7 'san':9 'stockton':2,8",2381,Stockton  City Of,CA3910012,CITY OF STOCKTON,SAN JOAQUIN
+445,"'2401':1 'angeles':15 'ca1910046':8 'glendora':13 'hills':7 'jose':6 'los':14 'san':5 'suburban':2,9 'systems':4,12 'systems-glendora':11 'water':3,10",2401,Suburban Water Systems - San Jose Hills,CA1910046,SUBURBAN WATER SYSTEMS-GLENDORA,LOS ANGELES
+446,"'2401':1 'angeles':16 'ca1910200':8 'covina':13 'hills':7 'jose':6 'knolls':14 'los':15 'san':5 'suburban':2,9 'systems':4,12 'systems-covina':11 'water':3,10",2401,Suburban Water Systems - San Jose Hills,CA1910200,SUBURBAN WATER SYSTEMS-COVINA KNOLLS,LOS ANGELES
+447,"'2401':1 'angeles':16 'ca1910205':8 'hills':7 'jose':6,14 'los':15 'san':5,13 'suburban':2,9 'systems':4,12 'systems-san':11 'water':3,10",2401,Suburban Water Systems - San Jose Hills,CA1910205,SUBURBAN WATER SYSTEMS-SAN JOSE,LOS ANGELES
+448,"'2402':1 'angeles':15 'ca1910059':7 'la':12 'los':14 'mirada':6,13 'suburban':2,8 'systems':4,11 'systems-la':10 'water':3,9 'whittier/la':5",2402,Suburban Water Systems - Whittier/La Mirada,CA1910059,SUBURBAN WATER SYSTEMS-LA MIRADA,LOS ANGELES
+449,"'2402':1 'angeles':14 'ca1910174':7 'los':13 'mirada':6 'suburban':2,8 'systems':4,11 'systems-whittier':10 'water':3,9 'whittier':12 'whittier/la':5",2402,Suburban Water Systems - Whittier/La Mirada,CA1910174,SUBURBAN WATER SYSTEMS-WHITTIER,LOS ANGELES
+450,"'2405':1 'authority':5,11 'ca4810005':6 'solano':3,9,12 'suisun':2,8 'suisun-solano':7 'water':4,10",2405,Suisun - Solano Water Authority,CA4810005,SUISUN-SOLANO WATER AUTHORITY,SOLANO
+451,"'2419':1 'angeles':12 'ca1910157':6 'co':10 'company':5 'los':11 'slope':3,8 'sunny':2,7 'water':4,9",2419,Sunny Slope Water Company,CA1910157,SUNNY SLOPE WATER CO.,LOS ANGELES
+452,"'2424':1 'benito':12 'ca3510003':6 'county':3,8 'dist':10 'district':5 'san':11 'sunnyslope':2,7 'water':4,9",2424,Sunnyslope County Water District,CA3510003,SUNNYSLOPE COUNTY WATER DIST,SAN BENITO
+453,"'2425':1 'ca4310014':5 'city':3,6 'clara':10 'of':4,7 'santa':9 'sunnyvale':2,8",2425,Sunnyvale  City Of,CA4310014,CITY OF SUNNYVALE,SANTA CLARA
+454,"'2432':1 'ca1810001':5 'city':3,6 'lassen':9 'of':4,7 'susanville':2,8",2432,Susanville  City Of,CA1810001,CITY OF SUSANVILLE,LASSEN
+455,"'2437':1 'authority':3,6 'ca3710025':4 'diego':8 'san':7 'sweetwater':2,5",2437,Sweetwater Authority,CA3710025,SWEETWATER AUTHORITY,SAN DIEGO
+456,"'2438':1 'ca4910004':6 'cwd':9 'district':5 'guerneville':10 'sonoma':11 'springs':3,8 'sweetwater':2,7 'water':4",2438,Sweetwater Springs Water District,CA4910004,SWEETWATER SPRINGS CWD - GUERNEVILLE,SONOMA
+457,"'2438':1 'ca4910028':6 'cwd':9 'district':5 'monte':10 'rio':11 'sonoma':12 'springs':3,8 'sweetwater':2,7 'water':4",2438,Sweetwater Springs Water District,CA4910028,SWEETWATER SPRINGS CWD - MONTE RIO,SONOMA
+458,"'2444':1 'ca0910012':7 'city':3,9 'district':6 'dorado':13 'el':12 'public':4 'pud':10 'rubicon':11 'tahoe':2,8 'utilities':5",2444,Tahoe City Public Utilities District,CA0910012,TAHOE CITY PUD - RUBICON,EL DORADO
+459,"'2444':1 'ca3100029':7 'city':3,9 'district':6 'placer':12 'public':4 'pud':10 'tahoe':2,8 'timberland':11 'utilities':5",2444,Tahoe City Public Utilities District,CA3100029,TAHOE CITY PUD - TIMBERLAND,PLACER
+460,"'2444':1 'ca3110010':7 'city':3,9 'district':6 'main':11 'placer':12 'public':4 'pud':10 'tahoe':2,8 'utilities':5",2444,Tahoe City Public Utilities District,CA3110010,TAHOE CITY PUD - MAIN,PLACER
+461,"'2444':1 'ca3110011':7 'city':3,9 'district':6 'mckinney/quail':11 'placer':12 'public':4 'pud':10 'tahoe':2,8 'utilities':5",2444,Tahoe City Public Utilities District,CA3110011,TAHOE CITY PUD - MCKINNEY/QUAIL,PLACER
+462,"'2444':1 'ca3110013':7 'cedars':12 'city':3,9 'district':6 'placer':13 'public':4 'pud':10 'tahoe':2,8,11 'utilities':5",2444,Tahoe City Public Utilities District,CA3110013,TAHOE CITY PUD - TAHOE CEDARS,PLACER
+463,"'2444':1 'ca3110043':7 'city':3,9 'creek':12 'district':6 'madden':11 'placer':13 'public':4 'pud':10 'tahoe':2,8 'utilities':5",2444,Tahoe City Public Utilities District,CA3110043,TAHOE CITY PUD - MADDEN CREEK,PLACER
+464,"'2444':1 'alpine':11 'ca3110044':7 'city':3,9 'district':6 'peaks':12 'placer':13 'public':4 'pud':10 'tahoe':2,8 'utilities':5",2444,Tahoe City Public Utilities District,CA3110044,TAHOE CITY PUD - ALPINE PEAKS,PLACER
+465,"'2451':1 'ca1510020':5 'city':3,7 'kern':9 'of':4,8 'tehachapi':2,6",2451,Tehachapi  City Of,CA1510020,"TEHACHAPI, CITY OF",KERN
+466,"'2466':1 'and':4 'butte':12 'ca0410008':7 'dist':11 'district':6 'sewer':5,10 'thermalito':2,8 'water':3,9",2466,Thermalito Water and Sewer District,CA0410008,THERMALITO WATER & SEWER DIST,BUTTE
+467,"'2469':1 'ca5610020':6 'city':4 'dept':10 'oaks':3,8 'of':5 'thousand':2,7 'ventura':11 'water':9",2469,Thousand Oaks  City Of,CA5610020,THOUSAND OAKS WATER DEPT,VENTURA
+468,"'2487':1 'angeles':12 'ca1910213':5 'city':3,8 'dept':10 'los':11 'of':4 'torrance':2,7 'torrance-city':6 'water':9",2487,Torrance  City Of,CA1910213,"TORRANCE-CITY, WATER DEPT.",LOS ANGELES
+469,"'2490':1 'ca3010094':6 'canyon':3,8 'district':5,10 'orange':11 'trabuco':2,7 'water':4,9",2490,Trabuco Canyon Water District,CA3010094,TRABUCO CANYON WATER DISTRICT,ORANGE
+470,"'2496':1 'ca3910011':5 'city':3,7 'joaquin':10 'of':4,8 'san':9 'tracy':2,6",2496,Tracy  City Of,CA3910011,"TRACY, CITY OF",SAN JOAQUIN
+471,"'2510':1 'ca5610043':8 'district':12 'district/oak':4 'park':5 'sanitation':3,11 'service':7 'triunfo':2,9 'ventura':13 'water':6,10",2510,Triunfo Sanitation District/Oak Park Water Service,CA5610043,TRIUNFO WATER & SANITATION DISTRICT,VENTURA
+472,"'2512':1 'ca2910003':7 'district':6 'donner':3,10 'main':12 'nevada':13 'public':4 'pud':11 'truckee':2,9 'truckee-donner':8 'utilities':5",2512,Truckee - Donner Public Utilities District,CA2910003,"TRUCKEE-DONNER PUD, MAIN",NEVADA
+473,"'2516':1 'ca5410015':5 'city':3,7 'of':4,8 'tulare':2,6,9",2516,Tulare  City Of,CA5410015,"TULARE, CITY OF",TULARE
+474,"'2523':1 'ca5500363':5 'district':4 'ferry':9 'ranches':10 'tud':7 'tud-wards':6 'tuolumne':2,11 'utilities':3 'wards':8",2523,Tuolumne Utilities District,CA5500363,TUD-WARDS FERRY RANCHES,TUOLUMNE
+475,"'2523':1 'ca5510001':5 'district':4 'sonora/jamestown':7 'system':9 'tud':6 'tuolumne':2,10 'utilities':3 'water':8",2523,Tuolumne Utilities District,CA5510001,TUD - SONORA/JAMESTOWN WATER SYSTEM,TUOLUMNE
+476,"'2523':1 'ca5510002':5 'district':4 'ponderosa':7 'tud':6 'tuolumne':2,8 'utilities':3",2523,Tuolumne Utilities District,CA5510002,TUD - PONDEROSA,TUOLUMNE
+477,"'2523':1 'ca5510003':5 'district':4 'system':9 'tud':6 'tuolumne':2,7,10 'utilities':3 'water':8",2523,Tuolumne Utilities District,CA5510003,TUD - TUOLUMNE WATER SYSTEM,TUOLUMNE
+478,"'2523':1 'basin':8 'ca5510012':5 'district':4 'system':10 'tud':6 'tuolumne':2,11 'upper':7 'utilities':3 'water':9",2523,Tuolumne Utilities District,CA5510012,TUD - UPPER BASIN WATER SYSTEM,TUOLUMNE
+479,"'2523':1 'ca5510013':5 'columbia':7 'district':4 'system':9 'tud':6 'tuolumne':2,10 'utilities':3 'water':8",2523,Tuolumne Utilities District,CA5510013,TUD - COLUMBIA WATER SYSTEM,TUOLUMNE
+480,"'2523':1 'ca5510015':5 'cedar':7 'district':4 'ridge':8 'system':10 'tud':6 'tuolumne':2,11 'utilities':3 'water':9",2523,Tuolumne Utilities District,CA5510015,TUD - CEDAR RIDGE WATER SYSTEM,TUOLUMNE
+481,"'2523':1 'ca5510021':5 'district':4 'peaceful':8 'pines':9 'system':11 'tud':7 'tud-peaceful':6 'tuolumne':2,12 'utilities':3 'water':10",2523,Tuolumne Utilities District,CA5510021,TUD-PEACEFUL PINES WATER SYSTEM,TUOLUMNE
+482,"'2523':1 'ca5510025':5 'district':4 'lake':8 'park':9 'phoenix':7 'tud':6 'tuolumne':2,10 'utilities':3",2523,Tuolumne Utilities District,CA5510025,TUD - PHOENIX LAKE PARK,TUOLUMNE
+483,"'2523':1 'apple':8 'ca5510028':5 'district':4 'estates':10 'tud':7 'tud-apple':6 'tuolumne':2,11 'utilities':3 'valley':9",2523,Tuolumne Utilities District,CA5510028,TUD-APPLE VALLEY ESTATES,TUOLUMNE
+484,"'2523':1 'brook':10 'ca5510033':5 'district':4 'scenic':8 'tud':7 'tud-scenic':6 'tuolumne':2,11 'utilities':3 'view/scenic':9",2523,Tuolumne Utilities District,CA5510033,TUD-SCENIC VIEW/SCENIC BROOK,TUOLUMNE
+485,"'2524':1 'ca5010019':5 'city':3,7 'of':4,8 'stanislaus':9 'turlock':2,6",2524,Turlock  City Of,CA5010019,"TURLOCK, CITY OF",STANISLAUS
+486,"'2528':1 'ca3010046':5 'city':3,6 'of':4,7 'orange':9 'tustin':2,8",2528,Tustin  City Of,CA3010046,CITY OF TUSTIN,ORANGE
+487,"'2530':1 'bernardino':12 'ca3610049':6 'district':5,10 'palms':3,8 'san':11 'twentynine':2,7 'water':4,9",2530,Twentynine Palms Water District,CA3610049,TWENTYNINE PALMS WATER DISTRICT,SAN BERNARDINO
+488,"'2536':1 'ca2310003':5 'city':3,7 'mendocino':9 'of':4,8 'ukiah':2,6",2536,Ukiah  City Of,CA2310003,"UKIAH, CITY OF",MENDOCINO
+489,"'2541':1 'bernardino':10 'ca3610050':5 'city':3,7 'of':4,8 'san':9 'upland':2,6",2541,Upland  City Of,CA3610050,"UPLAND, CITY OF",SAN BERNARDINO
+490,"'2597':1 'ca4810008':5 'city':3,6 'of':4,7 'solano':9 'vacaville':2,8",2597,Vacaville  City Of,CA4810008,CITY OF VACAVILLE,SOLANO
+491,"'2602':1 'ca3710002':5 'diego':9 'district':4 'san':8 'vallecitos':2,6 'water':3 'wd':7",2602,Vallecitos Water District,CA3710002,VALLECITOS WD,SAN DIEGO
+492,"'2603':1 'ca4810007':5 'city':3,6 'of':4,7 'solano':9 'vallejo':2,8",2603,Vallejo  City Of,CA4810007,CITY OF VALLEJO,SOLANO
+493,"'2603':1 'ca4810021':5 'city':3,6 'lakes':10 'of':4,7 'solano':12 'system':11 'vallejo':2,9 'vallejo-lakes':8",2603,Vallejo  City Of,CA4810021,CITY OF VALLEJO-LAKES SYSTEM,SOLANO
+494,"'2604':1 'ca3710026':7 'center':3,9 'diego':12 'district':6 'municipal':4 'mwd':10 'san':11 'valley':2,8 'water':5",2604,Valley Center Municipal Water District,CA3710026,VALLEY CENTER MWD,SAN DIEGO
+495,"'2605':1 'angeles':12 'ca1910009':6 'county':3,8 'dist':10 'district':5 'los':11 'valley':2,7 'water':4,9",2605,Valley County Water District,CA1910009,VALLEY COUNTY WATER DIST.,LOS ANGELES
+496,"'2610':1 'ca4910013':8 'district':7,14 'moon':5,12 'of':3,10 'sonoma':15 'the':4,11 'valley':2,9 'water':6,13",2610,Valley Of The Moon Water District,CA4910013,VALLEY OF THE MOON WATER DISTRICT,SONOMA
+497,"'2618':1 'angeles':10 'ca1910166':5 'co':8 'company':4 'los':9 'valley':2,6 'water':3,7",2618,Valley Water Company,CA1910166,VALLEY WATER CO.,LOS ANGELES
+498,"'2626':1 'ca1510029':5 'company':4 'inc':8 'kern':9 'vaughn':2,6 'water':3 'wc':7",2626,Vaughn Water Company,CA1510029,VAUGHN WC INC,KERN
+499,"'01':7 '1':13 '2629':1 'ca5610018':9 'county':3 'cwwd':11 'district':5 'moorpark':8,14 'no':6,12 'ventura':2,10,15 'waterworks':4",2629,Ventura County Waterworks District No 01 - Moorpark,CA5610018,VENTURA CWWD NO. 1 - MOORPARK,VENTURA
+500,"'08':7 '2631':1 '8':14 'ca5610023':10 'county':3 'district':5 'no':6,13 'simi':8,15 'valley':9,16 'ventura':2,11,17 'waterworks':4 'wwd':12",2631,Ventura County Waterworks District No 08 - Simi Valley,CA5610023,VENTURA WWD NO. 8 - SIMI VALLEY,VENTURA
+501,"'2633':1 'angeles':12 'ca1910167':5 'city':3,8 'dept':10 'los':11 'of':4 'vernon':2,7 'vernon-city':6 'water':9",2633,Vernon  City Of,CA1910167,"VERNON-CITY, WATER DEPT.",LOS ANGELES
+502,"'2635':1 'bernardino':10 'ca3610052':5 'district':4,8 'san':9 'victorville':2,6 'water':3,7",2635,Victorville Water District,CA3610052,VICTORVILLE WATER DISTRICT,SAN BERNARDINO
+503,"'2649':1 'ca3710027':5 'diego':10 'district':4,8 'irrigation':3,7 'san':9 'vista':2,6",2649,Vista Irrigation District,CA3710027,VISTA IRRIGATION DISTRICT,SAN DIEGO
+504,"'2661':1 'angeles':12 'ca1910234':6 'district':5,10 'los':11 'valley':3,8 'walnut':2,7 'water':4,9",2661,Walnut Valley Water District,CA1910234,WALNUT VALLEY WATER DISTRICT,LOS ANGELES
+505,"'2662':1 'ca1510021':5 'city':3,7 'kern':9 'of':4,8 'wasco':2,6",2662,Wasco  City Of,CA1510021,"WASCO, CITY OF",KERN
+506,"'2669':1 'ca4410011':5 'city':3,7 'cruz':10 'of':4,8 'santa':9 'watsonville':2,6",2669,Watsonville  City Of,CA4410011,"WATSONVILLE, CITY OF",SANTA CRUZ
+507,"'2679':1 'ca1510022':6 'district':5,10 'kern':3,8,11 'water':4,9 'west':2,7",2679,West Kern Water District,CA1510022,WEST KERN WATER DISTRICT,KERN
+508,"'2683':1 'ca5710003':6 'city':4,7 'of':5,8 'sacramento':3,10 'west':2,9 'yolo':11",2683,West Sacramento  City Of,CA5710003,CITY OF WEST SACRAMENTO,YOLO
+509,"'2690':1 'bernardino':12 'ca3610004':6 'district':5,10 'san':11 'valley':3,8 'water':4,9 'west':2,7",2690,West Valley Water District,CA3610004,WEST VALLEY WATER DISTRICT,SAN BERNARDINO
+510,"'2691':1 'ca4110027':5 'district':4,8 'mateo':10 'san':9 'water':3,7 'westborough':2,6",2691,Westborough Water District,CA4110027,WESTBOROUGH WATER DISTRICT,SAN MATEO
+511,"'2697':1 'ca3310036':8 'district':5 'division':12 'municipal':3 'murrieta':11 'mwd':10 'of':6 'riverside':7,13 'water':4 'western':2,9",2697,Western Municipal Water District Of Riverside,CA3310036,WESTERN MWD - MURRIETA DIVISION,RIVERSIDE
+512,"'2697':1 'ca3310049':8 'district':5 'municipal':3 'mwd':10 'of':6 'riverside':7,11 'water':4 'western':2,9",2697,Western Municipal Water District Of Riverside,CA3310049,WESTERN MWD,RIVERSIDE
+513,"'2697':1 'a':12 'ca3310076':8 'district':5 'id':11 'municipal':3 'mwd':10 'of':6 'rainbow':13 'riverside':7,14 'water':4 'western':2,9",2697,Western Municipal Water District Of Riverside,CA3310076,WESTERN MWD (ID A - RAINBOW),RIVERSIDE
+514,"'2704':1 'ca3010064':5 'city':3,6 'of':4,7 'orange':9 'westminster':2,8",2704,Westminster  City Of,CA3010064,CITY OF WESTMINSTER,ORANGE
+515,"'2723':1 'angeles':12 'ca1910173':5 'city':3,8 'dept':10 'los':11 'of':4 'water':9 'whittier':2,7 'whittier-city':6",2723,Whittier  City Of,CA1910173,"WHITTIER-CITY, WATER DEPT.",LOS ANGELES
+516,"'2751':1 'ca4910017':5 'of':4,8 'sonoma':9 'town':3,7 'windsor':2,6",2751,Windsor  Town Of,CA4910017,"WINDSOR, TOWN OF",SONOMA
+517,"'2766':1 'ca5710006':5 'city':3,6 'of':4,7 'woodland':2,8 'yolo':9",2766,Woodland  City Of,CA5710006,CITY OF WOODLAND,YOLO
+518,"'2782':1 'ca3010037':6 'district':5,10 'linda':3,8 'orange':11 'water':4,9 'yorba':2,7",2782,Yorba Linda Water District,CA3010037,YORBA LINDA WATER DISTRICT,ORANGE
+519,"'2789':1 'ca4710011':5 'city':3,7 'of':4,8 'siskiyou':9 'yreka':2,6",2789,Yreka  City Of,CA4710011,"YREKA, CITY OF",SISKIYOU
+520,"'2790':1 'ca5110002':4 'city':3,5,8 'of':6 'sutter':9 'yuba':2,7",2790,Yuba City,CA5110002,CITY OF YUBA CITY,SUTTER
+521,"'2793':1 'bernardino':12 'ca3610055':6 'district':5,10 'san':11 'valley':3,8 'water':4,9 'yucaipa':2,7",2793,Yucaipa Valley Water District,CA3610055,YUCAIPA VALLEY WATER DISTRICT,SAN BERNARDINO
+522,"'2891':1 '70':7 '70j':16 'area':6,15 'bernardino':3,18 'ca3610125':11 'county':4,13 'hills':10 'j':8 'oak':9 'san':2,17 'sbdno':12 'service':5,14",2891,San Bernardino County Service Area 70 J Oak Hills,CA3610125,SBDNO COUNTY SERVICE AREA 70J,SAN BERNARDINO
+523,"'2979':1 'ca2010001':5 'chowchilla':2,6 'city':3,7 'dept':9 'madera':10 'of':4 'water':8",2979,Chowchilla  City of,CA2010001,CHOWCHILLA CITY WATER DEPT,MADERA
+524,"'4231':1 'ca3910027':7 'community':4,10 'dist':12 'district':6 'house':3,9 'joaquin':14 'mountain':2,8 'san':13 'services':5,11",4231,Mountain House Community Services District,CA3910027,MOUNTAIN HOUSE COMMUNITY SERVICES DIST.,SAN JOAQUIN
+525,"'4993':1 'agency':6 'angeles':15 'ca1910017':7 'clarita':3,9,13 'los':14 'santa':2,8,12 'valley':4,10 'w.a':11 'water':5",4993,Santa Clarita Valley Water Agency,CA1910017,SANTA CLARITA VALLEY W.A.-SANTA CLARITA,LOS ANGELES
+526,"'4993':1 'agency':6 'angeles':15 'ca1910096':7 'clarita':3,9 'div':13 'los':14 'newhall':12 'santa':2,8 'valley':4,10 'w.a':11 'water':5",4993,Santa Clarita Valley Water Agency,CA1910096,SANTA CLARITA VALLEY W.A.-NEWHALL DIV.,LOS ANGELES
+527,"'4993':1 'agency':6 'angeles':15 'ca1910240':7 'clarita':3,9 'divis':13 'los':14 'santa':2,8 'valencia':12 'valley':4,10 'w.a':11 'water':5",4993,Santa Clarita Valley Water Agency,CA1910240,SANTA CLARITA VALLEY W.A.-VALENCIA DIVIS,LOS ANGELES
+528,"'4993':1 'agency':6 'angeles':15 'ca1910247':7 'castaic':12 'clarita':3,9 'div':13 'los':14 'santa':2,8 'valley':4,10 'w.a':11 'water':5",4993,Santa Clarita Valley Water Agency,CA1910247,SANTA CLARITA VALLEY W.A.-CASTAIC DIV.,LOS ANGELES
+529,"'4993':1 'agency':6 'angeles':15 'ca1910250':7 'clarita':3,9 'div':13 'los':14 'pinetree':12 'santa':2,8 'valley':4,10 'w.a':11 'water':5",4993,Santa Clarita Valley Water Agency,CA1910250,SANTA CLARITA VALLEY W.A.-PINETREE DIV.,LOS ANGELES
+530,"'4993':1 'agency':6 'angeles':15 'ca1910255':7 'clarita':3,9 'div':13 'los':14 'santa':2,8 'tesoro':12 'valley':4,10 'w.a':11 'water':5",4993,Santa Clarita Valley Water Agency,CA1910255,SANTA CLARITA VALLEY W.A.-TESORO DIV.,LOS ANGELES

@@ -27,7 +27,7 @@ crosswalk <- crosswalk_raw_data |>
   mutate(ORG_ID = as.numeric(ORG_ID)) |> 
   rename(org_id = ORG_ID,
          pwsid = PWSID)
-
+write_csv(crosswalk, "data/id_crosswalk.csv")
 # AWSDA: monthly water shortage outlook -------------------------------------------------------------------
 
 # Note that when downloading data it is really hard to tell if it is the 2022 or 2023 data
@@ -515,23 +515,6 @@ max(uwmp_drought_risk_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
 
 min(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
 max(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
-
-# TODO We need to decide how we want to handle multiple PWSIDs
-# dra_pwsid_check <- uwmp_drought_risk_raw |>
-#   rename(org_id = ORG_ID) |>
-#   left_join(crosswalk |>
-#               select(org_id,
-#                      pwsid), relationship = "many-to-many")
-# dra_pwsid <- uwmp_drought_risk_clean |>
-#   left_join(crosswalk |>
-#               select(org_id,
-#                      pwsid), relationship = "many-to-many")
-# 
-# dra_pwsid_to_check <- dra_pwsid |>
-#   distinct(org_id, pwsid) |>
-#   group_by(org_id) |>
-#   tally() |>
-#   filter(n > 1)
 
 write_csv(uwmp_drought_risk_clean, "data/five_year_outlook.csv")
 
