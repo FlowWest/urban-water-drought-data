@@ -2,6 +2,7 @@
 # TODO functionalize/automate (right now just manually pull data tables)
 library(tidyverse)
 library(jsonlite)
+library(readxl)
 
 
 # metadata ----------------------------------------------------------------
@@ -718,6 +719,53 @@ write_csv(sources_number_combined, "data/number_sources.csv")
 #   distinct(year, pwsid) |> 
 #   group_by(year) |> 
 #   tally()
+
+
+# SAFER export from eric --------------------------------------------------
+# TODO need to work through publishing this information and approvals needed
+
+# Using the single water systems sheet because eric said that is the one to use. 
+# TODO get more info on the sheet names
+# TODO ask for information about facility_activity_status: difference between proposed and proposed - new
+# TODO ask eric about sdwis vs safer water type; source_utilized? is this that different than status?
+# Decided to keep facility id because it might be helpful later - though should find out who else uses this ID
+# TODO ask julie - there is a bunch of pump and well info but don't think we want that
+source_name_export <- read_xlsx("data-raw/20240509_SAFER_CLEARINGHOUSE_EXPORT - WDC.xlsx", sheet = "data_export_SingleWaterSystems")
+
+source_name <- source_name_export |> 
+  select(WATER_SYSTEM_ID, FACILITY_NAME, FACILITY_ACTIVITY_STATUS, FACILITY_AVAILABILITY, 
+         FACILITY_TYPE, SDWIS_WATER_TYPE, CLEARINGHOUSE_WATER_TYPE, REPORTING_PERIOD_END_DATE, 
+         REPORTING_PERIOD_START_DATE, LATITUDE_MEASURE, LONGITUDE_MEASURE, FACILITY_ID) |> 
+  rename(pwsid = WATER_SYSTEM_ID,
+         facility_id = FACILITY_ID,
+         facility_name = FACILITY_NAME,
+         facility_activity_status = FACILITY_ACTIVITY_STATUS,
+         facility_availability = FACILITY_AVAILABILITY,
+         facility_type = FACILITY_TYPE,
+         sdwis_water_type = SDWIS_WATER_TYPE,
+         safer_water_type = CLEARINGHOUSE_WATER_TYPE,
+         start_date = REPORTING_PERIOD_START_DATE,
+         end_date = REPORTING_PERIOD_END_DATE,
+         latitude = LATITUDE_MEASURE,
+         longitude = LONGITUDE_MEASURE) |> 
+  distinct() |>  # there is some other variable in here but get duplicates when select only these variables
+  mutate(across(facility_name:safer_water_type, tolower)) |> 
+  select(pwsid, start_date, end_date, facility_id, facility_name, facility_activity_status, 
+         facility_availability, facility_type, sdwis_water_type, safer_water_type, latitude, longitude)
+
+source_name |> distinct(facility_name) |> tally() #4,563 unique source names
+unique(source_name$facility_activity_status) # active, not available, inactive, proposed, proposed - new
+unique(source_name$facility_availability) # permanent, emergency, interim, other, seasonal, not available
+dput(unique(source_name$facility_type)) #c("Spring", "Consecutive Connection", "Well", "Purchased", "Non-Piped, Purchased", 
+# "Intake", "Non-Purchased", "Reservoir", "Not Available", "Infiltration Gallery", 
+# "Non-Piped, Non-Purchased", "Distribution System", "ST", "Clear Well", 
+# "Treatment Plant")
+dput(unique(source_name$safer_water_type)) #c("Spring Water", "Consecutive Connections", "Groundwater & GWUDI", 
+# "Hauled Water", "Surface Water", "Not Available")
+dput(unique(source_name$sdwis_water_type)) #c("Groundwater", "Surface Water", "Groundwater under the Direct Influence of Surface Water", 
+# "Not Available")
+
+write_csv(source_name, "data/source_name.csv")
 
 # SAFER on open data ------------------------------------------------------
 # Data:
