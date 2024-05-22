@@ -392,11 +392,11 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
   left_join(org_id_supplier_name) |> 
   left_join(awsda_assessment_aug) |> 
   left_join(awsda_assessment_red) |> 
-  mutate(year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2022,
+  mutate(forecast_year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2022,
                           T ~ 2023),
          is_annual = ifelse(month == "Annual", T, F),
          month = tolower(month)) |> 
-  select(org_id, supplier_name, year, month, is_annual, is_wscp_action, 
+  select(org_id, supplier_name, forecast_year, month, is_annual, is_wscp_action, 
          shortage_surplus_acre_feet, shortage_surplus_percent, state_standard_shortage_level, 
          benefit_demand_reduction_acre_feet, benefit_supply_augmentation_acre_feet)
 

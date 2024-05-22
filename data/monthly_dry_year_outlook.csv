@@ -1,4 +1,4 @@
-org_id,supplier_name,year,month,is_annual,is_wscp_action,shortage_surplus_acre_feet,shortage_surplus_percent,state_standard_shortage_level,benefit_demand_reduction_acre_feet,benefit_supply_augmentation_acre_feet
+org_id,supplier_name,forecast_year,month,is_annual,is_wscp_action,shortage_surplus_acre_feet,shortage_surplus_percent,state_standard_shortage_level,benefit_demand_reduction_acre_feet,benefit_supply_augmentation_acre_feet
 13,adelanto  city of,2022,jul,FALSE,FALSE,0,0,0,NA,NA
 13,adelanto  city of,2022,aug,FALSE,FALSE,0,0,0,NA,NA
 13,adelanto  city of,2022,sep,FALSE,FALSE,0,0,0,NA,NA
