@@ -1,5 +1,5 @@
 # Thinking through how to join by PWSID and DWR ID and how to summarize
-
+library(tidyverse)
 # data
 monthly_dry_outlook <- read_csv("data/monthly_dry_year_outlook.csv")
 five_year_outlook <- read_csv("data/five_year_outlook.csv")
@@ -47,6 +47,8 @@ uwmp_multiple_pwsids <- dra_pwsid_check |>
 uwmp_na_pwsids <- dra_pwsid_check |> 
   filter(is.na(pwsid))
 
+write_csv(uwmp_na_pwsids, "data-raw/uwmp_2020_na_pwsid.csv")
+
 ## AWSDA org_id and pwsids
 # TODO We need to decide how we want to handle multiple PWSIDs: 43 with multiple PWSIDs
 # TODO what about NA pwsids: 40 with NA pwsids
@@ -64,6 +66,8 @@ awsda_multiple_pwsids <- awsda_pwsid_check |>
 
 awsda_na_pwsids <- awsda_pwsid_check |> 
   filter(is.na(pwsid))
+
+write_csv(awsda_na_pwsids, "data-raw/awsda_2023_na_pwsid.csv")
 
 ## source name and crosswalk
 # there are a lot that don't have org_id but I think that is what we expect
