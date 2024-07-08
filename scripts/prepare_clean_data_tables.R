@@ -114,7 +114,16 @@ write_csv(crosswalk, "data/id_crosswalk.csv")
 # Ideas: shortage_surplus_acre_feet, shortage_surplus_percent, state_standard_shortage_level, wscp_action (no_action, wscp_action), demand_reduction_benefit_acre_feet, supply_augmentation_benefit_acre_feet
 # another option for this table would to pull straight demand and supply values instead of including the calculated values
 
-awsda_assessment_raw <- readxl::read_xlsx("data-raw/wsda_table4.xlsx")
+# general information is contained in table 1
+awsda_info_raw <- readxl::read_xls("data-raw/wsda_table1_info_2024.xls")
+
+awsda_info <- awsda_info_raw |> 
+  select(ORG_ID, VOLUME_UNIT, START_MONTH, END_MONTH, REPORTING_INTERVAL)
+
+awsda_assessment_raw <- readxl::read_xls("data-raw/wsda_table4_2024.xls") |> 
+  distinct() # there are duplicate records for 1752
+
+# TODO - need to convert units and need to replace 0 with NA for those that only report annually
 
 ## variable lists #######
 pot_no_action_list <-
@@ -235,9 +244,10 @@ pot_red_list <- c(
 )
 
 org_id_supplier_name <- awsda_assessment_raw |> 
-  select(ORG_ID, WATER_SUPPLIER_NAME) |> 
+  select(ORG_ID, WATER_SUPPLIER_NAME, SUPPLIER_TYPE) |> 
   rename(org_id = ORG_ID,
-         supplier_name = WATER_SUPPLIER_NAME) |> 
+         supplier_name = WATER_SUPPLIER_NAME,
+         supplier_type = SUPPLIER_TYPE) |> 
   mutate(supplier_name = tolower(supplier_name))
 
 # TODO how do we want to handle NA - we could include so explicit that no augmentation action provided or convert to 0
@@ -245,7 +255,7 @@ org_id_supplier_name <- awsda_assessment_raw |>
 ## action benefits #######
 # This pulls the supply augmentation benefit by month (water added by this action)
 awsda_assessment_aug <- awsda_assessment_raw |> 
-  select(ORG_ID, all_of(pot_augm_list)) |> 
+  select(ORG_ID, SUPPLIER_TYPE, all_of(pot_augm_list)) |> 
   rename(Jul = POT_AUGM_JULY, 
          Aug = POT_AUGM_AUGUST, 
          Sep = POT_AUGM_SEPTEMBER,
@@ -259,12 +269,13 @@ awsda_assessment_aug <- awsda_assessment_raw |>
          May = POT_AUGM_MAY,
          Jun = POT_AUGM_JUNE,
          Annual = POT_AUGM_TOTAL,
-         org_id = ORG_ID) |> 
+         org_id = ORG_ID,
+         supplier_type = SUPPLIER_TYPE) |> 
   pivot_longer(Jul:Annual, names_to = "month", values_to = "benefit_supply_augmentation_acre_feet") |> 
   mutate(is_wscp_action = T)
 # This pulls the demand reduction benefit by month (water added by this action)
 awsda_assessment_red <- awsda_assessment_raw |> 
-  select(ORG_ID, all_of(pot_red_list)) |> 
+  select(ORG_ID, SUPPLIER_TYPE, all_of(pot_red_list)) |> 
   rename(Jul = POT_SHORT_DEM_RED_JULY, 
          Aug = POT_SHORT_DEM_RED_AUGUST, 
          Sep = POT_SHORT_DEM_RED_SEPTEMBER,
@@ -278,16 +289,22 @@ awsda_assessment_red <- awsda_assessment_raw |>
          May = POT_SHORT_DEM_RED_MAY,
          Jun = POT_SHORT_DEM_RED_JUNE,
          Annual = POT_SHORT_DEM_RED_TOTAL,
-         org_id = ORG_ID) |> 
+         org_id = ORG_ID,
+         supplier_type = SUPPLIER_TYPE) |> 
   pivot_longer(Jul:Annual, names_to = "month", values_to = "benefit_demand_reduction_acre_feet") |> 
   mutate(is_wscp_action = T)
 
 
 ## without action ----------------------------------------------
 
+# TODO even though the data are published with 0s I think they should be NAs 
+# for those that only report annually etc
+
+# Note that there are duplicate data for ORG_ID 1752 and 2179
+
 # water short (or surplus) without action
 awsda_assessment_no_action <- awsda_assessment_raw |> 
-  select(ORG_ID, all_of(pot_no_action_list)) |> 
+  select(ORG_ID, SUPPLIER_TYPE, all_of(pot_no_action_list)) |> 
   rename(Jul = POT_SHORT_NO_ACTION_JULY, 
          Aug = POT_SHORT_NO_ACTION_AUGUST, 
          Sep = POT_SHORT_NO_ACTION_SEPTEMBER,
@@ -301,13 +318,16 @@ awsda_assessment_no_action <- awsda_assessment_raw |>
          May = POT_SHORT_NO_ACTION_MAY,
          Jun = POT_SHORT_NO_ACTION_JUNE,
          Annual = POT_SHORT_NO_ACTION_TOTAL,
-         org_id = ORG_ID) |> 
+         org_id = ORG_ID,
+         supplier_type = SUPPLIER_TYPE) |> 
   pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_acre_feet") |> 
-  mutate(is_wscp_action = F)
+  mutate(is_wscp_action = F) 
+
+ck <- awsda_assessment_no_action |>  group_by(org_id, month, supplier_type) |> tally() |>  filter(n>1)
 
 # percent water short (or surplus) without action
 awsda_assessment_no_action_perc <- awsda_assessment_raw |> 
-  select(ORG_ID, all_of(pot_no_action_perc_list)) |> 
+  select(ORG_ID, SUPPLIER_TYPE, all_of(pot_no_action_perc_list)) |> 
   rename(Jul = POT_PERC_NO_ACTION_JULY, 
          Aug = POT_PERC_NO_ACTION_AUGUST, 
          Sep = POT_PERC_NO_ACTION_SEPTEMBER,
@@ -321,13 +341,14 @@ awsda_assessment_no_action_perc <- awsda_assessment_raw |>
          May = POT_PERC_NO_ACTION_MAY,
          Jun = POT_PERC_NO_ACTION_JUNE,
          Annual = POT_PERC_NO_ACTION_TOTAL,
-         org_id = ORG_ID) |> 
+         org_id = ORG_ID,
+         supplier_type = SUPPLIER_TYPE) |> 
   mutate(across(Jul:Annual, as.numeric)) |> 
   pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent")
 
 # standard shortage level based on percent water short
 awsda_assessment_short_level <- awsda_assessment_raw |> 
-  select(ORG_ID, all_of(pot_short_level_list)) |> 
+  select(ORG_ID, SUPPLIER_TYPE, all_of(pot_short_level_list)) |> 
   rename(Jul = POT_SHORT_LEVEL_JULY, 
          Aug = POT_SHORT_LEVEL_AUGUST, 
          Sep = POT_SHORT_LEVEL_SEPTEMBER,
@@ -341,13 +362,14 @@ awsda_assessment_short_level <- awsda_assessment_raw |>
          May = POT_SHORT_LEVEL_MAY,
          Jun = POT_SHORT_LEVEL_JUNE,
          Annual = POT_SHORT_LEVEL_TOTAL,
-         org_id = ORG_ID) |> 
+         org_id = ORG_ID,
+         supplier_type = SUPPLIER_TYPE) |> 
   pivot_longer(Jul:Annual, names_to = "month", values_to = "state_standard_shortage_level")
 
 
 ## with action -------------------------------------------------
 awsda_assessment_action <- awsda_assessment_raw |> 
-  select(ORG_ID, all_of(pot_rev_list)) |> 
+  select(ORG_ID, SUPPLIER_TYPE, all_of(pot_rev_list)) |> 
   rename(Jul = POT_REV_SHORT_JULY, 
          Aug = POT_REV_SHORT_AUGUST, 
          Sep = POT_REV_SHORT_SEPTEMBER,
@@ -361,13 +383,14 @@ awsda_assessment_action <- awsda_assessment_raw |>
          May = POT_REV_SHORT_MAY,
          Jun = POT_REV_SHORT_JUNE,
          Annual = POT_REV_SHORT_TOTAL,
-         org_id = ORG_ID) |> 
+         org_id = ORG_ID,
+         supplier_type = SUPPLIER_TYPE) |> 
   mutate(across(Jul:Annual, as.numeric)) |> 
   pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_acre_feet") |> 
   mutate(is_wscp_action = T)
 
 awsda_assessment_action_perc <- awsda_assessment_raw |> 
-  select(ORG_ID, all_of(pot_rev_perc_list)) |> 
+  select(ORG_ID, SUPPLIER_TYPE, all_of(pot_rev_perc_list)) |> 
   rename(Jul = POT_REV_PERC_JULY, 
          Aug = POT_REV_PERC_AUGUST, 
          Sep = POT_REV_PERC_SEPTEMBER,
@@ -381,7 +404,8 @@ awsda_assessment_action_perc <- awsda_assessment_raw |>
          May = POT_REV_PERC_MAY,
          Jun = POT_REV_PERC_JUNE,
          Annual = POT_REV_PERC_TOTAL,
-         org_id = ORG_ID) |> 
+         org_id = ORG_ID,
+         supplier_type = SUPPLIER_TYPE) |> 
   mutate(across(Jul:Annual, as.numeric)) |> 
   pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent") 
 
@@ -392,11 +416,12 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
   left_join(org_id_supplier_name) |> 
   left_join(awsda_assessment_aug) |> 
   left_join(awsda_assessment_red) |> 
-  mutate(forecast_year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2022,
-                          T ~ 2023),
+  mutate(forecast_year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2024,
+                          T ~ 2025),
          is_annual = ifelse(month == "Annual", T, F),
-         month = tolower(month)) |> 
-  select(org_id, supplier_name, forecast_year, month, is_annual, is_wscp_action, 
+         month = tolower(month),
+         supplier_type = tolower(supplier_type)) |> 
+  select(org_id, supplier_name, supplier_type, forecast_year, month, is_annual, is_wscp_action, 
          shortage_surplus_acre_feet, shortage_surplus_percent, state_standard_shortage_level, 
          benefit_demand_reduction_acre_feet, benefit_supply_augmentation_acre_feet)
 
