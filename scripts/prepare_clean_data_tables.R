@@ -58,90 +58,6 @@ uwmp_dwr_id_pwsid <- uwmp_dwr_id_pwsid_raw |>
 
 # AWSDA: monthly water shortage outlook -------------------------------------------------------------------
 
-# Note that when downloading data it is really hard to tell if it is the 2022 or 2023 data
-
-#AWSDA - 2022
-# Data here:
-# https://wuedata.water.ca.gov/wsda_export
-# Data reporting guidance:
-# https://wuedata.water.ca.gov/public/public_resources/3517484366/AWSDA-Final-Guidance-4-2022.pdf 
-# awsda_demand_raw <- readxl::read_xls("data-raw/wsda_table2.xls")
-# awsda_supply_raw <- readxl::read_xls("data-raw/wsda_table3.xls")
-# 
-# # 2022
-# 
-# # CURRENTLY NOT USED: Demand and Supply Tables by dwr_org_id, month, year, demand_or_supply, type
-# 
-# # as of 3/12/2024 call with julie decided we don't need the demand/supply broken up to this level (type of demand/supply)
-# awsda_demand_format <- awsda_demand_raw |> 
-#   select(ORG_ID, POTABLE_NONPOTABLE, DEMANDS_SERVED, JULY_DEMANDS, AUGUST_DEMANDS, SEPTEMBER_DEMANDS,
-#          OCTOBER_DEMANDS, NOVEMBER_DEMANDS, DECEMBER_DEMANDS, JANUARY_DEMANDS, FEBRUARY_DEMANDS, 
-#          MARCH_DEMANDS, APRIL_DEMANDS, MAY_DEMANDS, JUNE_DEMANDS) |> 
-#   rename(Jul = JULY_DEMANDS,
-#          Aug = AUGUST_DEMANDS,
-#          Sep = SEPTEMBER_DEMANDS,
-#          Oct = OCTOBER_DEMANDS,
-#          Nov = NOVEMBER_DEMANDS,
-#          Dec = DECEMBER_DEMANDS,
-#          Jan = JANUARY_DEMANDS,
-#          Feb = FEBRUARY_DEMANDS,
-#          Mar = MARCH_DEMANDS,
-#          Apr = APRIL_DEMANDS,
-#          May = MAY_DEMANDS,
-#          Jun = JUNE_DEMANDS,
-#          org_id = ORG_ID,
-#          potable_nonpotable = POTABLE_NONPOTABLE,
-#          demand_supply_type = DEMANDS_SERVED) |> 
-#   pivot_longer(Jul:Jun, names_to = "month", values_to = "acre_feet") |> 
-#   mutate(demand_supply_type = tolower(demand_supply_type),
-#          demand_supply = "demand",
-#          # need to confirm year type and consider adding variable to specify year- type (june - july)
-#          # June 2022 - July 2023
-#          year = 2022)
-# 
-# dput(unique(awsda_demand_format$demand_supply_type))
-# dput(unique(awsda_demand_format$potable_nonpotable))
-# dput(unique(awsda_demand_format$month))
-# 
-# 
-# awsda_supply_format <- awsda_supply_raw |> 
-#   select(ORG_ID, POTABLE_NONPOTABLE, SUPPLIES, JULY_DEMANDS, AUGUST_DEMANDS, SEPTEMBER_DEMANDS,
-#          OCTOBER_DEMANDS, NOVEMBER_DEMANDS, DECEMBER_DEMANDS, JANUARY_DEMANDS, FEBRUARY_DEMANDS, 
-#          MARCH_DEMANDS, APRIL_DEMANDS, MAY_DEMANDS, JUNE_DEMANDS) |> 
-#   rename(Jul = JULY_DEMANDS,
-#          Aug = AUGUST_DEMANDS,
-#          Sep = SEPTEMBER_DEMANDS,
-#          Oct = OCTOBER_DEMANDS,
-#          Nov = NOVEMBER_DEMANDS,
-#          Dec = DECEMBER_DEMANDS,
-#          Jan = JANUARY_DEMANDS,
-#          Feb = FEBRUARY_DEMANDS,
-#          Mar = MARCH_DEMANDS,
-#          Apr = APRIL_DEMANDS,
-#          May = MAY_DEMANDS,
-#          Jun = JUNE_DEMANDS,
-#          org_id = ORG_ID,
-#          potable_nonpotable = POTABLE_NONPOTABLE,
-#          demand_supply_type = SUPPLIES) |> 
-#   pivot_longer(Jul:Jun, names_to = "month", values_to = "acre_feet") |> 
-#   mutate(demand_supply_type = tolower(demand_supply_type),
-#          demand_supply = "supply",
-#          # need to confirm year type and consider adding variable to specify year- type (june - july)
-#          # June 2022 - July 2023
-#          year = 2022)
-# 
-# dput(unique(awsda_supply_format$demand_supply_type))
-# dput(unique(awsda_supply_format$potable_nonpotable))
-# dput(unique(awsda_supply_format$month))
-# 
-# awsda_clean <- bind_rows(awsda_demand_format,
-#                          awsda_supply_format) |> 
-#   select(org_id, year, month, demand_supply, potable_nonpotable, demand_supply_type, acre_feet)
-
-# assessment table - right now only including for potable water; nonpotable is optional response
-# Ideas: shortage_surplus_acre_feet, shortage_surplus_percent, state_standard_shortage_level, wscp_action (no_action, wscp_action), demand_reduction_benefit_acre_feet, supply_augmentation_benefit_acre_feet
-# another option for this table would to pull straight demand and supply values instead of including the calculated values
-
 # general information is contained in table 1
 awsda_info_raw <- readxl::read_xls("data-raw/wsda_table1_info_2024.xls")
 
@@ -157,8 +73,7 @@ awsda_info <- awsda_info_raw |>
 awsda_assessment_raw <- readxl::read_xls("data-raw/wsda_table4_2024.xls") |> 
   distinct() # there are duplicate records for 1752
 
-# TODO - need to convert units and need to replace 0 with NA for those that only report annually
-# TODO - we should convert to standard units
+# TODO - need to replace 0 with NA for those that only report annually
 
 ## variable lists #######
 pot_no_action_list <-
@@ -490,24 +405,6 @@ min(awsda_assessment_clean$shortage_surplus_acre_feet)
 max(awsda_assessment_clean$shortage_surplus_acre_feet)
 min(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
 max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
-# TODO We need to decide how we want to handle multiple PWSIDs
-# We should pull PWSID from the UWMP
-
-# awsda_assessment_pwsid_check <- awsda_assessment_raw |> 
-#   rename(org_id = ORG_ID) |> 
-#   left_join(crosswalk |> 
-#               select(org_id,
-#                      pwsid), relationship = "many-to-many") 
-# awsda_assessment_pwsid <- awsda_assessment_clean |> 
-#   left_join(crosswalk |> 
-#               select(org_id,
-#                      pwsid), relationship = "many-to-many")
-# 
-# pwsid_to_check <- awsda_assessment_pwsid |> 
-#   distinct(org_id, pwsid) |> 
-#   group_by(org_id) |> 
-#   tally() |> 
-#   filter(n > 1)
 
 write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
 
@@ -626,45 +523,6 @@ unique(cr_format$water_shortage_stage)
 unique(cr_format$dwr_water_shortage_stage)
 
 write_csv(cr_format, "data/water_shortage_level_clean.csv")
-
-
-# Rafa flatfile (eAR) -----------------------------------------------------
-# Data:
-# Provided via email by Rafa
-rafa_raw <- readxl::read_xlsx("data-raw/EAR_FLAT_FILE_WP_WD_FORMAT.xlsx", sheet = 2)
-
-rafa_format <- rafa_raw |> 
-  select(PWSID, Year, `MONTH CALC`, `Produced or Delivery`, TYPE, Population, `WP AF CALCULATED`) |> 
-  rename(pwsid = PWSID,
-         year = Year,
-         month = `MONTH CALC`,
-         produced_or_delivery = `Produced or Delivery`,
-         produced_or_delivery_type = TYPE,
-         population = Population,
-         acre_feet = `WP AF CALCULATED`) |> 
-  mutate(produced_or_delivery = tolower(produced_or_delivery),
-         produced_or_delivery_type = tolower(produced_or_delivery_type),
-         month = tolower(month),
-         month = case_when(month == "january" ~ "Jan",
-                           month == "february" ~ "Feb",
-                           month == "march" ~ "Mar",
-                           month == "april" ~ "Apr",
-                           month == "may" ~ "May",
-                           month == "june" ~ "Jun",
-                           month == "july" ~ "Jul",
-                           month == "august" ~ "Aug",
-                           month == "september" ~ "Sep",
-                           month == "october" ~ "Oct",
-                           month == "november" ~ "Nov",
-                           month == "december" ~ "Dec",
-                           month == "annual" ~ "Annual"))
-
-unique(rafa_format$produced_or_delivery)
-dput(unique(rafa_format$produced_or_delivery_type))
-dput(unique(rafa_format$month))
-
-write_csv(rafa_format, "data/production_delivery_volume_clean.csv")
-
 
 # eAR number of sources ---------------------------------------------------------------------
 # Data: https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/ear.html
