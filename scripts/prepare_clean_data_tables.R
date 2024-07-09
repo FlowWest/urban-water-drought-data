@@ -3,13 +3,24 @@
 library(tidyverse)
 library(jsonlite)
 library(readxl)
+library(googlesheets4)
 
 
+# helpers -----------------------------------------------------------------
+month_mapping <- tibble(month_number = 1:12,
+                        month_abbrev = c("Jan", "Feb", "Mar", "Apr", "May",
+                                         "Jun", "Jul", "Aug", "Sep", "Oct",
+                                         "Nov", "Dec"),
+                        month_full = c("January", "February", "March", "April",
+                                       "May", "June", "July", "August", "September",
+                                       "October", "November", "December")) |> 
+  mutate(month_abbrev = tolower(month_abbrev),
+         month_full = tolower(month_full))
 # metadata ----------------------------------------------------------------
 # This information is maintained currently in a google sheet and will need to be updated
-
-metadata <- read_sheet("https://docs.google.com/spreadsheets/d/1iy-4uUer18B2OhuWAOPXQYU9vgNuMiEPySQmZIsGO4k/edit#gid=0")
-write_csv(metadata, "data/metadata.csv")
+# Note that this requires authentication to be set up
+# metadata <- read_sheet("https://docs.google.com/spreadsheets/d/1iy-4uUer18B2OhuWAOPXQYU9vgNuMiEPySQmZIsGO4k/edit#gid=0")
+# write_csv(metadata, "data/metadata.csv")
 
 
 # Crosswalk ---------------------------------------------------------------
@@ -28,6 +39,23 @@ crosswalk <- crosswalk_raw_data |>
   rename(org_id = ORG_ID,
          pwsid = PWSID)
 write_csv(crosswalk, "data/id_crosswalk.csv")
+
+# pull org_id and PWSID lookup from UWMP. This should be used with UWMP and AWSDA data
+# There are DWR_ID with multiple PWSID
+# Note there are some NA org_id
+# Note that there are some with CA pwsid
+uwmp_dwr_id_pwsid_raw <- readxl::read_xlsx("data-raw/uwmp_table_2_1_r_2020.xlsx")
+uwmp_dwr_id_pwsid <- uwmp_dwr_id_pwsid_raw |> 
+  select(ORG_ID, PUBLIC_WATER_SYSTEM_NUMBER) |> 
+  rename(org_id = ORG_ID,
+         pwsid = PUBLIC_WATER_SYSTEM_NUMBER) |> 
+  group_by(org_id) |> 
+  summarize(n = length(unique(pwsid)),
+            pwsid = paste(unique(pwsid), collapse = ", ")) |> 
+  mutate(is_multiple_pwsid = ifelse(n > 1, T, F)) |> 
+  filter(!is.na(org_id)) |> 
+  select(-n)
+
 # AWSDA: monthly water shortage outlook -------------------------------------------------------------------
 
 # Note that when downloading data it is really hard to tell if it is the 2022 or 2023 data
@@ -118,12 +146,19 @@ write_csv(crosswalk, "data/id_crosswalk.csv")
 awsda_info_raw <- readxl::read_xls("data-raw/wsda_table1_info_2024.xls")
 
 awsda_info <- awsda_info_raw |> 
-  select(ORG_ID, VOLUME_UNIT, START_MONTH, END_MONTH, REPORTING_INTERVAL)
+  select(ORG_ID, VOLUME_UNIT, START_MONTH, END_MONTH, REPORTING_INTERVAL) |> 
+   rename(org_id = ORG_ID,
+          start_month = START_MONTH,
+          end_month = END_MONTH,
+          reporting_interval = REPORTING_INTERVAL) |> 
+  mutate(start_month = tolower(start_month),
+         end_month = tolower(end_month))
 
 awsda_assessment_raw <- readxl::read_xls("data-raw/wsda_table4_2024.xls") |> 
   distinct() # there are duplicate records for 1752
 
 # TODO - need to convert units and need to replace 0 with NA for those that only report annually
+# TODO - we should convert to standard units
 
 ## variable lists #######
 pot_no_action_list <-
@@ -249,8 +284,6 @@ org_id_supplier_name <- awsda_assessment_raw |>
          supplier_name = WATER_SUPPLIER_NAME,
          supplier_type = SUPPLIER_TYPE) |> 
   mutate(supplier_name = tolower(supplier_name))
-
-# TODO how do we want to handle NA - we could include so explicit that no augmentation action provided or convert to 0
 
 ## action benefits #######
 # This pulls the supply augmentation benefit by month (water added by this action)
@@ -414,16 +447,38 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
   left_join(awsda_assessment_short_level) |> 
   bind_rows(left_join(awsda_assessment_action, awsda_assessment_action_perc)) |> 
   left_join(org_id_supplier_name) |> 
-  left_join(awsda_assessment_aug) |> 
-  left_join(awsda_assessment_red) |> 
+  left_join(awsda_assessment_aug) |> # add on rows for augmentation volume
+  left_join(awsda_assessment_red) |> # add on rows for reduction volume
+  left_join(awsda_info) |> 
+  left_join(month_mapping |> # convert start_month to abbrev
+              rename(start_month = month_full)) |> 
+  mutate(start_month = month_abbrev) |> 
+  select(-c(month_number, month_abbrev)) |> 
+  left_join(month_mapping |> # convert end_month to abbrev
+             rename(end_month = month_full)) |> 
+  mutate(end_month = month_abbrev) |> 
+  select(-c(month_number, month_abbrev)) |> 
+  left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP
   mutate(forecast_year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2024,
                           T ~ 2025),
          is_annual = ifelse(month == "Annual", T, F),
          month = tolower(month),
-         supplier_type = tolower(supplier_type)) |> 
-  select(org_id, supplier_name, supplier_type, forecast_year, month, is_annual, is_wscp_action, 
-         shortage_surplus_acre_feet, shortage_surplus_percent, state_standard_shortage_level, 
-         benefit_demand_reduction_acre_feet, benefit_supply_augmentation_acre_feet)
+         supplier_type = tolower(supplier_type),
+         reporting_interval = tolower(reporting_interval),
+         # convert all to AF (although this is not how it is on WUE, it is more usable this way)
+         shortage_surplus_acre_feet = case_when(VOLUME_UNIT == "MG" ~ shortage_surplus_acre_feet*3.06887,
+                                                VOLUME_UNIT == "CCF(HCF)" ~ shortage_surplus_acre_feet*0.0023,
+                                                VOLUME_UNIT == "AF" ~ shortage_surplus_acre_feet),
+         benefit_supply_augmentation_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_supply_augmentation_acre_feet*3.06887,
+                                                           VOLUME_UNIT == "CCF(HCF)" ~ benefit_supply_augmentation_acre_feet*0.0023,
+                                                           VOLUME_UNIT == "AF" ~ benefit_supply_augmentation_acre_feet),
+         benefit_demand_reduction_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_demand_reduction_acre_feet*3.06887,
+                                                           VOLUME_UNIT == "CCF(HCF)" ~ benefit_demand_reduction_acre_feet*0.0023,
+                                                           VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet)) |> 
+  select(org_id, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
+         forecast_year, month, is_annual, is_wscp_action, shortage_surplus_acre_feet, 
+         shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
+         benefit_supply_augmentation_acre_feet)
 
 # checks
 # benefits should be NA when wscp_action = F
@@ -436,6 +491,8 @@ max(awsda_assessment_clean$shortage_surplus_acre_feet)
 min(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
 max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
 # TODO We need to decide how we want to handle multiple PWSIDs
+# We should pull PWSID from the UWMP
+
 # awsda_assessment_pwsid_check <- awsda_assessment_raw |> 
 #   rename(org_id = ORG_ID) |> 
 #   left_join(crosswalk |> 
@@ -456,7 +513,7 @@ write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
 
 
 # UWMP: five year water shortage outlook --------------------------------------------------------------------
-
+# TODO convert this to pull from the Open Data dataset
 # UWMP 2020
 # drought risk assessment
 # calculate supplies - demand
