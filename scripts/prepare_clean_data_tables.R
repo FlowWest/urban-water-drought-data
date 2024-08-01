@@ -38,7 +38,7 @@ crosswalk <- crosswalk_raw_data |>
   mutate(ORG_ID = as.numeric(ORG_ID)) |> 
   rename(org_id = ORG_ID,
          pwsid = PWSID)
-write_csv(crosswalk, "data/id_crosswalk.csv")
+write_csv(crosswalk, "data/other_data/id_crosswalk.csv")
 
 # pull org_id and PWSID lookup from UWMP. This should be used with UWMP and AWSDA data
 # There are DWR_ID with multiple PWSID
@@ -373,7 +373,7 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
              rename(end_month = month_full)) |> 
   mutate(end_month = month_abbrev) |> 
   select(-c(month_number, month_abbrev)) |> 
-  left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP
+  left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP, note that there are 17 NAs, need to include multiple PWSID in same row otherwise will get duplicate data
   mutate(forecast_year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2024,
                           T ~ 2025),
          is_annual = ifelse(month == "Annual", T, F),
@@ -390,7 +390,7 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
          benefit_demand_reduction_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_demand_reduction_acre_feet*3.06887,
                                                            VOLUME_UNIT == "CCF(HCF)" ~ benefit_demand_reduction_acre_feet*0.0023,
                                                            VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet)) |> 
-  select(org_id, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
          forecast_year, month, is_annual, is_wscp_action, shortage_surplus_acre_feet, 
          shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
          benefit_supply_augmentation_acre_feet)
@@ -405,6 +405,10 @@ min(awsda_assessment_clean$shortage_surplus_acre_feet)
 max(awsda_assessment_clean$shortage_surplus_acre_feet)
 min(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
 max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
+
+# trying to apply the pwsid
+# there are 17 without pwsid
+awsda_assessment_clean |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
 
 write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
 
@@ -480,7 +484,8 @@ uwmp_drought_risk_clean <- bind_rows(uwmp_2021,
                                      uwmp_2025) |> 
   filter(!is.na(org_id)) |> 
   left_join(uwmp_org_id_supplier_name) |> 
-  select(org_id, supplier_name, year, water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
+  left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP, note that there are 32 NAs, need to include multiple PWSID in same row otherwise will get duplicate data
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, year, water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
          benefit_demand_reduction_acre_feet)
 
 min(uwmp_drought_risk_clean$water_supplies_acre_feet, na.rm = T)
@@ -495,6 +500,10 @@ max(uwmp_drought_risk_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
 min(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
 max(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
 
+# trying to apply the pwsid
+# there are 17 without pwsid
+uwmp_drought_risk_clean |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
+
 write_csv(uwmp_drought_risk_clean, "data/five_year_outlook.csv")
 
 
@@ -503,6 +512,7 @@ write_csv(uwmp_drought_risk_clean, "data/five_year_outlook.csv")
 # Data: https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/ear.html
 
 # TODO decide if this is redundant of the source_name table
+# This workflow is not automated. Are these data even being reported through eAR anymore?
 
 # Create number of sources table
 ear_tibble <- tibble(years = c(2022:2013),
@@ -585,24 +595,22 @@ sources_number_combined <- bind_rows(
   read_csv(paste0(file_shortcut, "2015.csv")),
   read_csv(paste0(file_shortcut, "2014.csv")),
   read_csv(paste0(file_shortcut, "2013.csv"))
-)
+) |> 
+  left_join(crosswalk |>
+              select(pwsid, org_id))
 
 write_csv(sources_number_combined, "data/number_sources.csv")
 
 # checking what happens when we add dwr_id
-# check_crosswalk <- sources_number_combined |> 
-#   left_join(crosswalk |> 
-#               select(pwsid, org_id))
-# 
-# filter(check_crosswalk, is.na(org_id)) |> 
-#   distinct(year, pwsid) |> 
-#   group_by(year) |> 
-#   tally()
-# 
-# check_crosswalk |> 
-#   distinct(year, pwsid) |> 
-#   group_by(year) |> 
-#   tally()
+filter(sources_number_combined, is.na(org_id)) |>
+  distinct(year, pwsid) |>
+  group_by(year) |>
+  tally()
+
+sources_number_combined |>
+  distinct(year, pwsid) |>
+  group_by(year) |>
+  tally()
 
 
 # SAFER export from eric --------------------------------------------------
