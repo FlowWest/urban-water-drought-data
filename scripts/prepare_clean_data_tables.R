@@ -57,6 +57,8 @@ uwmp_dwr_id_pwsid <- uwmp_dwr_id_pwsid_raw |>
   select(-n)
 
 # AWSDA: monthly water shortage outlook -------------------------------------------------------------------
+# NOTE: Pulling new data for this table can not yet be automated as data are only available on WUE which requires
+# click and download
 
 # general information is contained in table 1
 awsda_info_raw <- readxl::read_xls("data-raw/wsda_table1_info_2024.xls")
@@ -72,8 +74,6 @@ awsda_info <- awsda_info_raw |>
 
 awsda_assessment_raw <- readxl::read_xls("data-raw/wsda_table4_2024.xls") |> 
   distinct() # there are duplicate records for 1752
-
-# need to replace 0 with NA for those that only report annually - implemente
 
 ## variable lists #######
 pot_no_action_list <-
@@ -395,9 +395,15 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
                                                 T ~ shortage_surplus_acre_feet),
          shortage_surplus_percent = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
                                               T ~ shortage_surplus_percent),
+         state_standard_shortage_level = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                                   T ~ state_standard_shortage_level),
          # for bimonthly then all values where 0 are actually NA
          shortage_surplus_acre_feet = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_acre_feet == 0 ~ NA,
-                                                T ~ shortage_surplus_acre_feet)) |> 
+                                                T ~ shortage_surplus_acre_feet),
+         shortage_surplus_percent = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_percent == 0 ~ NA,
+                                              T ~ shortage_surplus_percent),
+         state_standard_shortage_level = case_when(reporting_interval == "bi-monthly (6 data points per year)" & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                   T ~ state_standard_shortage_level)) |> 
   select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
          forecast_year, month, is_annual, is_wscp_action, shortage_surplus_acre_feet, 
          shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
