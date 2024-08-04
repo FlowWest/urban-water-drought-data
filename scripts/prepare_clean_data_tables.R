@@ -73,7 +73,7 @@ awsda_info <- awsda_info_raw |>
 awsda_assessment_raw <- readxl::read_xls("data-raw/wsda_table4_2024.xls") |> 
   distinct() # there are duplicate records for 1752
 
-# TODO - need to replace 0 with NA for those that only report annually
+# need to replace 0 with NA for those that only report annually - implemente
 
 ## variable lists #######
 pot_no_action_list <-
@@ -245,8 +245,8 @@ awsda_assessment_red <- awsda_assessment_raw |>
 
 ## without action ----------------------------------------------
 
-# TODO even though the data are published with 0s I think they should be NAs 
-# for those that only report annually etc
+# even though the data are published with 0s I think they should be NAs 
+# for those that only report annually etc - this has been implemented
 
 # Note that there are duplicate data for ORG_ID 1752 and 2179
 
@@ -271,7 +271,7 @@ awsda_assessment_no_action <- awsda_assessment_raw |>
   pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_acre_feet") |> 
   mutate(is_wscp_action = F) 
 
-ck <- awsda_assessment_no_action |>  group_by(org_id, month, supplier_type) |> tally() |>  filter(n>1)
+# ck <- awsda_assessment_no_action |>  group_by(org_id, month, supplier_type) |> tally() |>  filter(n>1)
 
 # percent water short (or surplus) without action
 awsda_assessment_no_action_perc <- awsda_assessment_raw |> 
@@ -389,11 +389,28 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
                                                            VOLUME_UNIT == "AF" ~ benefit_supply_augmentation_acre_feet),
          benefit_demand_reduction_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_demand_reduction_acre_feet*3.06887,
                                                            VOLUME_UNIT == "CCF(HCF)" ~ benefit_demand_reduction_acre_feet*0.0023,
-                                                           VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet)) |> 
+                                                           VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet),
+         # if reporting annually then all monthly values will be NA, note that for one that says they report annually there are monthly values
+         shortage_surplus_acre_feet = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                                T ~ shortage_surplus_acre_feet),
+         shortage_surplus_percent = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                              T ~ shortage_surplus_percent),
+         # for bimonthly then all values where 0 are actually NA
+         shortage_surplus_acre_feet = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_acre_feet == 0 ~ NA,
+                                                T ~ shortage_surplus_acre_feet)) |> 
   select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
          forecast_year, month, is_annual, is_wscp_action, shortage_surplus_acre_feet, 
          shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
-         benefit_supply_augmentation_acre_feet)
+         benefit_supply_augmentation_acre_feet) |> 
+  rename(forecast_month = month,
+         reporting_start_month = start_month,
+         reporting_end_month = end_month)
+
+# checking values for when reporting interval is not monthly! Decided to change - this has been implemented
+# unique(awsda_assessment_clean$reporting_interval)
+# ck_annual <- filter(awsda_assessment_clean, reporting_interval == "annually (1 data point per year)")
+# ck_bimonth <- filter(awsda_assessment_clean, reporting_interval == "bi-monthly (6 data points per year)")
+
 
 # checks
 # benefits should be NA when wscp_action = F
