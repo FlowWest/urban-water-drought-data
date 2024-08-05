@@ -622,7 +622,8 @@ sources_number_combined <- bind_rows(
   read_csv(paste0(file_shortcut, "2013.csv"))
 ) |> 
   left_join(crosswalk |>
-              select(pwsid, org_id))
+              select(pwsid, org_id)) |> 
+  select(pwsid, org_id, year, source_type, source_status, number_of_sources) |> glimpse()
 
 write_csv(sources_number_combined, "data/number_sources.csv")
 
