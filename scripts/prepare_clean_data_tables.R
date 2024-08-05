@@ -667,21 +667,42 @@ source_name <- source_name_export |>
          latitude = LATITUDE_MEASURE,
          longitude = LONGITUDE_MEASURE) |> 
   distinct() |>  # there is some other variable in here but get duplicates when select only these variables
-  mutate(across(facility_name:safer_water_type, tolower)) |> 
-  select(pwsid, start_date, end_date, facility_id, facility_name, facility_activity_status, 
-         facility_availability, facility_type, sdwis_water_type, safer_water_type, latitude, longitude)
+  mutate(across(facility_name:safer_water_type, tolower),
+         start_date = as_date(start_date),
+         end_date = as_date(end_date),
+         latitude = as.numeric(latitude),
+         longitude = as.numeric(longitude)) |> 
+  left_join(crosswalk |>
+              select(pwsid, org_id)) |> 
+  select(pwsid, org_id, start_date, end_date, facility_id, facility_name, facility_activity_status, 
+         facility_availability, facility_type,  safer_water_type, latitude, longitude) |> 
+  # decided to use safer water_type - should confirm with eric that this makes sense
+  rename(water_type = safer_water_type) |> glimpse()
 
 source_name |> distinct(facility_name) |> tally() #4,563 unique source names
-unique(source_name$facility_activity_status) # active, not available, inactive, proposed, proposed - new
-unique(source_name$facility_availability) # permanent, emergency, interim, other, seasonal, not available
+
+# Metadata valuyes
+dput(unique(source_name$facility_activity_status)) # active, not available, inactive, proposed, proposed - new
+dput(unique(source_name$facility_availability)) # permanent, emergency, interim, other, seasonal, not available
 dput(unique(source_name$facility_type)) #c("Spring", "Consecutive Connection", "Well", "Purchased", "Non-Piped, Purchased", 
 # "Intake", "Non-Purchased", "Reservoir", "Not Available", "Infiltration Gallery", 
 # "Non-Piped, Non-Purchased", "Distribution System", "ST", "Clear Well", 
 # "Treatment Plant")
-dput(unique(source_name$safer_water_type)) #c("Spring Water", "Consecutive Connections", "Groundwater & GWUDI", 
+dput(unique(source_name$water_type)) #c("Spring Water", "Consecutive Connections", "Groundwater & GWUDI", 
 # "Hauled Water", "Surface Water", "Not Available")
 dput(unique(source_name$sdwis_water_type)) #c("Groundwater", "Surface Water", "Groundwater under the Direct Influence of Surface Water", 
 # "Not Available")
+min(source_name$start_date)
+max(source_name$start_date)
 
+min(source_name$end_date)
+max(source_name$end_date)
+
+min(source_name$latitude, na.rm = T)
+max(source_name$latitude, na.rm = T)
+min(source_name$longitude, na.rm = T)
+max(source_name$longitude, na.rm = T)
+
+mode(source_name$facility_name)
 write_csv(source_name, "data/source_name.csv")
 
