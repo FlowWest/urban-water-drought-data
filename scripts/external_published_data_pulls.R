@@ -3,33 +3,6 @@
 # Retaining this script to keep track of these resources
 # Delete this file when no longer needed
 
-# Monthly CR --------------------------------------------------------------
-# Data:
-# https://data.ca.gov/dataset/drinking-water-public-water-system-operations-monthly-water-production-and-conservation-information
-
-# TODO requires cleaning up the shortage stage. water_shortage_stage is a mess, dwr_shortage_stage only exists for 2022-2023
-cr_raw <- read_csv("data-raw/monthly_CR.csv")
-
-cr_format <- cr_raw |> 
-  select(public_water_system_id, reporting_month, water_shortage_contingency_stage_invoked, 
-         water_shortage_level_indicator, dwr_state_standard_level_corresponding_to_stage) |> 
-  rename(pwsid = public_water_system_id,
-         water_shortage_stage = water_shortage_contingency_stage_invoked,
-         shortage_greater_10_percent = water_shortage_level_indicator,
-         dwr_water_shortage_stage = dwr_state_standard_level_corresponding_to_stage) |> 
-  mutate(month = month(reporting_month, label = T),
-         year = year(reporting_month),
-         shortage_greater_10_percent = case_when(shortage_greater_10_percent == "Yes" ~ T,
-                                                 shortage_greater_10_percent == "No" ~ F),
-         water_shortage_stage = tolower(water_shortage_stage)) |> 
-  select(-reporting_month) |> 
-  select(pwsid, year, month, water_shortage_stage, dwr_water_shortage_stage, shortage_greater_10_percent)
-
-unique(cr_format$water_shortage_stage)
-unique(cr_format$dwr_water_shortage_stage)
-
-write_csv(cr_format, "data/water_shortage_level_clean.csv")
-
 # SAFER on open data ------------------------------------------------------
 # Data:
 # https://data.ca.gov/dataset/safer-failing-and-at-risk-drinking-water-systems
