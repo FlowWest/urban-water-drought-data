@@ -437,7 +437,7 @@ write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
 
 
 # UWMP: five year water shortage outlook --------------------------------------------------------------------
-# TODO convert this to pull from the Open Data dataset
+# Note could convert this to pull from the Open Data dataset - though only updated once every five years and guessing next update will be a different table
 # UWMP 2020
 # drought risk assessment
 # calculate supplies - demand
@@ -508,8 +508,10 @@ uwmp_drought_risk_clean <- bind_rows(uwmp_2021,
   filter(!is.na(org_id)) |> 
   left_join(uwmp_org_id_supplier_name) |> 
   left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP, note that there are 32 NAs, need to include multiple PWSID in same row otherwise will get duplicate data
-  select(org_id, pwsid, is_multiple_pwsid, supplier_name, year, water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
-         benefit_demand_reduction_acre_feet)
+  mutate(uwmp_year = 2020) |> 
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, year, uwmp_year, water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
+         benefit_demand_reduction_acre_feet) |> 
+  rename(forecast_year = year) |> glimpse()
 
 min(uwmp_drought_risk_clean$water_supplies_acre_feet, na.rm = T)
 max(uwmp_drought_risk_clean$water_supplies_acre_feet, na.rm = T)

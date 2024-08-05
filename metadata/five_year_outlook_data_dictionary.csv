@@ -1,9 +1,10 @@
-﻿attribute_name ,attribute_definition,measurement_scale,attribute_label,domain,type,units,number_type,unit_precision,date_time_format,date_time_precision,minimum,maximum
-org_id,DWR assigned ID number associated with the urban retail water supplier,nominal,UWMP,text,,N/A,,N/A,N/A,N/A,,
-pwsid,ID number associated with water system in the supplier service area,nominal,eAR,text,,N/A,,N/A,N/A,N/A,,
+﻿attribute_name ,attribute_definition,measurement_scale,attribute_source,domain,type,units,number_type,unit_precision,date_time_format,date_time_precision,minimum,maximum
+org_id,DWR assigned ID number associated with the urban retail water supplier. UWMP data are reported by DWR_ORG_ID,nominal,UWMP,text,,N/A,,N/A,N/A,N/A,,
+pwsid,ID number associated with water system in the supplier service area. We created a lookup table to map DWR_ORG_ID and PWSID using the UWMP data. Note that there are some cases where the PWSID is NA and some cases where there are multiple PWSIDs.,nominal,UWMP,text,,N/A,,N/A,N/A,N/A,,
+is_multiple_pwsid,"Indicates if there are multiple PWSIDs associated with values reported by the DWR_ORG_ID. If there are multiple PWSIDs they are included as a list in the ""pwsid"" column so as not to result in duplicating data (e.g. if org_id has a value of 1 for a given row if we added a row for each pwsid this could result in data being duplicated).",nominal,derived,text,,N/A,,,N/A,N/A,,
 supplier_name,Name of water supplier # TODO is there a more detailed description of this,nominal,UWMP,text,,N/A,,N/A,N/A,N/A,,
-forecast_year,"In 2020, projections about water use/supply in a given year # TODO revise description",dateTime,UWMP,dateTime,,,,,YYYY,year,2021,2025
-uwmp_year,The UWMP these data were reported in,dateTime,UWMP,dateTime,,,,N/A,YYYY,year,,
+forecast_year,"In 2020, projections about water use/supply for the next five years.",dateTime,UWMP,dateTime,,year,,N/A,YYYY,year,2021,2025
+uwmp_year,The UWMP these data were reported in,dateTime,UWMP,dateTime,,year,,N/A,YYYY,year,2020,2020
 water_use_acre_feet,Expected total water use (acre feet) for the given year that is assumed to be within a five-year drought period. # TODO is the assumption that total is both potable and nonpotable?,ratio,UWMP,numeric,,acre-feet,integer,0,N/A,N/A,10.004,1724349
 water_supplies_acre_feet,Expected total water supplies (acre feet) for the given year that is assumed to be within a five-year drought period. # TODO is the assumption that total is both potable and nonpotable?,ratio,UWMP,numeric,,acre-feet,integer,0,N/A,N/A,138,2708222
 benefit_supply_augmentation_acre_feet,Additional water quantity (acre feet) resulting from a supply augmentation action. ,ratio,UWMP,numeric,,acre-feet,integer,0,N/A,N/A,0,432000
