@@ -745,8 +745,10 @@ water_shortage <- supply_demand_raw_data |>
                                           water_shortage_level == "0 (No Shortage Level Invoked), 2 (10-19% Shortage)" ~ "2 (10-19% Shortage)",
                                           water_shortage_level == "Not Applicable" ~ NA,
                                           water_shortage_level == "WSCP Does Not Include Stages" ~ NA,
-                                          T ~ water_shortage_level)) |> 
+                                          T ~ water_shortage_level),
+         start_date = as_date(start_date),
+         end_date = as_date(end_date)) |> 
   # levels were applied beginning in 2022
   filter(year(start_date) > 2021) |> 
   rename(state_standard_shortage_level = water_shortage_level) # rename for consistency and clarity
-write_csv(water_shortage, "data/water_shortage.csv")
+write_csv(water_shortage, "data/actual_water_shortage_level.csv")
