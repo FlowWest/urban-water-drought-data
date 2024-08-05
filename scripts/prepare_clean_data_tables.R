@@ -403,7 +403,14 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
          shortage_surplus_percent = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_percent == 0 ~ NA,
                                               T ~ shortage_surplus_percent),
          state_standard_shortage_level = case_when(reporting_interval == "bi-monthly (6 data points per year)" & is.na(shortage_surplus_acre_feet) ~ NA,
-                                                   T ~ state_standard_shortage_level)) |> 
+                                                   T ~ state_standard_shortage_level),
+         state_standard_shortage_level = case_when(state_standard_shortage_level == 0 ~ "0 (No Shortage Level Invoked)",
+                                                   state_standard_shortage_level == 1 ~ "1 (Less than 10% Shortage)",
+                                                   state_standard_shortage_level == 2 ~ "2 (10-19% Shortage)",
+                                                   state_standard_shortage_level == 3 ~ "3 (20-29% Shortage)",
+                                                   state_standard_shortage_level == 4 ~ "4 (30-39% Shortage)",
+                                                   state_standard_shortage_level == 5 ~ "5 (40-49% Shortage)",
+                                                   state_standard_shortage_level == 6 ~ "6 (Greater than 50% Shortage)")) |> 
   select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
          forecast_year, month, is_annual, is_wscp_action, shortage_surplus_acre_feet, 
          shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
@@ -428,7 +435,11 @@ min(awsda_assessment_clean$shortage_surplus_acre_feet)
 max(awsda_assessment_clean$shortage_surplus_acre_feet)
 min(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
 max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
-
+min(awsda_assessment_clean$benefit_demand_reduction_acre_feet, na.rm = T)
+max(awsda_assessment_clean$benefit_demand_reduction_acre_feet, na.rm = T)
+min(awsda_assessment_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
+max(awsda_assessment_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
+dput(unique(awsda_assessment_clean$state_standard_shortage_level))
 # trying to apply the pwsid
 # there are 17 without pwsid
 awsda_assessment_clean |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
@@ -706,3 +717,36 @@ max(source_name$longitude, na.rm = T)
 mode(source_name$facility_name)
 write_csv(source_name, "data/source_name.csv")
 
+# current monthly shortage -------------------------------------------------------
+
+# These data are published here: https://data.ca.gov/dataset/urws-conservation-supply-demand
+# Represents Monthly CR (2014-2023) and currently reported on SAFER (2023-present)
+
+supply_demand_query <- paste0("https://data.ca.gov/api/3/action/",
+                              "datastore_search_sql?",
+                              "sql=",
+                              URLencode("SELECT * from \"f4d50112-5fb5-4066-b45c-44696b10a49e\""))
+
+supply_demand_list_sql <- fromJSON(supply_demand_query)
+supply_demand_raw_data <- supply_demand_list_sql$result$records
+
+water_shortage <- supply_demand_raw_data |> 
+  select(ORG_ID, WATER_SYSTEM_ID, SUPPLIER_NAME, REPORT_PERIOD_START_DATE, REPORT_PERIOD_END_DATE, DWR_STANDARD_LEVEL) |> 
+  rename(org_id = ORG_ID,
+         pwsid = WATER_SYSTEM_ID,
+         supplier_name = SUPPLIER_NAME,
+         start_date = REPORT_PERIOD_START_DATE,
+         end_date = REPORT_PERIOD_END_DATE,
+         water_shortage_level = DWR_STANDARD_LEVEL) |> 
+  mutate(supplier_name = tolower(supplier_name),
+         # clean up levels, assume if multiple listed than the higher level should be applied
+         water_shortage_level = case_when(water_shortage_level == "1 (Less than 10% Shortage), 2 (10-19% Shortage)" ~ "2 (10-19% Shortage)",
+                                          water_shortage_level == "2 (10-19% Shortage), Not Applicable" ~ "2 (10-19% Shortage)",
+                                          water_shortage_level == "0 (No Shortage Level Invoked), 2 (10-19% Shortage)" ~ "2 (10-19% Shortage)",
+                                          water_shortage_level == "Not Applicable" ~ NA,
+                                          water_shortage_level == "WSCP Does Not Include Stages" ~ NA,
+                                          T ~ water_shortage_level)) |> 
+  # levels were applied beginning in 2022
+  filter(year(start_date) > 2021) |> 
+  rename(state_standard_shortage_level = water_shortage_level) # rename for consistency and clarity
+write_csv(water_shortage, "data/water_shortage.csv")
