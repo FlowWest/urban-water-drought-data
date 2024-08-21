@@ -367,57 +367,77 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
   left_join(awsda_info) |> 
   left_join(month_mapping |> # convert start_month to abbrev
               rename(start_month = month_full)) |> 
-  mutate(start_month = month_abbrev) |> 
+  mutate(start_month = month_number) |> 
   select(-c(month_number, month_abbrev)) |> 
   left_join(month_mapping |> # convert end_month to abbrev
              rename(end_month = month_full)) |> 
-  mutate(end_month = month_abbrev) |> 
+  mutate(end_month = month_number) |> 
   select(-c(month_number, month_abbrev)) |> 
   left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP, note that there are 17 NAs, need to include multiple PWSID in same row otherwise will get duplicate data
-  mutate(forecast_year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2024,
-                          T ~ 2025),
+  mutate( shortage_surplus_acre_feet = case_when(VOLUME_UNIT == "MG" ~ shortage_surplus_acre_feet*3.06887,
+                                                 VOLUME_UNIT == "CCF(HCF)" ~ shortage_surplus_acre_feet*0.0023,
+                                                 VOLUME_UNIT == "AF" ~ shortage_surplus_acre_feet),
+          benefit_supply_augmentation_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_supply_augmentation_acre_feet*3.06887,
+                                                            VOLUME_UNIT == "CCF(HCF)" ~ benefit_supply_augmentation_acre_feet*0.0023,
+                                                            VOLUME_UNIT == "AF" ~ benefit_supply_augmentation_acre_feet),
+          benefit_demand_reduction_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_demand_reduction_acre_feet*3.06887,
+                                                         VOLUME_UNIT == "CCF(HCF)" ~ benefit_demand_reduction_acre_feet*0.0023,
+                                                         VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet),
+          # if reporting annually then all monthly values will be NA, note that for one that says they report annually there are monthly values
+          shortage_surplus_acre_feet = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                                 T ~ shortage_surplus_acre_feet),
+          shortage_surplus_percent = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                               T ~ shortage_surplus_percent),
+          state_standard_shortage_level = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                                    T ~ state_standard_shortage_level),
+          # for bimonthly then all values where 0 are actually NA
+          shortage_surplus_acre_feet = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_acre_feet == 0 ~ NA,
+                                                 T ~ shortage_surplus_acre_feet),
+          shortage_surplus_percent = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_percent == 0 ~ NA,
+                                               T ~ shortage_surplus_percent),
+          state_standard_shortage_level = case_when(reporting_interval == "bi-monthly (6 data points per year)" & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                    T ~ state_standard_shortage_level))
+
+# This code chunk transitions to date format
+awsda_assessment_final <- awsda_assessment_clean |> 
+  mutate(report_year_start = case_when(start_month %in% 6:12 ~ 2024, # for those starting in june through dec this will be 2024
+                                       T ~ 2025), # those starting in jan assumes 2025
+         report_year_end = case_when(end_month %in% 6:12 ~ 2025,
+                                     T ~ 2026),
          is_annual = ifelse(month == "Annual", T, F),
          month = tolower(month),
          supplier_type = tolower(supplier_type),
-         reporting_interval = tolower(reporting_interval),
-         # convert all to AF (although this is not how it is on WUE, it is more usable this way)
-         shortage_surplus_acre_feet = case_when(VOLUME_UNIT == "MG" ~ shortage_surplus_acre_feet*3.06887,
-                                                VOLUME_UNIT == "CCF(HCF)" ~ shortage_surplus_acre_feet*0.0023,
-                                                VOLUME_UNIT == "AF" ~ shortage_surplus_acre_feet),
-         benefit_supply_augmentation_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_supply_augmentation_acre_feet*3.06887,
-                                                           VOLUME_UNIT == "CCF(HCF)" ~ benefit_supply_augmentation_acre_feet*0.0023,
-                                                           VOLUME_UNIT == "AF" ~ benefit_supply_augmentation_acre_feet),
-         benefit_demand_reduction_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_demand_reduction_acre_feet*3.06887,
-                                                           VOLUME_UNIT == "CCF(HCF)" ~ benefit_demand_reduction_acre_feet*0.0023,
-                                                           VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet),
-         # if reporting annually then all monthly values will be NA, note that for one that says they report annually there are monthly values
-         shortage_surplus_acre_feet = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
-                                                T ~ shortage_surplus_acre_feet),
-         shortage_surplus_percent = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
-                                              T ~ shortage_surplus_percent),
-         state_standard_shortage_level = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
-                                                   T ~ state_standard_shortage_level),
-         # for bimonthly then all values where 0 are actually NA
-         shortage_surplus_acre_feet = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_acre_feet == 0 ~ NA,
-                                                T ~ shortage_surplus_acre_feet),
-         shortage_surplus_percent = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_percent == 0 ~ NA,
-                                              T ~ shortage_surplus_percent),
-         state_standard_shortage_level = case_when(reporting_interval == "bi-monthly (6 data points per year)" & is.na(shortage_surplus_acre_feet) ~ NA,
-                                                   T ~ state_standard_shortage_level),
-         state_standard_shortage_level = case_when(state_standard_shortage_level == 0 ~ "0 (No Shortage Level Invoked)",
-                                                   state_standard_shortage_level == 1 ~ "1 (Less than 10% Shortage)",
-                                                   state_standard_shortage_level == 2 ~ "2 (10-19% Shortage)",
-                                                   state_standard_shortage_level == 3 ~ "3 (20-29% Shortage)",
-                                                   state_standard_shortage_level == 4 ~ "4 (30-39% Shortage)",
-                                                   state_standard_shortage_level == 5 ~ "5 (40-49% Shortage)",
-                                                   state_standard_shortage_level == 6 ~ "6 (Greater than 50% Shortage)")) |> 
-  select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
-         forecast_year, month, is_annual, is_wscp_action, shortage_surplus_acre_feet, 
+         reporting_interval = tolower(reporting_interval)) |> 
+  left_join(month_mapping |> # convert start_month to abbrev
+              rename(month = month_abbrev)) |> 
+  mutate(month = month_number) |> 
+  select(-c(month_number, month_full)) |> 
+  # code to transition to use start and end dates rather than month and year
+  mutate(reporting_start_date = as_date(paste0(report_year_start, "-", start_month, "-01")),
+         fake_date = as_date(paste0(report_year_start, "-", end_month, "-01")),
+         days_month = as.numeric(days_in_month(fake_date)),
+         reporting_end_date = as_date(paste0(report_year_end, "-", end_month, "-", days_month)),
+         forecast_year = case_when(start_month == 7 & month %in% 7:12 ~ 2024,
+                                   start_month == 7 & month %in% 1:6 ~ 2025,
+                                   start_month == 6 & month %in% 6:12 ~ 2024,
+                                   start_month == 6 & month %in% 1:5 ~ 2025,
+                                   start_month == 1 ~ 2025,
+                                   start_month == 2 & month %in% 2:12 ~ 2025,
+                                   start_month == 2 & month == 1 ~ 2026,
+                                   start_month == 3 & month %in% 3:12 ~ 2025,
+                                   start_month == 3 & month %in% 1:2 ~ 2026,
+                                   start_month == 10 & month %in% 10:12 ~ 2024,
+                                   start_month == 10 & month %in% 1:9 ~ 2025),
+         forecast_start_date = case_when(is.na(month) ~ reporting_start_date,
+                                         T ~ as_date(paste0(forecast_year, "-", month, "-01"))),
+         days_month_f =  as.numeric(days_in_month(forecast_start_date)),
+         forecast_end_date = case_when(is.na(month) ~ reporting_end_date,
+                                       T ~ as_date(paste0(forecast_year, "-", month, "-", days_month_f)))) |> 
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, 
+         reporting_start_date, reporting_end_date, forecast_start_date, forecast_end_date, forecast_month = month,
+         is_annual, is_wscp_action, shortage_surplus_acre_feet, 
          shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
-         benefit_supply_augmentation_acre_feet) |> 
-  rename(forecast_month = month,
-         reporting_start_month = start_month,
-         reporting_end_month = end_month)
+         benefit_supply_augmentation_acre_feet)
 
 # checking values for when reporting interval is not monthly! Decided to change - this has been implemented
 # unique(awsda_assessment_clean$reporting_interval)
@@ -427,24 +447,34 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
 
 # checks
 # benefits should be NA when wscp_action = F
-try(if(nrow(filter(awsda_assessment_clean, !is.na(benefit_supply_augmentation_acre_feet) & is_wscp_action == F)) > 0)
+try(if(nrow(filter(awsda_assessment_final, !is.na(benefit_supply_augmentation_acre_feet) & is_wscp_action == F)) > 0)
   stop("Supply benefits exist when there are not WSCP actions"))
-try(if(nrow(filter(awsda_assessment_clean, !is.na(benefit_demand_reduction_acre_feet) & is_wscp_action == F)) > 0)
+try(if(nrow(filter(awsda_assessment_final, !is.na(benefit_demand_reduction_acre_feet) & is_wscp_action == F)) > 0)
   stop("Demand benefits exist when there are not WSCP actions"))
-min(awsda_assessment_clean$shortage_surplus_acre_feet)
-max(awsda_assessment_clean$shortage_surplus_acre_feet)
-min(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
-max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
-min(awsda_assessment_clean$benefit_demand_reduction_acre_feet, na.rm = T)
-max(awsda_assessment_clean$benefit_demand_reduction_acre_feet, na.rm = T)
-min(awsda_assessment_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
-max(awsda_assessment_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
-dput(unique(awsda_assessment_clean$state_standard_shortage_level))
+min(awsda_assessment_final$shortage_surplus_acre_feet)
+max(awsda_assessment_final$shortage_surplus_acre_feet)
+min(awsda_assessment_final$shortage_surplus_percent, na.rm = T)
+max(awsda_assessment_final$shortage_surplus_percent, na.rm = T)
+min(awsda_assessment_final$benefit_demand_reduction_acre_feet, na.rm = T)
+max(awsda_assessment_final$benefit_demand_reduction_acre_feet, na.rm = T)
+min(awsda_assessment_final$benefit_supply_augmentation_acre_feet, na.rm = T)
+max(awsda_assessment_final$benefit_supply_augmentation_acre_feet, na.rm = T)
+dput(unique(awsda_assessment_final$state_standard_shortage_level))
+unique(awsda_assessment_final$reporting_end_date)
+unique(awsda_assessment_final$reporting_start_date)
+min(awsda_assessment_final$reporting_start_date)
+max(awsda_assessment_final$reporting_start_date)
+min(awsda_assessment_final$reporting_end_date)
+max(awsda_assessment_final$reporting_end_date)
+min(awsda_assessment_final$forecast_end_date)
+max(awsda_assessment_final$forecast_end_date)
+min(awsda_assessment_final$forecast_start_date)
+max(awsda_assessment_final$forecast_start_date)
 # trying to apply the pwsid
 # there are 17 without pwsid
-awsda_assessment_clean |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
+awsda_assessment_final |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
 
-write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
+write_csv(awsda_assessment_final, "data/monthly_dry_year_outlook.csv")
 
 
 # UWMP: five year water shortage outlook --------------------------------------------------------------------
@@ -746,6 +776,13 @@ water_shortage <- supply_demand_raw_data |>
                                           water_shortage_level == "Not Applicable" ~ NA,
                                           water_shortage_level == "WSCP Does Not Include Stages" ~ NA,
                                           T ~ water_shortage_level),
+         water_shortage_level = case_when(water_shortage_level == "0 (No Shortage Level Invoked)" ~ 0,
+                                          water_shortage_level == "1 (Less than 10% Shortage)" ~ 1,
+                                          water_shortage_level == "2 (10-19% Shortage)" ~ 2,
+                                          water_shortage_level == "3 (20-29% Shortage)" ~ 3,
+                                          water_shortage_level == "4 (30-39% Shortage)" ~ 4,
+                                          water_shortage_level == "5 (40-49% Shortage)" ~ 5,
+                                          T ~ NA_real_),
          start_date = as_date(start_date),
          end_date = as_date(end_date)) |> 
   # levels were applied beginning in 2022
