@@ -1,19 +1,19 @@
-﻿attribute_name ,attribute_definition,measurement_scale,attribute_source,domain,units,number_type,date_time_format,date_time_precision,minimum,maximum
-pwsid,ID number associated with water system in the supplier service area. Data from SAFER Clearinghouse are reported by PWSID.,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A
-org_id,DWR assigned ID number associated with the urban retail water supplier. We used the publically available PWSID/DWR_ORG_ID crosswalk to map the DWR_ORG_ID to the PWSID. Note that there are many cases where there is no DWR_ORG_ID for a given PWSID.,nominal,PWSID-DWRID Crosswalk (https://data.ca.gov/dataset/urban-water-use-objectives-conservation/resource/dc42f085-75d8-48e0-b795-8ede6ee576c2),text,N/A,N/A,N/A,N/A,N/A,N/A
-start_date,Start date for time period that data applies to. Typically represents one month but may also include other frequncies such as one year.,dateTime,SAFER Clearinghouse,dateTime,N/A,N/A,YYYY-MM-DD,day,3/1/22,3/10/24
-end_date,End date for time period that data applies to. Typically represents one month but may also include other frequncies such as one year.,dateTime,SAFER Clearinghouse,dateTime,N/A,N/A,YYYY-MM-DD,day,3/31/22,3/31/24
-facility_id,ID number associated with a water facility,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A
-facility_name,Name of facility,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A
+﻿attribute_name ,attribute_definition,measurement_scale,attribute_source,domain,units,number_type,date_time_format,date_time_precision,minimum,maximum,Questions for Eric
+pwsid,ID number associated with water system in the supplier service area. Data from SAFER Clearinghouse are reported by PWSID.,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,
+org_id,DWR assigned ID number associated with the urban retail water supplier. We used the publically available PWSID/DWR_ORG_ID crosswalk to map the DWR_ORG_ID to the PWSID. Note that there are many cases where there is no DWR_ORG_ID for a given PWSID.,nominal,PWSID-DWRID Crosswalk (https://data.ca.gov/dataset/urban-water-use-objectives-conservation/resource/dc42f085-75d8-48e0-b795-8ede6ee576c2),text,N/A,N/A,N/A,N/A,N/A,N/A,
+start_date,Start date for time period that data applies to. Typically represents one month but may also include other frequncies such as one year.,dateTime,SAFER Clearinghouse,dateTime,N/A,N/A,YYYY-MM-DD,day,3/1/22,3/10/24,Is there a more specific description we want to add?
+end_date,End date for time period that data applies to. Typically represents one month but may also include other frequncies such as one year.,dateTime,SAFER Clearinghouse,dateTime,N/A,N/A,YYYY-MM-DD,day,3/31/22,3/31/24,Is there a more specific description we want to add?
+facility_id,ID number associated with a water facility,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,Who generates and uses this ID? What could it connect to? Is there a definition for facility?
+facility_name,Name of facility,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,
 facility_activity_status,"Activity status of the facility. Levels = c(""active"", ""not available"", ""inactive"", ""proposed"", ""proposed - new""
-)",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A
+)",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,What do these activity levels mean?
 facility_availability,"Availability of the facility. Levels = c(""permanent"", ""emergency"", ""interim"", ""other"", ""seasonal"", ""not available""
-)",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A
+)",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,What do these levels mean?
 facility_type,"Type of facility. Levels = c(""spring"", ""consecutive connection"", ""well"", ""purchased"", ""non-piped, purchased"", 
 ""intake"", ""non-purchased"", ""reservoir"", ""not available"", ""infiltration gallery"", 
 ""non-piped, non-purchased"", ""distribution system"", ""st"", ""clear well"", 
-""treatment plant"")",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A
+""treatment plant"")",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,Definitions for levels
 water_type,"Type of water provided. Levels = c(""spring water"", ""consecutive connections"", ""groundwater & gwudi"", 
-""hauled water"", ""surface water"", ""not available"")",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A
-latitude,Location of the facility (latitude).,interval,SAFER Clearinghouse,numeric,latitude,real,N/A,N/A,32.57702,41.98542
-longitude,Location of the facility (longitude).,interval,SAFER Clearinghouse,numeric,longitude,real,N/A,N/A,-124.2933,120.6386
+""hauled water"", ""surface water"", ""not available"")",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,Using the SAFER water type - is that accurate? How should we describe this?
+latitude,Location of the facility (latitude).,interval,SAFER Clearinghouse,numeric,latitude,real,N/A,N/A,32.57702,41.98542,How are these collected?
+longitude,Location of the facility (longitude).,interval,SAFER Clearinghouse,numeric,longitude,real,N/A,N/A,-124.2933,120.6386,
