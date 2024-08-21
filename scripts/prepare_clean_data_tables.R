@@ -570,7 +570,14 @@ max(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
 # there are 17 without pwsid
 uwmp_drought_risk_clean |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
 
-write_csv(uwmp_drought_risk_clean, "data/five_year_outlook.csv")
+uwmp_drought_risk_final <- uwmp_drought_risk_clean |> 
+  mutate(forecast_start_date = as_date(paste0(forecast_year, "-01-01")),
+         forecast_end_date = as_date(paste0(forecast_year, "-12-31"))) |> 
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, uwmp_year, forecast_start_date, forecast_end_date,
+         water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
+         benefit_demand_reduction_acre_feet)
+
+write_csv(uwmp_drought_risk_final, "data/five_year_outlook.csv")
 
 
 
