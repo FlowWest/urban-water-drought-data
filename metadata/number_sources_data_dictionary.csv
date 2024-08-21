@@ -1,8 +1,0 @@
-﻿attribute_name ,attribute_definition,measurement_scale,attribute_label,domain,units,number_type,date_time_format,date_time_precision,minimum,maximum
-pwsid,ID number associated with water system in the supplier service area. eAR data are reported by PWSID.,nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
-org_id,DWR assigned ID number associated with the urban retail water supplier. We used the publically available PWSID/DWR_ORG_ID crosswalk to map the DWR_ORG_ID to the PWSID. Note that there are many cases where there is no DWR_ORG_ID for a given PWSID.,nominal,PWSID-DWRID Crosswalk (https://data.ca.gov/dataset/urban-water-use-objectives-conservation/resource/dc42f085-75d8-48e0-b795-8ede6ee576c2),text,N/A,N/A,N/A,N/A,N/A,N/A
-year,Calendar year associated with the number of sources.,dateTime,eAR,dateTime,N/A,N/A,YYYY,year,2013,2022
-source_type,"The category of source water. Levels = c(""emergency interties"", ""groundwater"", ""purchased grounwater"", 
-""purchased surface water"", ""standby sources"", ""surface water"")",nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
-source_status,"The status of source water. Levels = c(""approved"", ""new"")",nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
-number_of_sources,Number of unique sources.,ratio,eAR,numeric,number of sources,whole,N/A,N/A,0,23237
