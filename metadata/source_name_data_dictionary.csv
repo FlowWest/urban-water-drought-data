@@ -6,14 +6,13 @@ end_date,End date for time period that data applies to. Typically represents one
 facility_id,ID number associated with a water facility,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,Who generates and uses this ID? What could it connect to? Is there a definition for facility?
 facility_name,Name of facility,nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,
 facility_activity_status,"Activity status of the facility. Levels = c(""active"", ""not available"", ""inactive"", ""proposed"", ""proposed - new""
-)",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,What do these activity levels mean?
+). Active - permited facility, inactive - can no longer be used to generate supply, proposed - in the process of permitting but not active (proposed-new may be the same thing as proposed)",nominal,SDWIS,text,N/A,N/A,N/A,N/A,N/A,N/A,What do these activity levels mean?
 facility_availability,"Availability of the facility. Levels = c(""permanent"", ""emergency"", ""interim"", ""other"", ""seasonal"", ""not available""
-)",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,What do these levels mean?
-facility_type,"Type of facility. Levels = c(""spring"", ""consecutive connection"", ""well"", ""purchased"", ""non-piped, purchased"", 
+)",nominal,SDWIS,text,N/A,N/A,N/A,N/A,N/A,N/A,What do these levels mean?
+facility_type,"Type of facility assigned through permitting. Levels = c(""spring"", ""consecutive connection"", ""well"", ""purchased"", ""non-piped, purchased"", 
 ""intake"", ""non-purchased"", ""reservoir"", ""not available"", ""infiltration gallery"", 
 ""non-piped, non-purchased"", ""distribution system"", ""st"", ""clear well"", 
-""treatment plant"")",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,Definitions for levels
-water_type,"Type of water provided. Levels = c(""spring water"", ""consecutive connections"", ""groundwater & gwudi"", 
-""hauled water"", ""surface water"", ""not available"")",nominal,SAFER Clearinghouse,text,N/A,N/A,N/A,N/A,N/A,N/A,Using the SAFER water type - is that accurate? How should we describe this?
-latitude,Location of the facility (latitude).,interval,SAFER Clearinghouse,numeric,latitude,real,N/A,N/A,32.57702,41.98542,How are these collected?
-longitude,Location of the facility (longitude).,interval,SAFER Clearinghouse,numeric,longitude,real,N/A,N/A,-124.2933,120.6386,
+""treatment plant"")",nominal,SDWIS,text,N/A,N/A,N/A,N/A,N/A,N/A,Definitions for levels
+water_type,"Type of water provided assigned through permitting. Levels = c(""groundwater"", ""surface water"", ""groundwater under the direct influence of surface water"", ""not available"")",nominal,SDWIS,text,N/A,N/A,N/A,N/A,N/A,N/A,Using the SAFER water type - is that accurate? How should we describe this?
+latitude,Location of the facility assigned through permitting and field validated (latitude).,interval,SDWIS,numeric,latitude,real,N/A,N/A,32.57702,41.98542,How are these collected?
+longitude,Location of the facility assigned through permitting and field validated (longitude).,interval,SDWIS,numeric,longitude,real,N/A,N/A,-124.2933,120.6386,

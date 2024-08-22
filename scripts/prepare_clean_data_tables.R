@@ -23,7 +23,7 @@ month_mapping <- tibble(month_number = 1:12,
 # write_csv(metadata, "data/metadata.csv")
 
 
-# Crosswalk ---------------------------------------------------------------
+# crosswalk ---------------------------------------------------------------
 
 # Download the whole dataset using a SQL query
 crosswalk_query <- paste0("https://data.ca.gov/api/3/action/",
@@ -616,13 +616,14 @@ source_name <- source_name_export |>
   left_join(crosswalk |>
               select(pwsid, org_id)) |> 
   select(pwsid, org_id, start_date, end_date, facility_id, facility_name, facility_activity_status, 
-         facility_availability, facility_type,  safer_water_type, latitude, longitude) |> 
+         facility_availability, facility_type,  sdwis_water_type, latitude, longitude) |> 
   # decided to use safer water_type - should confirm with eric that this makes sense
-  rename(water_type = safer_water_type) |> glimpse()
+  rename(water_type = sdwis_water_type) |> glimpse()
 
 source_name |> distinct(facility_name) |> tally() #4,563 unique source names
-
-# Metadata valuyes
+filter(source_name, facility_activity_status == "proposed - new")
+filter(source_name, facility_activity_status == "proposed")
+#Metadata valuyes
 dput(unique(source_name$facility_activity_status)) # active, not available, inactive, proposed, proposed - new
 dput(unique(source_name$facility_availability)) # permanent, emergency, interim, other, seasonal, not available
 dput(unique(source_name$facility_type)) #c("Spring", "Consecutive Connection", "Well", "Purchased", "Non-Piped, Purchased", 
@@ -647,7 +648,7 @@ max(source_name$longitude, na.rm = T)
 mode(source_name$facility_name)
 write_csv(source_name, "data/source_name.csv")
 
-# current monthly shortage -------------------------------------------------------
+# CR: current monthly shortage -------------------------------------------------------
 
 # These data are published here: https://data.ca.gov/dataset/urws-conservation-supply-demand
 # Represents Monthly CR (2014-2023) and currently reported on SAFER (2023-present)
@@ -689,3 +690,14 @@ water_shortage <- supply_demand_raw_data |>
   filter(year(start_date) > 2021) |> 
   rename(state_standard_shortage_level = water_shortage_level) # rename for consistency and clarity
 write_csv(water_shortage, "data/actual_water_shortage_level.csv")
+
+
+# eAR: production and delivery --------------------------------------------
+# Production and delivery data were published on Open Data (2013-2022)
+# This is not yet integrated with current and ongoing data that is being collected
+# through SAFER
+
+ear_production_delivery_raw <- read_csv(here::here("data-raw","2013-2022-water-produced-and-delivered-urban-water-ear.csv"))
+
+write_csv(ear_production_delivery_final, here::here("data", "historical_production_delivery.csv"))
+
