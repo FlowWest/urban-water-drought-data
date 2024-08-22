@@ -595,6 +595,8 @@ source_name <- source_name_export |>
   select(WATER_SYSTEM_ID, FACILITY_NAME, FACILITY_ACTIVITY_STATUS, FACILITY_AVAILABILITY, 
          FACILITY_TYPE, SDWIS_WATER_TYPE, CLEARINGHOUSE_WATER_TYPE, REPORTING_PERIOD_END_DATE, 
          REPORTING_PERIOD_START_DATE, LATITUDE_MEASURE, LONGITUDE_MEASURE, FACILITY_ID) |> 
+  group_by(WATER_SYSTEM_ID, FACILITY_ID) |> # select for data that is most up to date
+  slice_max(REPORTING_PERIOD_START_DATE) |> 
   rename(pwsid = WATER_SYSTEM_ID,
          facility_id = FACILITY_ID,
          facility_name = FACILITY_NAME,
@@ -603,19 +605,15 @@ source_name <- source_name_export |>
          facility_type = FACILITY_TYPE,
          sdwis_water_type = SDWIS_WATER_TYPE,
          safer_water_type = CLEARINGHOUSE_WATER_TYPE,
-         start_date = REPORTING_PERIOD_START_DATE,
-         end_date = REPORTING_PERIOD_END_DATE,
          latitude = LATITUDE_MEASURE,
          longitude = LONGITUDE_MEASURE) |> 
   distinct() |>  # there is some other variable in here but get duplicates when select only these variables
   mutate(across(facility_name:safer_water_type, tolower),
-         start_date = as_date(start_date),
-         end_date = as_date(end_date),
          latitude = as.numeric(latitude),
          longitude = as.numeric(longitude)) |> 
   left_join(crosswalk |>
               select(pwsid, org_id)) |> 
-  select(pwsid, org_id, start_date, end_date, facility_id, facility_name, facility_activity_status, 
+  select(pwsid, org_id, facility_id, facility_name, facility_activity_status, 
          facility_availability, facility_type,  sdwis_water_type, latitude, longitude) |> 
   # decided to use safer water_type - should confirm with eric that this makes sense
   rename(water_type = sdwis_water_type) |> glimpse()
