@@ -474,7 +474,7 @@ max(awsda_assessment_final$forecast_start_date)
 # there are 17 without pwsid
 awsda_assessment_final |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
 
-write_csv(awsda_assessment_final, "data/monthly_dry_year_outlook.csv")
+write_csv(awsda_assessment_final, "data/monthly_water_shortage_outlook.csv")
 
 
 # UWMP: five year water shortage outlook --------------------------------------------------------------------
@@ -577,7 +577,7 @@ uwmp_drought_risk_final <- uwmp_drought_risk_clean |>
          water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
          benefit_demand_reduction_acre_feet)
 
-write_csv(uwmp_drought_risk_final, "data/five_year_outlook.csv")
+write_csv(uwmp_drought_risk_final, "data/five_year_water_shortage_outlook.csv")
 
 
 # SAFER export from eric --------------------------------------------------
