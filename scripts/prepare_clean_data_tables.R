@@ -694,8 +694,37 @@ write_csv(water_shortage, "data/actual_water_shortage_level.csv")
 # Production and delivery data were published on Open Data (2013-2022)
 # This is not yet integrated with current and ongoing data that is being collected
 # through SAFER
+# Note that processing is pretty slow because of how large this dataset is
 
 ear_production_delivery_raw <- read_csv(here::here("data-raw","2013-2022-water-produced-and-delivered-urban-water-ear.csv"))
+ear_production_delivery_raw |> glimpse()
 
-write_csv(ear_production_delivery_final, here::here("data", "historical_production_delivery.csv"))
+ear_production_delivery <- ear_production_delivery_raw |> 
+  select(PWSID, `Water System Name`, DateStartOfMonth, `Water Produced or Delivered`, TypeName, `CALCULATED Quantity in AF`, Year, Month) |> 
+  rename(pwsid = PWSID,
+         water_system_name = `Water System Name`,
+         start_date = DateStartOfMonth,
+         water_produced_or_delivered = `Water Produced or Delivered`,
+         water_type = TypeName,
+         quantity_acre_feet = `CALCULATED Quantity in AF`,
+         month_full = Month) |> 
+  mutate(month_full = tolower(month_full)) |> 
+  left_join(month_mapping) |> 
+  mutate(start_date = as.Date(start_date, format = "%m/%d/%Y"),
+         end_date_days = days_in_month(start_date),
+         end_date = as_date(paste0(Year, "-", month_number, "-", end_date_days)),
+         water_system_name = tolower(water_system_name),
+         water_produced_or_delivered = tolower(water_produced_or_delivered),
+         water_type = tolower(water_type)) |> 
+  left_join(crosswalk) |> 
+  select(pwsid, water_system_name, org_id, start_date, end_date, water_produced_or_delivered,
+         water_type, quantity_acre_feet) 
+
+min(ear_production_delivery$start_date)
+max(ear_production_delivery$start_date)
+min(ear_production_delivery$end_date)
+max(ear_production_delivery$end_date)
+min(ear_production_delivery$quantity_acre_feet, na.rm = T)
+max(ear_production_delivery$quantity_acre_feet, na.rm = T)
+write_csv(ear_production_delivery, here::here("data", "historical_production_delivery.csv"))
 

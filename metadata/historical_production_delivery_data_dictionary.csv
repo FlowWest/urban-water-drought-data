@@ -1,0 +1,29 @@
+﻿attribute_name ,attribute_definition,measurement_scale,attribute_source,domain,units,number_type,date_time_format,date_time_precision,minimum,maximum
+pwsid,ID number associated with water system in the supplier service area. We created a lookup table to map DWR_ORG_ID and PWSID using the UWMP data. Note that there are some cases where the PWSID is NA and some cases where there are multiple PWSIDs.,nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
+water_system_name,Name of water system as reported in the eAR,nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
+org_id,DWR assigned ID number associated with the urban retail water supplier. UWMP data are reported by DWR_ORG_ID,nominal,crosswalk,text,N/A,N/A,N/A,N/A,N/A,N/A
+start_date,Reporting start date which represents the first day of the month,dateTime,eAR,dateTime,N/A,N/A,YYYY-MM-DD,day,1/1/13,12/1/22
+end_date,Reporting end date which represents the last day of th month,dateTime,derived,dateTime,N/A,N/A,YYYY-MM-DD,day,1/31/13,12/31/22
+water_produced_or_delivered,"Categorizes data by water produced or water delivered. Levels = c(""water delivered"", ""water produced"")",nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
+water_type,"Type of water produced or delivered. Levels = c(""other pws"", ""landscape irrigation"", ""agriculture"", ""single-family residential"", 
+""multi-family residential"", ""commercial/institutional"", ""other"", 
+""industrial"", ""groundwater wells"", ""non-potable (total excluded recycled)"", 
+""purchased or received from another pws"", ""recycled"", ""surface water"", 
+""sold to another pws"", ""non-potable water sold to another pws""
+)",nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
+quantity_acre_feet,This is a calculated value that converts the quantity to acre feet.,ratio,derived,numeric,acre-feet,integer,N/A,N/A,-5391,1814680374
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
