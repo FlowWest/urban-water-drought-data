@@ -1,0 +1,184 @@
+---
+title: "Drought Data: Exploring Creating Combined Tables"
+author: "Ashley Vizek"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: flatly
+  
+---
+
+```{r, include = F}
+library(tidyverse)
+```
+
+# Document purpose
+
+The goal of this document is to explore combining data tables for drought to make
+data easier to use. The tables that were created as part of this project include:
+
+- monthly water shortage outlook
+- five year water shortage outlook
+- actual water shortage level
+- source name
+- historical production and delivery
+
+# Current tables
+
+First lets take a look at what is in the current tables. The sections below provide
+a glimpse of each table and summarize the temporal scale and values reported. 
+
+- There are two tables that provide forecasted data related to water shortage with and without
+supply/demand actions but are at different time scales: monthly and annual. If these
+data were combined it would result in separate rows for each because of the different
+time scale. The data reported are also slightly different though both report supply/demand
+actions in acre feet.
+- There are two tables that provide actual data. The data reported are different. One table
+is focused on reporting quantity of water by water type and the other reports the actual
+water shortage level.
+- There is one table that provides metadata about water facilities and the temporal scale
+does not really apply here.
+
+## monthly water shortage outlook
+
+**temporal scale**
+
+- `reporting_start_date` and `reporting_end_date` help determine the year that is being reported
+- `forecast_start_date` and `forecast_end_date` are the month that the specific shortage values apply to
+
+**values reported**
+
+- `shortage_surplus_acre_feet` and `shortage_surplus_percent` is the difference between supply and
+demand in AF or as a percent
+- `state_standard_shortage_level` is the forecasted shortage level (categorical)
+- `benefit_demand_reduction_acre_feet` and `benefit_supply_augmentation_acre_feet` are the forecasted
+water shortage actions that are implemented
+
+```{r, warning = F, message = F}
+monthly_outlook <- read_csv("data/monthly_water_shortage_outlook.csv") |> glimpse()
+```
+
+## five year water shortage outlook
+
+**temporal scale**
+
+- `forecast_start_date` and `forecast_end_date` are the first and last days of the year being forecasted. This is annual data
+
+**values reported**
+
+- `water_use_acre_feet` and `water_supplies_acre_feet` are the forecasted supply and demand
+- `benefit_supply_augmentation_acre_feet` and `benefit_demand_reduction_acre_feet` are the forecasted
+water shortage actions that are implemented
+
+```{r, warning = F, message = F}
+five_year_outlook <- read_csv("data/five_year_water_shortage_outlook.csv") |> glimpse()
+```
+
+## actual water shortage level
+
+**temporal scale**
+
+- `start_date` and `end_date` are the first and last day of the month being reported
+
+**values reported**
+
+- `state_standard_shortage_level` is the actual shortage level (categorical)
+
+
+```{r, warning = F, message = F}
+actual_shortage <- read_csv("data/actual_water_shortage_level.csv") |> glimpse()
+```
+
+## source name
+
+**temporal scale**
+
+- Does not apply as this data is updated regularly and the historical data is not useful
+
+**values reported**
+
+- `facility_activity_status`, `facility_availabity`, `facility_type` and `water_type` are all characteristics of the facility and water produced
+- `latitude` and `longitude` provide spatial information about where the facility is located
+
+```{r, warning = F, message = F}
+source_name <- read_csv("data/source_name.csv") |> glimpse()
+```
+
+## historical production and delivery
+
+**temporal scale**
+
+- `start_date` and `end_date` are the first and last days of the month reported
+
+**values reported**
+
+- `water_produced_or_delivered` and `water_type` describe the type of water both produced and delivered
+- `quantity_acre_feet` is the amount of water
+
+```{r, warning = F, message = F}
+production_delivery <- read_csv("data/historical_production_delivery.csv") |> glimpse()
+```
+
+# Combining tables
+
+Here are a few approaches to combining tables:
+
+- create a forecast table and an actual/current table (glimpse provided below)
+- match the forecasted data with the actual data
+
+**combined forecast table**
+
+This results in separate rows for the data in the monthly outlook and the data
+in the five year outlook. 
+
+Ideas to make this easier to use:
+
+- add a column to categorize as monthly or annual
+- process the five year outlook data in the same format (substract use from supplies). 
+when we first discussed this, Julie didn't like that because it was different than the 
+data reported
+- see if the state standard shortage level is available for UWMP or we could fill it in
+
+```{r, warning = F, message = F}
+forecast_megatable <- full_join(monthly_outlook |> 
+                                  select(-c(reporting_interval, reporting_start_date, 
+                                            reporting_end_date)),
+                                five_year_outlook |> 
+                                  select(-c(uwmp_year)) |> 
+                                  mutate(is_annual = T)) |> glimpse()
+
+```
+
+**combined actual table**
+
+There is a lot of data here that we might want to decide if it is all useful. 
+Combining these tables just adds another column.
+
+Ideas to make this easier to use:
+
+- determine if we want all of this data (there are pwsid beyond the urban population)
+- make sure the join is working well
+
+```{r, warning = F, message = F}
+actual_megatable <- full_join(actual_shortage,
+                              production_delivery) |> glimpse()
+```
+# Recommendations
+
+Combining forecasted data with forecasted data and actual with actual makes sense 
+and would be easier to use than combining forecasted and actual (except for specific uses).
+
+This means that creating one big table would not be useful and could be confusing.
+
+To make sure these tables are useful there are few improvements that would need to be made,
+particularly for the forecasted table. 
+
+The biggest challenge with the forecasted table is the difference in time scale. At this
+time, I think it makes sense to keep them separate but to combine the actual data.
+
+This would result in the following tables:
+
+- monthly water shortage outlook
+- five year water shortage outlook
+- actual water shortage and production and delivery
+- source name (maybe we call this facility metadata)
