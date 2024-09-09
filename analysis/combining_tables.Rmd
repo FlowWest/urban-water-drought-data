@@ -198,8 +198,21 @@ Ideas to make this easier to use:
 - make sure the join is working well
 
 ```{r, warning = F, message = F}
+
+uwmp_org_id <- five_year_outlook |> select(org_id) |> distinct()
+awsda_org_id <- monthly_outlook |> select(org_id) |> distinct()
+cr_org_id <- actual_shortage |> select(org_id) |> distinct()
+org_ids <- bind_rows(uwmp_org_id,
+                     awsda_org_id,
+                     cr_org_id) |> distinct()
+org_id_list <- org_ids$org_id
+
+filtered_production_delivery <- production_delivery |> 
+                                filter(!is.na(org_id), org_id %in% org_id_list)
 actual_megatable <- full_join(actual_shortage,
-                              production_delivery) |> glimpse()
+                              filtered_production_delivery |> 
+                                select(-water_system_name)) |> glimpse()
+write_csv(actual_megatable, "data/actual_megatable.csv")
 ```
 # Recommendations
 
