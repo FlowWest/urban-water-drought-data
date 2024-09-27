@@ -1,4 +1,4 @@
-pwsid,org_id,facility_id,facility_name,facility_activity_status,facility_availability,facility_type,water_type,latitude,longitude
+pwsid,org_id,source_facility_id,source_facility_name,source_facility_activity_status,source_facility_availability,source_facility_type,water_type,latitude,longitude
 CA0103040,NA,001,upper spring,active,permanent,spring,groundwater,37.753023,-122.014335
 CA0103040,NA,002,cistern spring,active,permanent,spring,groundwater,37.7539,-122.0158
 CA0103040,NA,003,lower spring,active,permanent,spring,groundwater,37.754,-122.016

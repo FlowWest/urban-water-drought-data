@@ -598,33 +598,33 @@ source_name <- source_name_export |>
   group_by(WATER_SYSTEM_ID, FACILITY_ID) |> # select for data that is most up to date
   slice_max(REPORTING_PERIOD_START_DATE) |> 
   rename(pwsid = WATER_SYSTEM_ID,
-         facility_id = FACILITY_ID,
-         facility_name = FACILITY_NAME,
-         facility_activity_status = FACILITY_ACTIVITY_STATUS,
-         facility_availability = FACILITY_AVAILABILITY,
-         facility_type = FACILITY_TYPE,
+         source_facility_id = FACILITY_ID,
+         source_facility_name = FACILITY_NAME,
+         source_facility_activity_status = FACILITY_ACTIVITY_STATUS,
+         source_facility_availability = FACILITY_AVAILABILITY,
+         source_facility_type = FACILITY_TYPE,
          sdwis_water_type = SDWIS_WATER_TYPE,
          safer_water_type = CLEARINGHOUSE_WATER_TYPE,
          latitude = LATITUDE_MEASURE,
          longitude = LONGITUDE_MEASURE) |> 
   distinct() |>  # there is some other variable in here but get duplicates when select only these variables
-  mutate(across(facility_name:safer_water_type, tolower),
+  mutate(across(source_facility_name:safer_water_type, tolower),
          latitude = as.numeric(latitude),
          longitude = as.numeric(longitude)) |> 
   left_join(crosswalk |>
               select(pwsid, org_id)) |> 
-  select(pwsid, org_id, facility_id, facility_name, facility_activity_status, 
-         facility_availability, facility_type,  sdwis_water_type, latitude, longitude) |> 
+  select(pwsid, org_id, source_facility_id, source_facility_name, source_facility_activity_status, 
+         source_facility_availability, source_facility_type,  sdwis_water_type, latitude, longitude) |> 
   # decided to use safer water_type - should confirm with eric that this makes sense
   rename(water_type = sdwis_water_type) |> glimpse()
 
-source_name |> distinct(facility_name) |> tally() #4,563 unique source names
-filter(source_name, facility_activity_status == "proposed - new")
-filter(source_name, facility_activity_status == "proposed")
+source_name |> ungroup() |> distinct(source_facility_name) |> tally() #4,563 unique source names
+filter(source_name, source_facility_activity_status == "proposed - new")
+filter(source_name, source_facility_activity_status == "proposed")
 #Metadata valuyes
-dput(unique(source_name$facility_activity_status)) # active, not available, inactive, proposed, proposed - new
-dput(unique(source_name$facility_availability)) # permanent, emergency, interim, other, seasonal, not available
-dput(unique(source_name$facility_type)) #c("Spring", "Consecutive Connection", "Well", "Purchased", "Non-Piped, Purchased", 
+dput(unique(source_name$source_facility_activity_status)) # active, not available, inactive, proposed, proposed - new
+dput(unique(source_name$source_facility_availability)) # permanent, emergency, interim, other, seasonal, not available
+dput(unique(source_name$source_facility_type)) #c("Spring", "Consecutive Connection", "Well", "Purchased", "Non-Piped, Purchased", 
 # "Intake", "Non-Purchased", "Reservoir", "Not Available", "Infiltration Gallery", 
 # "Non-Piped, Non-Purchased", "Distribution System", "ST", "Clear Well", 
 # "Treatment Plant")
