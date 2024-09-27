@@ -474,7 +474,49 @@ max(awsda_assessment_final$forecast_start_date)
 # there are 17 without pwsid
 awsda_assessment_final |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
 
-write_csv(awsda_assessment_final, "data/monthly_water_shortage_outlook.csv")
+# The following code cleans up the data even more by inserting NAs instead of 0s when data are only reported annually
+unique(awsda_assessment_final$reporting_interval)
+annual_lookup <- filter(awsda_assessment_final, reporting_interval == "annually (1 data point per year)", is_wscp_action == F) |> 
+  select(org_id, supplier_name, supplier_type, forecast_month, shortage_surplus_acre_feet) |> 
+  mutate(shortage_surplus_acre_feet = as.numeric(shortage_surplus_acre_feet)) |> 
+  pivot_wider(id_cols = c(org_id, supplier_name, supplier_type), names_from = "forecast_month", values_from = "shortage_surplus_acre_feet") |> 
+  mutate(annual_only = case_when((`7` == 0 & `8` == 0 & `9` == 0 & `10` == 0 & `11` == 0 & `12` == 0 & `1`== 0 & `2`== 0 & `3`== 0 & `4`== 0 & `5` == 0) ~ T,
+                                 T ~ F)) |> 
+  select(org_id, supplier_name, supplier_type,annual_only)
+bimonthly_lookup <- filter(awsda_assessment_final, reporting_interval == "bi-monthly (6 data points per year)", is_wscp_action == F) |> 
+  select(org_id, supplier_name, supplier_type) |> 
+  distinct() |> 
+  mutate(bimonthly = T)
+  
+awsda_assessment_final_revised <- awsda_assessment_final |> 
+  # cleans up data for those only reporting annually by making all other values NA except annual value
+  left_join(annual_lookup) |> 
+  mutate(shortage_surplus_acre_feet = case_when(is_annual == F & annual_only == T ~ NA,
+                                                T ~ shortage_surplus_acre_feet),
+         shortage_surplus_percent = case_when(is_annual == F & annual_only == T ~ NA,
+                                                T ~ shortage_surplus_percent),
+         state_standard_shortage_level = case_when(is_annual == F & annual_only == T ~ NA,
+                                                T ~ state_standard_shortage_level),
+         benefit_demand_reduction_acre_feet = case_when(is_annual == F & annual_only == T & is_wscp_action == T ~ NA,
+                                                T ~ benefit_demand_reduction_acre_feet),
+         benefit_supply_augmentation_acre_feet = case_when(is_annual == F & annual_only == T & is_wscp_action == T ~ NA,
+                                                        T ~ benefit_supply_augmentation_acre_feet)) |> 
+  select(-annual_only) |> 
+  left_join(bimonthly_lookup) |> 
+  mutate(shortage_surplus_acre_feet = case_when(is_annual == F & bimonthly == T & shortage_surplus_acre_feet == 0 ~ NA,
+                                                T ~ shortage_surplus_acre_feet),
+         shortage_surplus_percent = case_when(is_annual == F & bimonthly == T & shortage_surplus_percent == 0 ~ NA,
+                                              T ~ shortage_surplus_percent),
+         state_standard_shortage_level = case_when(is_annual == F & bimonthly == T & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                   T ~ state_standard_shortage_level),
+         benefit_demand_reduction_acre_feet = case_when(is_annual == F & bimonthly == T & is_wscp_action == T & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                        T ~ benefit_demand_reduction_acre_feet),
+         benefit_supply_augmentation_acre_feet = case_when(is_annual == F & bimonthly == T & is_wscp_action == T & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                           T ~ benefit_supply_augmentation_acre_feet)) |> 
+  select(-bimonthly)
+
+
+write_csv(awsda_assessment_final_revised, "data/monthly_water_shortage_outlook.csv")
 
 
 # UWMP: five year water shortage outlook --------------------------------------------------------------------
