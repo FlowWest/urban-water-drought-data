@@ -11,19 +11,4 @@ water_type,"Type of water produced or delivered. Levels = c(""other pws"", ""lan
 ""purchased or received from another pws"", ""recycled"", ""surface water"", 
 ""sold to another pws"", ""non-potable water sold to another pws""
 )",nominal,eAR,text,N/A,N/A,N/A,N/A,N/A,N/A
-quantity_acre_feet,This is a calculated value that converts the quantity to acre feet.,ratio,derived,numeric,acre-feet,integer,N/A,N/A,-5391,1814680374
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
+quantity_acre_feet,This is a calculated value that converts the reported quantity (quantity could have been reported in AF/CCF/G/etc.) to acre feet.,ratio,derived,numeric,acre-feet,integer,N/A,N/A,-5391,1814680374
