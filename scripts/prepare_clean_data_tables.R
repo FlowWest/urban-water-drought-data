@@ -23,7 +23,7 @@ month_mapping <- tibble(month_number = 1:12,
 # write_csv(metadata, "data/metadata.csv")
 
 
-# Crosswalk ---------------------------------------------------------------
+# crosswalk ---------------------------------------------------------------
 
 # Download the whole dataset using a SQL query
 crosswalk_query <- paste0("https://data.ca.gov/api/3/action/",
@@ -38,7 +38,7 @@ crosswalk <- crosswalk_raw_data |>
   mutate(ORG_ID = as.numeric(ORG_ID)) |> 
   rename(org_id = ORG_ID,
          pwsid = PWSID)
-write_csv(crosswalk, "data/id_crosswalk.csv")
+write_csv(crosswalk, "data/other_data/id_crosswalk.csv")
 
 # pull org_id and PWSID lookup from UWMP. This should be used with UWMP and AWSDA data
 # There are DWR_ID with multiple PWSID
@@ -57,6 +57,8 @@ uwmp_dwr_id_pwsid <- uwmp_dwr_id_pwsid_raw |>
   select(-n)
 
 # AWSDA: monthly water shortage outlook -------------------------------------------------------------------
+# NOTE: Pulling new data for this table can not yet be automated as data are only available on WUE which requires
+# click and download
 
 # general information is contained in table 1
 awsda_info_raw <- readxl::read_xls("data-raw/wsda_table1_info_2024.xls")
@@ -72,8 +74,6 @@ awsda_info <- awsda_info_raw |>
 
 awsda_assessment_raw <- readxl::read_xls("data-raw/wsda_table4_2024.xls") |> 
   distinct() # there are duplicate records for 1752
-
-# TODO - need to replace 0 with NA for those that only report annually
 
 ## variable lists #######
 pot_no_action_list <-
@@ -245,8 +245,8 @@ awsda_assessment_red <- awsda_assessment_raw |>
 
 ## without action ----------------------------------------------
 
-# TODO even though the data are published with 0s I think they should be NAs 
-# for those that only report annually etc
+# even though the data are published with 0s I think they should be NAs 
+# for those that only report annually etc - this has been implemented
 
 # Note that there are duplicate data for ORG_ID 1752 and 2179
 
@@ -271,7 +271,7 @@ awsda_assessment_no_action <- awsda_assessment_raw |>
   pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_acre_feet") |> 
   mutate(is_wscp_action = F) 
 
-ck <- awsda_assessment_no_action |>  group_by(org_id, month, supplier_type) |> tally() |>  filter(n>1)
+# ck <- awsda_assessment_no_action |>  group_by(org_id, month, supplier_type) |> tally() |>  filter(n>1)
 
 # percent water short (or surplus) without action
 awsda_assessment_no_action_perc <- awsda_assessment_raw |> 
@@ -367,50 +367,160 @@ awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment
   left_join(awsda_info) |> 
   left_join(month_mapping |> # convert start_month to abbrev
               rename(start_month = month_full)) |> 
-  mutate(start_month = month_abbrev) |> 
+  mutate(start_month = month_number) |> 
   select(-c(month_number, month_abbrev)) |> 
   left_join(month_mapping |> # convert end_month to abbrev
              rename(end_month = month_full)) |> 
-  mutate(end_month = month_abbrev) |> 
+  mutate(end_month = month_number) |> 
   select(-c(month_number, month_abbrev)) |> 
-  left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP
-  mutate(forecast_year = case_when(month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Annual") ~ 2024,
-                          T ~ 2025),
+  left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP, note that there are 17 NAs, need to include multiple PWSID in same row otherwise will get duplicate data
+  mutate( shortage_surplus_acre_feet = case_when(VOLUME_UNIT == "MG" ~ shortage_surplus_acre_feet*3.06887,
+                                                 VOLUME_UNIT == "CCF(HCF)" ~ shortage_surplus_acre_feet*0.0023,
+                                                 VOLUME_UNIT == "AF" ~ shortage_surplus_acre_feet),
+          benefit_supply_augmentation_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_supply_augmentation_acre_feet*3.06887,
+                                                            VOLUME_UNIT == "CCF(HCF)" ~ benefit_supply_augmentation_acre_feet*0.0023,
+                                                            VOLUME_UNIT == "AF" ~ benefit_supply_augmentation_acre_feet),
+          benefit_demand_reduction_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_demand_reduction_acre_feet*3.06887,
+                                                         VOLUME_UNIT == "CCF(HCF)" ~ benefit_demand_reduction_acre_feet*0.0023,
+                                                         VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet),
+          # if reporting annually then all monthly values will be NA, note that for one that says they report annually there are monthly values
+          shortage_surplus_acre_feet = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                                 T ~ shortage_surplus_acre_feet),
+          shortage_surplus_percent = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                               T ~ shortage_surplus_percent),
+          state_standard_shortage_level = case_when(reporting_interval == "annually (1 data point per year)" & month != "annual" ~ NA,
+                                                    T ~ state_standard_shortage_level),
+          # for bimonthly then all values where 0 are actually NA
+          shortage_surplus_acre_feet = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_acre_feet == 0 ~ NA,
+                                                 T ~ shortage_surplus_acre_feet),
+          shortage_surplus_percent = case_when(reporting_interval == "bi-monthly (6 data points per year)" & shortage_surplus_percent == 0 ~ NA,
+                                               T ~ shortage_surplus_percent),
+          state_standard_shortage_level = case_when(reporting_interval == "bi-monthly (6 data points per year)" & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                    T ~ state_standard_shortage_level))
+
+# This code chunk transitions to date format
+awsda_assessment_final <- awsda_assessment_clean |> 
+  mutate(report_year_start = case_when(start_month %in% 6:12 ~ 2024, # for those starting in june through dec this will be 2024
+                                       T ~ 2025), # those starting in jan assumes 2025
+         report_year_end = case_when(end_month %in% 6:12 ~ 2025,
+                                     T ~ 2026),
          is_annual = ifelse(month == "Annual", T, F),
          month = tolower(month),
          supplier_type = tolower(supplier_type),
-         reporting_interval = tolower(reporting_interval),
-         # convert all to AF (although this is not how it is on WUE, it is more usable this way)
-         shortage_surplus_acre_feet = case_when(VOLUME_UNIT == "MG" ~ shortage_surplus_acre_feet*3.06887,
-                                                VOLUME_UNIT == "CCF(HCF)" ~ shortage_surplus_acre_feet*0.0023,
-                                                VOLUME_UNIT == "AF" ~ shortage_surplus_acre_feet),
-         benefit_supply_augmentation_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_supply_augmentation_acre_feet*3.06887,
-                                                           VOLUME_UNIT == "CCF(HCF)" ~ benefit_supply_augmentation_acre_feet*0.0023,
-                                                           VOLUME_UNIT == "AF" ~ benefit_supply_augmentation_acre_feet),
-         benefit_demand_reduction_acre_feet = case_when(VOLUME_UNIT == "MG" ~ benefit_demand_reduction_acre_feet*3.06887,
-                                                           VOLUME_UNIT == "CCF(HCF)" ~ benefit_demand_reduction_acre_feet*0.0023,
-                                                           VOLUME_UNIT == "AF" ~ benefit_demand_reduction_acre_feet)) |> 
-  select(org_id, supplier_name, supplier_type, reporting_interval, start_month, end_month, 
-         forecast_year, month, is_annual, is_wscp_action, shortage_surplus_acre_feet, 
+         reporting_interval = tolower(reporting_interval)) |> 
+  left_join(month_mapping |> # convert start_month to abbrev
+              rename(month = month_abbrev)) |> 
+  mutate(month = month_number) |> 
+  select(-c(month_number, month_full)) |> 
+  # code to transition to use start and end dates rather than month and year
+  mutate(reporting_start_date = as_date(paste0(report_year_start, "-", start_month, "-01")),
+         fake_date = as_date(paste0(report_year_start, "-", end_month, "-01")),
+         days_month = as.numeric(days_in_month(fake_date)),
+         reporting_end_date = as_date(paste0(report_year_end, "-", end_month, "-", days_month)),
+         forecast_year = case_when(start_month == 7 & month %in% 7:12 ~ 2024,
+                                   start_month == 7 & month %in% 1:6 ~ 2025,
+                                   start_month == 6 & month %in% 6:12 ~ 2024,
+                                   start_month == 6 & month %in% 1:5 ~ 2025,
+                                   start_month == 1 ~ 2025,
+                                   start_month == 2 & month %in% 2:12 ~ 2025,
+                                   start_month == 2 & month == 1 ~ 2026,
+                                   start_month == 3 & month %in% 3:12 ~ 2025,
+                                   start_month == 3 & month %in% 1:2 ~ 2026,
+                                   start_month == 10 & month %in% 10:12 ~ 2024,
+                                   start_month == 10 & month %in% 1:9 ~ 2025),
+         forecast_start_date = case_when(is.na(month) ~ reporting_start_date,
+                                         T ~ as_date(paste0(forecast_year, "-", month, "-01"))),
+         days_month_f =  as.numeric(days_in_month(forecast_start_date)),
+         forecast_end_date = case_when(is.na(month) ~ reporting_end_date,
+                                       T ~ as_date(paste0(forecast_year, "-", month, "-", days_month_f)))) |> 
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, 
+         reporting_start_date, reporting_end_date, forecast_start_date, forecast_end_date, forecast_month = month,
+         is_annual, is_wscp_action, shortage_surplus_acre_feet, 
          shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
          benefit_supply_augmentation_acre_feet)
 
+# checking values for when reporting interval is not monthly! Decided to change - this has been implemented
+# unique(awsda_assessment_clean$reporting_interval)
+# ck_annual <- filter(awsda_assessment_clean, reporting_interval == "annually (1 data point per year)")
+# ck_bimonth <- filter(awsda_assessment_clean, reporting_interval == "bi-monthly (6 data points per year)")
+
+
 # checks
 # benefits should be NA when wscp_action = F
-try(if(nrow(filter(awsda_assessment_clean, !is.na(benefit_supply_augmentation_acre_feet) & is_wscp_action == F)) > 0)
+try(if(nrow(filter(awsda_assessment_final, !is.na(benefit_supply_augmentation_acre_feet) & is_wscp_action == F)) > 0)
   stop("Supply benefits exist when there are not WSCP actions"))
-try(if(nrow(filter(awsda_assessment_clean, !is.na(benefit_demand_reduction_acre_feet) & is_wscp_action == F)) > 0)
+try(if(nrow(filter(awsda_assessment_final, !is.na(benefit_demand_reduction_acre_feet) & is_wscp_action == F)) > 0)
   stop("Demand benefits exist when there are not WSCP actions"))
-min(awsda_assessment_clean$shortage_surplus_acre_feet)
-max(awsda_assessment_clean$shortage_surplus_acre_feet)
-min(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
-max(awsda_assessment_clean$shortage_surplus_percent, na.rm = T)
+min(awsda_assessment_final$shortage_surplus_acre_feet)
+max(awsda_assessment_final$shortage_surplus_acre_feet)
+min(awsda_assessment_final$shortage_surplus_percent, na.rm = T)
+max(awsda_assessment_final$shortage_surplus_percent, na.rm = T)
+min(awsda_assessment_final$benefit_demand_reduction_acre_feet, na.rm = T)
+max(awsda_assessment_final$benefit_demand_reduction_acre_feet, na.rm = T)
+min(awsda_assessment_final$benefit_supply_augmentation_acre_feet, na.rm = T)
+max(awsda_assessment_final$benefit_supply_augmentation_acre_feet, na.rm = T)
+dput(unique(awsda_assessment_final$state_standard_shortage_level))
+unique(awsda_assessment_final$reporting_end_date)
+unique(awsda_assessment_final$reporting_start_date)
+min(awsda_assessment_final$reporting_start_date)
+max(awsda_assessment_final$reporting_start_date)
+min(awsda_assessment_final$reporting_end_date)
+max(awsda_assessment_final$reporting_end_date)
+min(awsda_assessment_final$forecast_end_date)
+max(awsda_assessment_final$forecast_end_date)
+min(awsda_assessment_final$forecast_start_date)
+max(awsda_assessment_final$forecast_start_date)
+# trying to apply the pwsid
+# there are 17 without pwsid
+awsda_assessment_final |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
 
-write_csv(awsda_assessment_clean, "data/monthly_dry_year_outlook.csv")
+# The following code cleans up the data even more by inserting NAs instead of 0s when data are only reported annually
+unique(awsda_assessment_final$reporting_interval)
+annual_lookup <- filter(awsda_assessment_final, reporting_interval == "annually (1 data point per year)", is_wscp_action == F) |> 
+  select(org_id, supplier_name, supplier_type, forecast_month, shortage_surplus_acre_feet) |> 
+  mutate(shortage_surplus_acre_feet = as.numeric(shortage_surplus_acre_feet)) |> 
+  pivot_wider(id_cols = c(org_id, supplier_name, supplier_type), names_from = "forecast_month", values_from = "shortage_surplus_acre_feet") |> 
+  mutate(annual_only = case_when((`7` == 0 & `8` == 0 & `9` == 0 & `10` == 0 & `11` == 0 & `12` == 0 & `1`== 0 & `2`== 0 & `3`== 0 & `4`== 0 & `5` == 0) ~ T,
+                                 T ~ F)) |> 
+  select(org_id, supplier_name, supplier_type,annual_only)
+bimonthly_lookup <- filter(awsda_assessment_final, reporting_interval == "bi-monthly (6 data points per year)", is_wscp_action == F) |> 
+  select(org_id, supplier_name, supplier_type) |> 
+  distinct() |> 
+  mutate(bimonthly = T)
+  
+awsda_assessment_final_revised <- awsda_assessment_final |> 
+  # cleans up data for those only reporting annually by making all other values NA except annual value
+  left_join(annual_lookup) |> 
+  mutate(shortage_surplus_acre_feet = case_when(is_annual == F & annual_only == T ~ NA,
+                                                T ~ shortage_surplus_acre_feet),
+         shortage_surplus_percent = case_when(is_annual == F & annual_only == T ~ NA,
+                                                T ~ shortage_surplus_percent),
+         state_standard_shortage_level = case_when(is_annual == F & annual_only == T ~ NA,
+                                                T ~ state_standard_shortage_level),
+         benefit_demand_reduction_acre_feet = case_when(is_annual == F & annual_only == T & is_wscp_action == T ~ NA,
+                                                T ~ benefit_demand_reduction_acre_feet),
+         benefit_supply_augmentation_acre_feet = case_when(is_annual == F & annual_only == T & is_wscp_action == T ~ NA,
+                                                        T ~ benefit_supply_augmentation_acre_feet)) |> 
+  select(-annual_only) |> 
+  left_join(bimonthly_lookup) |> 
+  mutate(shortage_surplus_acre_feet = case_when(is_annual == F & bimonthly == T & shortage_surplus_acre_feet == 0 ~ NA,
+                                                T ~ shortage_surplus_acre_feet),
+         shortage_surplus_percent = case_when(is_annual == F & bimonthly == T & shortage_surplus_percent == 0 ~ NA,
+                                              T ~ shortage_surplus_percent),
+         state_standard_shortage_level = case_when(is_annual == F & bimonthly == T & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                   T ~ state_standard_shortage_level),
+         benefit_demand_reduction_acre_feet = case_when(is_annual == F & bimonthly == T & is_wscp_action == T & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                        T ~ benefit_demand_reduction_acre_feet),
+         benefit_supply_augmentation_acre_feet = case_when(is_annual == F & bimonthly == T & is_wscp_action == T & is.na(shortage_surplus_acre_feet) ~ NA,
+                                                           T ~ benefit_supply_augmentation_acre_feet)) |> 
+  select(-bimonthly)
+
+
+write_csv(awsda_assessment_final_revised, "data/monthly_water_shortage_outlook.csv")
 
 
 # UWMP: five year water shortage outlook --------------------------------------------------------------------
-# TODO convert this to pull from the Open Data dataset
+# Note could convert this to pull from the Open Data dataset - though only updated once every five years and guessing next update will be a different table
 # UWMP 2020
 # drought risk assessment
 # calculate supplies - demand
@@ -480,8 +590,11 @@ uwmp_drought_risk_clean <- bind_rows(uwmp_2021,
                                      uwmp_2025) |> 
   filter(!is.na(org_id)) |> 
   left_join(uwmp_org_id_supplier_name) |> 
-  select(org_id, supplier_name, year, water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
-         benefit_demand_reduction_acre_feet)
+  left_join(uwmp_dwr_id_pwsid) |> # add pwsid from the UWMP, note that there are 32 NAs, need to include multiple PWSID in same row otherwise will get duplicate data
+  mutate(uwmp_year = 2020) |> 
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, year, uwmp_year, water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
+         benefit_demand_reduction_acre_feet) |> 
+  rename(forecast_year = year) |> glimpse()
 
 min(uwmp_drought_risk_clean$water_supplies_acre_feet, na.rm = T)
 max(uwmp_drought_risk_clean$water_supplies_acre_feet, na.rm = T)
@@ -495,153 +608,18 @@ max(uwmp_drought_risk_clean$benefit_supply_augmentation_acre_feet, na.rm = T)
 min(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
 max(uwmp_drought_risk_clean$benefit_demand_reduction_acre_feet, na.rm = T)
 
-write_csv(uwmp_drought_risk_clean, "data/five_year_outlook.csv")
+# trying to apply the pwsid
+# there are 17 without pwsid
+uwmp_drought_risk_clean |> filter(is.na(pwsid)) |> distinct(org_id) |> tally()
 
-# Monthly CR --------------------------------------------------------------
-# Data:
-# https://data.ca.gov/dataset/drinking-water-public-water-system-operations-monthly-water-production-and-conservation-information
+uwmp_drought_risk_final <- uwmp_drought_risk_clean |> 
+  mutate(forecast_start_date = as_date(paste0(forecast_year, "-01-01")),
+         forecast_end_date = as_date(paste0(forecast_year, "-12-31"))) |> 
+  select(org_id, pwsid, is_multiple_pwsid, supplier_name, uwmp_year, forecast_start_date, forecast_end_date,
+         water_use_acre_feet, water_supplies_acre_feet, benefit_supply_augmentation_acre_feet,
+         benefit_demand_reduction_acre_feet)
 
-# TODO requires cleaning up the shortage stage. water_shortage_stage is a mess, dwr_shortage_stage only exists for 2022-2023
-cr_raw <- read_csv("data-raw/monthly_CR.csv")
-
-cr_format <- cr_raw |> 
-  select(public_water_system_id, reporting_month, water_shortage_contingency_stage_invoked, 
-         water_shortage_level_indicator, dwr_state_standard_level_corresponding_to_stage) |> 
-  rename(pwsid = public_water_system_id,
-         water_shortage_stage = water_shortage_contingency_stage_invoked,
-         shortage_greater_10_percent = water_shortage_level_indicator,
-         dwr_water_shortage_stage = dwr_state_standard_level_corresponding_to_stage) |> 
-  mutate(month = month(reporting_month, label = T),
-         year = year(reporting_month),
-         shortage_greater_10_percent = case_when(shortage_greater_10_percent == "Yes" ~ T,
-                                                 shortage_greater_10_percent == "No" ~ F),
-         water_shortage_stage = tolower(water_shortage_stage)) |> 
-  select(-reporting_month) |> 
-  select(pwsid, year, month, water_shortage_stage, dwr_water_shortage_stage, shortage_greater_10_percent)
-
-unique(cr_format$water_shortage_stage)
-unique(cr_format$dwr_water_shortage_stage)
-
-write_csv(cr_format, "data/water_shortage_level_clean.csv")
-
-# eAR number of sources ---------------------------------------------------------------------
-# Data: https://www.waterboards.ca.gov/drinking_water/certlic/drinkingwater/ear.html
-
-# TODO need to reformat the source names - get feedback from group whether want to invest
-# time in that
-
-# ear_sources_name <- ear_2022_raw |> 
-#   filter(QuestionName %in% c("SourcesGWGrid", "SourcesGWNotListedGrid", "SourcesSWGrid",
-#                              "SourcesSWNotListedGrid")) |> 
-#   select(WSID, QuestionName, QuestionResults) |> 
-#   rename(pwsid = WSID,
-#          source_type = QuestionName,
-#          source_name = QuestionResults) |> 
-#   mutate(
-#          # reporting year but need to deal with handling of this so it is not manual
-#          year = 2022) |> 
-#   select(pwsid, year, source_type, source_name)
-# write_csv(ear_sources_name, "data/source_name_clean.csv")
-
-# Create number of sources table
-ear_tibble <- tibble(years = c(2022:2013),
-                     files = c("data-raw/ear_release_data_03082024.txt",
-                               "data-raw/EAR_2021_results.text",
-                               "data-raw/2020RY_PortalClosed_032822.txt",
-                               "data-raw/2019RY_Resultset_08192021.txt",
-                               "data-raw/EARSurveyResults_2018RY.txt",
-                               "data-raw/EARSurveyResults_2017RY.txt",
-                               "data-raw/EARSurveyResults_2016RY.txt",
-                               "data-raw/EARSurveyResults_2015RY.txt",
-                               "data-raw/EARSurveyResults_2014RY.txt",
-                               "data-raw/2013RY_v2.txt"))
-
-pull_ear_sources_number <- function(files, years) {
-  data <- vroom::vroom(files, delim = "\t")
-  if(years > 2019) {
-    data <- data |> 
-      rename(PWSID = WSID) 
-  }
-  else{
-    data <- data |> 
-      mutate(QuestionName = case_when(QuestionName == "Sources GW Approved" ~ "SourcesGWApproved",
-                                      QuestionName == "Sources SW Approved" ~ "SourcesSWApproved",
-                                      QuestionName == "Sources PGW Approved" ~ "SourcesPGWApproved",
-                                      QuestionName == "Sources PSW Approved" ~ "SourcesPSWApproved",
-                                      QuestionName == "Sources SB Approved" ~ "SourcesSBApproved",
-                                      QuestionName == "Sources EI Approved" ~ "SourcesEIApproved",
-                                      QuestionName == "Sources GW New" ~ "SourcesGWNew",
-                                      QuestionName == "Sources SW New" ~ "SourcesSWNew",  
-                                      QuestionName == "Sources PGW New" ~ "SourcesPGWNew",
-                                      QuestionName == "Sources PSW New" ~ "SourcesPSWNew", 
-                                      QuestionName == "Sources SB New" ~ "SourcesSBNew",
-                                      QuestionName == "Sources EI New" ~ "SourcesEINew",
-                                      # QuestionName == "Sources I Approved" ~ "SourcesIApproved",
-                                      # QuestionName == "Sources P Approved" ~ "SourcesPApproved",
-                                      T ~ QuestionName))
-  }
-  data <- data |> 
-  filter(QuestionName %in% c("SourcesGWApproved", 
-                             "SourcesSWApproved", "SourcesPGWApproved", 
-                             "SourcesPSWApproved",  "SourcesSBApproved", 
-                             "SourcesEIApproved", "SourcesGWNew",
-                             "SourcesSWNew",  "SourcesPGWNew",
-                             "SourcesPSWNew", "SourcesSBNew",
-                             "SourcesEINew"  
-                             #"SourcesIApproved", 
-                             #"SourcesPApproved"
-                             )) |> 
-  select(PWSID, QuestionName, QuestionResults) |> 
-  group_by(PWSID, QuestionName) |> 
-  summarize(QuestionResults = max(QuestionResults)) |> 
-  mutate(source_status = ifelse(grepl("Approved", QuestionName), "approved", "new"),
-         QuestionName = case_when(grepl("PSW", QuestionName) ~ "purchased surface water",
-                                  grepl("PGW", QuestionName) ~ "purchased grounwater",
-                                  grepl("GW", QuestionName) ~ "groundwater",
-                                  grepl("SW", QuestionName) ~ "surface water",
-                                  grepl("SB", QuestionName) ~ "standby sources",
-                                  grepl("EI", QuestionName) ~ "emergency interties"),
-         QuestionResults = as.numeric(QuestionResults),
-         year = years) |> 
-  rename(source_type = QuestionName,
-         number_of_sources = QuestionResults,
-         pwsid = PWSID) |> 
-    select(pwsid, year, source_type, source_status, number_of_sources)
-  write_csv(data, file = paste0("data-raw/ear_sources_",years,".csv"))
-}
-
-pmap(ear_tibble, pull_ear_sources_number)
-
-file_shortcut <- "data-raw/ear_sources_"
-sources_number_combined <- bind_rows(
-  read_csv(paste0(file_shortcut, "2022.csv")),
-  read_csv(paste0(file_shortcut, "2021.csv")),
-  read_csv(paste0(file_shortcut, "2020.csv")),
-  read_csv(paste0(file_shortcut, "2019.csv")),
-  read_csv(paste0(file_shortcut, "2018.csv")),
-  read_csv(paste0(file_shortcut, "2017.csv")),
-  read_csv(paste0(file_shortcut, "2016.csv")),
-  read_csv(paste0(file_shortcut, "2015.csv")),
-  read_csv(paste0(file_shortcut, "2014.csv")),
-  read_csv(paste0(file_shortcut, "2013.csv"))
-)
-
-write_csv(sources_number_combined, "data/number_sources.csv")
-
-# checking what happens when we add dwr_id
-# check_crosswalk <- sources_number_combined |> 
-#   left_join(crosswalk |> 
-#               select(pwsid, org_id))
-# 
-# filter(check_crosswalk, is.na(org_id)) |> 
-#   distinct(year, pwsid) |> 
-#   group_by(year) |> 
-#   tally()
-# 
-# check_crosswalk |> 
-#   distinct(year, pwsid) |> 
-#   group_by(year) |> 
-#   tally()
+write_csv(uwmp_drought_risk_final, "data/five_year_water_shortage_outlook.csv")
 
 
 # SAFER export from eric --------------------------------------------------
@@ -659,59 +637,66 @@ source_name <- source_name_export |>
   select(WATER_SYSTEM_ID, FACILITY_NAME, FACILITY_ACTIVITY_STATUS, FACILITY_AVAILABILITY, 
          FACILITY_TYPE, SDWIS_WATER_TYPE, CLEARINGHOUSE_WATER_TYPE, REPORTING_PERIOD_END_DATE, 
          REPORTING_PERIOD_START_DATE, LATITUDE_MEASURE, LONGITUDE_MEASURE, FACILITY_ID) |> 
+  group_by(WATER_SYSTEM_ID, FACILITY_ID) |> # select for data that is most up to date
+  slice_max(REPORTING_PERIOD_START_DATE) |> 
   rename(pwsid = WATER_SYSTEM_ID,
-         facility_id = FACILITY_ID,
-         facility_name = FACILITY_NAME,
-         facility_activity_status = FACILITY_ACTIVITY_STATUS,
-         facility_availability = FACILITY_AVAILABILITY,
-         facility_type = FACILITY_TYPE,
+         source_facility_id = FACILITY_ID,
+         source_facility_name = FACILITY_NAME,
+         source_facility_activity_status = FACILITY_ACTIVITY_STATUS,
+         source_facility_availability = FACILITY_AVAILABILITY,
+         source_facility_type = FACILITY_TYPE,
          sdwis_water_type = SDWIS_WATER_TYPE,
          safer_water_type = CLEARINGHOUSE_WATER_TYPE,
-         start_date = REPORTING_PERIOD_START_DATE,
-         end_date = REPORTING_PERIOD_END_DATE,
          latitude = LATITUDE_MEASURE,
          longitude = LONGITUDE_MEASURE) |> 
   distinct() |>  # there is some other variable in here but get duplicates when select only these variables
-  mutate(across(facility_name:safer_water_type, tolower)) |> 
-  select(pwsid, start_date, end_date, facility_id, facility_name, facility_activity_status, 
-         facility_availability, facility_type, sdwis_water_type, safer_water_type, latitude, longitude)
+  mutate(across(source_facility_name:safer_water_type, tolower),
+         latitude = as.numeric(latitude),
+         longitude = as.numeric(longitude)) |> 
+  left_join(crosswalk |>
+              select(pwsid, org_id)) |> 
+  select(pwsid, org_id, source_facility_id, source_facility_name, source_facility_activity_status, 
+         source_facility_availability, source_facility_type,  sdwis_water_type, latitude, longitude) |> 
+  # decided to use safer water_type - should confirm with eric that this makes sense
+  rename(water_type = sdwis_water_type) |> glimpse()
 
-source_name |> distinct(facility_name) |> tally() #4,563 unique source names
-unique(source_name$facility_activity_status) # active, not available, inactive, proposed, proposed - new
-unique(source_name$facility_availability) # permanent, emergency, interim, other, seasonal, not available
-dput(unique(source_name$facility_type)) #c("Spring", "Consecutive Connection", "Well", "Purchased", "Non-Piped, Purchased", 
+source_name |> ungroup() |> distinct(source_facility_name) |> tally() #4,563 unique source names
+filter(source_name, source_facility_activity_status == "proposed - new")
+filter(source_name, source_facility_activity_status == "proposed")
+#Metadata valuyes
+dput(unique(source_name$source_facility_activity_status)) # active, not available, inactive, proposed, proposed - new
+dput(unique(source_name$source_facility_availability)) # permanent, emergency, interim, other, seasonal, not available
+dput(unique(source_name$source_facility_type)) #c("Spring", "Consecutive Connection", "Well", "Purchased", "Non-Piped, Purchased", 
 # "Intake", "Non-Purchased", "Reservoir", "Not Available", "Infiltration Gallery", 
 # "Non-Piped, Non-Purchased", "Distribution System", "ST", "Clear Well", 
 # "Treatment Plant")
-dput(unique(source_name$safer_water_type)) #c("Spring Water", "Consecutive Connections", "Groundwater & GWUDI", 
+dput(unique(source_name$water_type)) #c("Spring Water", "Consecutive Connections", "Groundwater & GWUDI", 
 # "Hauled Water", "Surface Water", "Not Available")
 dput(unique(source_name$sdwis_water_type)) #c("Groundwater", "Surface Water", "Groundwater under the Direct Influence of Surface Water", 
 # "Not Available")
+min(source_name$start_date)
+max(source_name$start_date)
 
+min(source_name$end_date)
+max(source_name$end_date)
+
+min(source_name$latitude, na.rm = T)
+max(source_name$latitude, na.rm = T)
+min(source_name$longitude, na.rm = T)
+max(source_name$longitude, na.rm = T)
+
+mode(source_name$facility_name)
 write_csv(source_name, "data/source_name.csv")
 
-# SAFER on open data ------------------------------------------------------
-# Data:
-# https://data.ca.gov/dataset/safer-failing-and-at-risk-drinking-water-systems
-
-dw_risk_raw <- read_csv("data-raw/Drinking_Water_Risk_Assessment.csv")
-
-dw_population <- dw_risk_raw |> 
-  select(WATER_SYSTEM_NUMBER, POPULATION) |> 
-  rename(pwsid = WATER_SYSTEM_NUMBER,
-         population = POPULATION)
-write_csv(dw_population, "data/population_clean.csv")
-
-
-# supply and demand -------------------------------------------------------
+# CR: current monthly shortage -------------------------------------------------------
 
 # These data are published here: https://data.ca.gov/dataset/urws-conservation-supply-demand
 # Represents Monthly CR (2014-2023) and currently reported on SAFER (2023-present)
 
 supply_demand_query <- paste0("https://data.ca.gov/api/3/action/",
-                          "datastore_search_sql?",
-                          "sql=",
-                          URLencode("SELECT * from \"f4d50112-5fb5-4066-b45c-44696b10a49e\""))
+                              "datastore_search_sql?",
+                              "sql=",
+                              URLencode("SELECT * from \"f4d50112-5fb5-4066-b45c-44696b10a49e\""))
 
 supply_demand_list_sql <- fromJSON(supply_demand_query)
 supply_demand_raw_data <- supply_demand_list_sql$result$records
@@ -731,7 +716,57 @@ water_shortage <- supply_demand_raw_data |>
                                           water_shortage_level == "0 (No Shortage Level Invoked), 2 (10-19% Shortage)" ~ "2 (10-19% Shortage)",
                                           water_shortage_level == "Not Applicable" ~ NA,
                                           water_shortage_level == "WSCP Does Not Include Stages" ~ NA,
-                                          T ~ water_shortage_level)) |> 
+                                          T ~ water_shortage_level),
+         water_shortage_level = case_when(water_shortage_level == "0 (No Shortage Level Invoked)" ~ 0,
+                                          water_shortage_level == "1 (Less than 10% Shortage)" ~ 1,
+                                          water_shortage_level == "2 (10-19% Shortage)" ~ 2,
+                                          water_shortage_level == "3 (20-29% Shortage)" ~ 3,
+                                          water_shortage_level == "4 (30-39% Shortage)" ~ 4,
+                                          water_shortage_level == "5 (40-49% Shortage)" ~ 5,
+                                          T ~ NA_real_),
+         start_date = as_date(start_date),
+         end_date = as_date(end_date)) |> 
   # levels were applied beginning in 2022
-  filter(year(start_date) > 2021)
-write_csv(water_shortage, "data/water_shortage.csv")
+  filter(year(start_date) > 2021) |> 
+  rename(state_standard_shortage_level = water_shortage_level) # rename for consistency and clarity
+write_csv(water_shortage, "data/actual_water_shortage_level.csv")
+
+
+# eAR: production and delivery --------------------------------------------
+# Production and delivery data were published on Open Data (2013-2022)
+# This is not yet integrated with current and ongoing data that is being collected
+# through SAFER
+# Note that processing is pretty slow because of how large this dataset is
+
+ear_production_delivery_raw <- read_csv(here::here("data-raw","2013-2022-water-produced-and-delivered-urban-water-ear.csv"))
+ear_production_delivery_raw |> glimpse()
+
+ear_production_delivery <- ear_production_delivery_raw |> 
+  select(PWSID, `Water System Name`, DateStartOfMonth, `Water Produced or Delivered`, TypeName, `CALCULATED Quantity in AF`, Year, Month) |> 
+  rename(pwsid = PWSID,
+         water_system_name = `Water System Name`,
+         start_date = DateStartOfMonth,
+         water_produced_or_delivered = `Water Produced or Delivered`,
+         water_type = TypeName,
+         quantity_acre_feet = `CALCULATED Quantity in AF`,
+         month_full = Month) |> 
+  mutate(month_full = tolower(month_full)) |> 
+  left_join(month_mapping) |> 
+  mutate(start_date = as.Date(start_date, format = "%m/%d/%Y"),
+         end_date_days = days_in_month(start_date),
+         end_date = as_date(paste0(Year, "-", month_number, "-", end_date_days)),
+         water_system_name = tolower(water_system_name),
+         water_produced_or_delivered = tolower(water_produced_or_delivered),
+         water_type = tolower(water_type)) |> 
+  left_join(crosswalk) |> 
+  select(pwsid, water_system_name, org_id, start_date, end_date, water_produced_or_delivered,
+         water_type, quantity_acre_feet) 
+
+min(ear_production_delivery$start_date)
+max(ear_production_delivery$start_date)
+min(ear_production_delivery$end_date)
+max(ear_production_delivery$end_date)
+min(ear_production_delivery$quantity_acre_feet, na.rm = T)
+max(ear_production_delivery$quantity_acre_feet, na.rm = T)
+write_csv(ear_production_delivery, here::here("data", "historical_production_delivery.csv"))
+
