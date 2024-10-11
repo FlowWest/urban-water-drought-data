@@ -737,6 +737,13 @@ write_csv(water_shortage, "data/actual_water_shortage_level.csv")
 # This is not yet integrated with current and ongoing data that is being collected
 # through SAFER
 # Note that processing is pretty slow because of how large this dataset is
+uwmp_org_id <- uwmp_drought_risk_final |> select(org_id) |> distinct()
+awsda_org_id <- awsda_assessment_final_revised |> select(org_id) |> distinct()
+cr_org_id <- water_shortage |> select(org_id) |> distinct() |> mutate(org_id = as.numeric(org_id))
+org_ids <- bind_rows(uwmp_org_id,
+                     awsda_org_id,
+                     cr_org_id) |> distinct()
+org_id_list <- org_ids$org_id
 
 ear_production_delivery_raw <- read_csv(here::here("data-raw","2013-2022-water-produced-and-delivered-urban-water-ear.csv"))
 ear_production_delivery_raw |> glimpse()
@@ -759,6 +766,7 @@ ear_production_delivery <- ear_production_delivery_raw |>
          water_produced_or_delivered = tolower(water_produced_or_delivered),
          water_type = tolower(water_type)) |> 
   left_join(crosswalk) |> 
+  filter(!is.na(org_id), org_id %in% org_id_list) |> 
   select(pwsid, water_system_name, org_id, start_date, end_date, water_produced_or_delivered,
          water_type, quantity_acre_feet) 
 
