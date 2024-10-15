@@ -437,7 +437,7 @@ awsda_assessment_final <- awsda_assessment_clean |>
          forecast_end_date = case_when(is.na(month) ~ reporting_end_date,
                                        T ~ as_date(paste0(forecast_year, "-", month, "-", days_month_f)))) |> 
   select(org_id, pwsid, is_multiple_pwsid, supplier_name, supplier_type, reporting_interval, 
-         reporting_start_date, reporting_end_date, forecast_start_date, forecast_end_date, forecast_month = month,
+         forecast_start_date, forecast_end_date, forecast_month = month,
          is_annual, is_wscp_action, shortage_surplus_acre_feet, 
          shortage_surplus_percent, state_standard_shortage_level, benefit_demand_reduction_acre_feet, 
          benefit_supply_augmentation_acre_feet)
