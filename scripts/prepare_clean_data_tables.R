@@ -292,7 +292,8 @@ awsda_assessment_no_action_perc <- awsda_assessment_raw |>
          org_id = ORG_ID,
          supplier_type = SUPPLIER_TYPE) |> 
   mutate(across(Jul:Annual, as.numeric)) |> 
-  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent")
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent") |> 
+  mutate(is_wscp_action = F)
 
 # standard shortage level based on percent water short
 awsda_assessment_short_level <- awsda_assessment_raw |> 
@@ -312,7 +313,8 @@ awsda_assessment_short_level <- awsda_assessment_raw |>
          Annual = POT_SHORT_LEVEL_TOTAL,
          org_id = ORG_ID,
          supplier_type = SUPPLIER_TYPE) |> 
-  pivot_longer(Jul:Annual, names_to = "month", values_to = "state_standard_shortage_level")
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "state_standard_shortage_level") |> 
+  mutate(is_wscp_action = F)
 
 
 ## with action -------------------------------------------------
@@ -355,7 +357,8 @@ awsda_assessment_action_perc <- awsda_assessment_raw |>
          org_id = ORG_ID,
          supplier_type = SUPPLIER_TYPE) |> 
   mutate(across(Jul:Annual, as.numeric)) |> 
-  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent") 
+  pivot_longer(Jul:Annual, names_to = "month", values_to = "shortage_surplus_percent") |> 
+  mutate(is_wscp_action = T)
 
 
 awsda_assessment_clean <- left_join(awsda_assessment_no_action, awsda_assessment_no_action_perc) |> 
