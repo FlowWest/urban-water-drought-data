@@ -167,7 +167,7 @@ Quality control is expected to be handled at the source data level. There are a 
 
 #### Data Access
 
-Data were originally published on CNRA Open Data on (XX insert date). The data publication includes the following:
+Data were originally published on CNRA Open Data on October 18, 2024. The data publication includes the following:
 
 - Datasets (csv files available for download and via an API)
 - Data dictionaries (csv)
