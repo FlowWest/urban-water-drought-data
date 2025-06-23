@@ -13,7 +13,7 @@ This Data Management Plan (DMP) is for data used to understand drought impacts c
 | Primary Contact | Zoe Kanavas, zoe.kanavas@water.ca.gov |
 | Data Management Plan Last Updated | October 9, 2024 |
 | Recommended Frequency of Update | Annual |
-| Link to data | Insert when published on CNRA |
+| Link to data | https://data.cnra.ca.gov/dataset/urban-water-data-drought |
 
 ### Project Overview
 The California Water Data Consortium works with the Partner Agency Team to support the implementation of the Open and Transparent Water Data Act (AB 1755). In partnership with DWR and SWRCB, the Urban Water Data Project aims to improve access to and use of urban water data in the face of critical management decisions. These data include water supply and demand information. Data needed for drought and water shortage indicators and the urban water use objectives (UWUO) were identified as priorities for publication. The project goal is to publish these data to the [California Natural Resources (CNRA) Open Data Portal](https://data.cnra.ca.gov/) for long-term maintenance. This project will serve as a proof-of-concept to establish processes and workflows that can be applied to additional datasets.
